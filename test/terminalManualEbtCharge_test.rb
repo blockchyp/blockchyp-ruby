@@ -19,7 +19,7 @@ module BlockChyp
       request["terminalName"] = "Test Terminal"
       request["amount"] = "27.00"
       request["test"] = true
-      request["cardType"] = 2
+      request["cardType"] = CardType::EBT
       request["manualEntry"] = true
       response = blockchyp.charge(request)
 

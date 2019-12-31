@@ -13,6 +13,16 @@ module BlockChyp
       blockchyp.testGatewayHost = config["testGatewayHost"]
 
 
+      # setup request object
+      request = Hash.new
+      request["pan"] = "4111111111111111"
+      request["amount"] = "25.55"
+      request["test"] = true
+
+      response = blockchyp.charge(request)
+
+
+
 
       # setup request object
       request = Hash.new
