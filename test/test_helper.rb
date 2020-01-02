@@ -46,7 +46,15 @@ module BlockChyp
       if (testDelay)
         testDelayInt = Integer(testDelay)
         if (testDelayInt > 0)
+          request = Hash.new
+          request["test"] = true
+          request["terminalName"] = "Test Terminal"
+          request["message"] = "Running " + test_name + " in " + testDelay + " seconds..."
+          response = client.message(request)
 
+          assert_not_nil(response)
+          # response assertions
+          assert(response["success"])
           sleep testDelayInt
         end
       end

@@ -1,5 +1,43 @@
 # BlockChyp Ruby SDK
 
+This is the SDK for Ruby. Like all BlockChyp SDK's, it provides a full client
+for the BlockChyp gateway and BlockChyp payment terminals.
+
+## Installation
+
+This SDK is best consumed as a Ruby Gem.  Type the following command to install
+the BlockChyp Gem in your project.
+
+```
+gem install blockchyp
+```
+
+## A Simple Example
+
+Running your first transaction is easy. Make sure you have a BlockChyp terminal,
+activate it, and generate a set of API keys.  The sample code below show how
+to run a basic terminal transaction.
+
+```ruby
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+request["amount"] = "55.00"
+
+response = blockchyp.charge(request)
+
+if (response["approved"])
+  puts "Approved"
+  puts "authCode:" + response["authCode"]
+  puts "authorizedAmount:" + response["authorizedAmount"]
+end
+```
+
 
 ## Getting a Developer Kit
 
@@ -24,7 +62,26 @@ stuff you can do with the BlockChyp Ruby SDK and a few basic examples.
 Executes a standard direct preauth and capture.
 
 ```ruby
+# frozen_string_literal: true
 
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+request["amount"] = "55.00"
+
+response = blockchyp.charge(request)
+
+if (response["approved"])
+  puts "Approved"
+end
+
+puts "authCode:" + response["authCode"]
+puts "authorizedAmount:" + response["authorizedAmount"]
 
 
 ```
@@ -33,7 +90,26 @@ Executes a standard direct preauth and capture.
 Executes a preauthorization intended to be captured later.
 
 ```ruby
+# frozen_string_literal: true
 
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+request["amount"] = "27.00"
+
+response = blockchyp.preauth(request)
+
+if (response["approved"])
+  puts "Approved"
+end
+
+puts "authCode:" + response["authCode"]
+puts "authorizedAmount:" + response["authorizedAmount"]
 
 
 ```
@@ -42,6 +118,21 @@ Executes a preauthorization intended to be captured later.
 Tests connectivity with a payment terminal.
 
 ```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["terminalName"] = "Test Terminal"
+
+response = blockchyp.ping(request)
+
+if (response["success"])
+  puts "Success"
+end
 
 
 
@@ -51,6 +142,23 @@ Tests connectivity with a payment terminal.
 Checks the remaining balance on a payment method.
 
 ```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+request["cardType"] = CardType::EBT
+
+response = blockchyp.balance(request)
+
+if (response["success"])
+  puts "Success"
+end
 
 
 
@@ -60,6 +168,22 @@ Checks the remaining balance on a payment method.
 Clears the line item display and any in progress transaction.
 
 ```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+
+response = blockchyp.clear(request)
+
+if (response["success"])
+  puts "Success"
+end
 
 
 
@@ -69,7 +193,31 @@ Clears the line item display and any in progress transaction.
 Prompts the user to accept terms and conditions.
 
 ```ruby
+# frozen_string_literal: true
 
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+request["tcAlias"] = "hippa"
+request["tcName"] = "HIPPA Disclosure"
+request["tcContent"] = "Full contract text"
+request["sigFormat"] = SignatureFormat::PNG
+request["sigWidth"] = 200
+request["sigRequired"] = true
+
+response = blockchyp.termsAndConditions(request)
+
+if (response["success"])
+  puts "Success"
+end
+
+puts "sig:" + response["sig"]
+puts "sigFile:" + response["sigFile"]
 
 
 ```
@@ -80,7 +228,57 @@ overwritten by the request. Items with the same description are combined into
 groups.
 
 ```ruby
+# frozen_string_literal: true
 
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+request["transaction"] = newTransactionDisplayTransaction()
+
+response = blockchyp.updateTransactionDisplay(request)
+
+if (response["success"])
+  puts "Succeded"
+end
+
+def newTransactionDisplayTransaction()
+  val = hash.new
+  val["subtotal"] = "60.00"
+  val["tax"] = "5.00"
+  val["total"] = "65.00"
+  val["items"] = newTransactionDisplayItems()
+  return val
+end
+def newTransactionDisplayItems()
+  val = Array.new
+  val = val.push(newTransactionDisplayItem2())
+  return val
+end
+def newTransactionDisplayItem2()
+  val = Hash.new
+  val["description"] = "Leki Trekking Poles"
+  val["price"] = "35.00"
+  val["quantity"] = 2
+  val["extended"] = "70.00"
+  val["discounts"] = newTransactionDisplayDiscounts()
+  return val
+end
+def newTransactionDisplayDiscounts()
+  val = Array.new
+  val = val.push(newTransactionDisplayDiscount2())
+  return val
+end
+def newTransactionDisplayDiscount2()
+  val = Hash.new
+  val["description"] = "memberDiscount"
+  val["amount"] = "10.00"
+  return val
+end
 
 
 ```
@@ -89,7 +287,57 @@ groups.
 Displays a new transaction on the terminal.
 
 ```ruby
+# frozen_string_literal: true
 
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+request["transaction"] = newTransactionDisplayTransaction()
+
+response = blockchyp.newTransactionDisplay(request)
+
+if (response["success"])
+  puts "Succeded"
+end
+
+def newTransactionDisplayTransaction()
+  val = hash.new
+  val["subtotal"] = "60.00"
+  val["tax"] = "5.00"
+  val["total"] = "65.00"
+  val["items"] = newTransactionDisplayItems()
+  return val
+end
+def newTransactionDisplayItems()
+  val = Array.new
+  val = val.push(newTransactionDisplayItem2())
+  return val
+end
+def newTransactionDisplayItem2()
+  val = Hash.new
+  val["description"] = "Leki Trekking Poles"
+  val["price"] = "35.00"
+  val["quantity"] = 2
+  val["extended"] = "70.00"
+  val["discounts"] = newTransactionDisplayDiscounts()
+  return val
+end
+def newTransactionDisplayDiscounts()
+  val = Array.new
+  val = val.push(newTransactionDisplayDiscount2())
+  return val
+end
+def newTransactionDisplayDiscount2()
+  val = Hash.new
+  val["description"] = "memberDiscount"
+  val["amount"] = "10.00"
+  return val
+end
 
 
 ```
@@ -98,7 +346,25 @@ Displays a new transaction on the terminal.
 Asks the consumer text based question.
 
 ```ruby
+# frozen_string_literal: true
 
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+request["promptType"] = PromptType::EMAIL
+
+response = blockchyp.textPrompt(request)
+
+if (response["success"])
+  puts "Success"
+end
+
+puts "response:" + response["response"]
 
 
 ```
@@ -107,7 +373,27 @@ Asks the consumer text based question.
 Asks the consumer a yes/no question.
 
 ```ruby
+# frozen_string_literal: true
 
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+request["prompt"] = "Would you like to become a member?"
+request["yesCaption"] = "Yes"
+request["noCaption"] = "No"
+
+response = blockchyp.booleanPrompt(request)
+
+if (response["success"])
+  puts "Success"
+end
+
+puts "response:" + response["response"]
 
 
 ```
@@ -116,6 +402,23 @@ Asks the consumer a yes/no question.
 Displays a short message on the terminal.
 
 ```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+request["message"] = "Thank you for your business."
+
+response = blockchyp.message(request)
+
+if (response["success"])
+  puts "Success"
+end
 
 
 
@@ -125,6 +428,23 @@ Displays a short message on the terminal.
 Executes a refund.
 
 ```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["terminalName"] = "Test Terminal"
+request["transactionId"] = "<PREVIOUS TRANSACTION ID>"
+request["amount"] = "5.00"
+
+response = blockchyp.refund(request)
+
+if (response["approved"])
+  puts "Approved"
+end
 
 
 
@@ -134,7 +454,24 @@ Executes a refund.
 Adds a new payment method to the token vault.
 
 ```ruby
+# frozen_string_literal: true
 
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+
+response = blockchyp.enroll(request)
+
+if (response["approved"])
+  puts "Approved"
+end
+
+puts "token:" + response["token"]
 
 
 ```
@@ -143,7 +480,27 @@ Adds a new payment method to the token vault.
 Activates or recharges a gift card.
 
 ```ruby
+# frozen_string_literal: true
 
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["terminalName"] = "Test Terminal"
+request["amount"] = "50.00"
+
+response = blockchyp.giftActivate(request)
+
+if (response["approved"])
+  puts "Approved"
+end
+
+puts "amount:" + response["amount"]
+puts "currentBalance:" + response["currentBalance"]
+puts "publicKey:" + response["publicKey"]
 
 
 ```
@@ -160,6 +517,22 @@ yet. And if we did assign it an id, you wouldn't know what it is because your
 request to the terminal timed out before you got a response.
 
 ```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["terminalName"] = "Test Terminal"
+request["transactionRef"] = "<LAST TRANSACTION REF>"
+
+response = blockchyp.reverse(request)
+
+if (response["approved"])
+  puts "Approved"
+end
 
 
 
@@ -169,6 +542,22 @@ request to the terminal timed out before you got a response.
 Captures a preauthorization.
 
 ```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["transactionId"] = "<PREAUTH TRANSACTION ID>"
+
+response = blockchyp.capture(request)
+
+if (response["approved"])
+  puts "Approved"
+end
 
 
 
@@ -178,7 +567,24 @@ Captures a preauthorization.
 Closes the current credit card batch.
 
 ```ruby
+# frozen_string_literal: true
 
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+
+response = blockchyp.closeBatch(request)
+
+if (response["success"])
+  puts "Success"
+end
+
+puts "capturedTotal:" + response["capturedTotal"]
+puts "openPreauths:" + response["openPreauths"]
 
 
 ```
@@ -187,6 +593,22 @@ Closes the current credit card batch.
 Discards a previous preauth transaction.
 
 ```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+
+# setup request object
+request = Hash.new
+request["test"] = true
+request["transactionId"] = "<PREVIOUS TRANSACTION ID>"
+
+response = blockchyp.void(request)
+
+if (response["approved"])
+  puts "Approved"
+end
 
 
 
@@ -216,10 +638,18 @@ To run the integration test suite via `make`, type the following command:
 `make integration`
 
 
-## Running Integration Tests
+## Running Integration Tests Via Rake or Ruby
 
-The integration tests are standard Ruby Unit Tests.  To run a single test case,
-just type `ruby test/heartbeat_test.rb`.
+If you'd like to bypass make and run the integration test suite directly,
+you can run the entire test suite with Rake using the following command:
+
+`BC_TEST_DELAY=5 rake test`
+
+You can run individual tests by adding executing them as normal Ruby files.
+
+`ruby test/terminal_charge_test.rb`
+
+
 
 
 ## Contributions
