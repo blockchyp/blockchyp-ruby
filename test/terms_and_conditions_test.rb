@@ -3,8 +3,8 @@
 require ::File.expand_path("test_helper", __dir__)
 
 module BlockChyp
-  class TextPromptTest < TestCase
-    def test_textPrompt
+  class TermsAndConditionsTest < TestCase
+    def test_terms_and_conditions
 
       config = self.load_test_config()
 
@@ -12,26 +12,24 @@ module BlockChyp
       blockchyp.gatewayHost = config["gatewayHost"]
       blockchyp.testGatewayHost = config["testGatewayHost"]
 
+      self.test_delay(blockchyp, "TermsAndConditionsTest")
 
 
       # setup request object
       request = Hash.new
       request["test"] = true
       request["terminalName"] = "Test Terminal"
-      request["promptType"] = PromptType::EMAIL
-      response = blockchyp.textPrompt(request)
-
+      request["tcName"] = "HIPPA Disclosure"
+      request["tcContent"] = "Full contract text"
+      request["sigFormat"] = SignatureFormat::PNG
+      request["sigWidth"] = 200
+      request["sigRequired"] = true
+      response = blockchyp.termsAndConditions(request)
 
       assert_not_nil(response)
       # response assertions
       assert(response["success"])
-      assert(!response["response"].empty?)
     end
-
-
-
-
-
 
   end
 end

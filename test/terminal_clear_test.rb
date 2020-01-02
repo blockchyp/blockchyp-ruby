@@ -3,8 +3,8 @@
 require ::File.expand_path("test_helper", __dir__)
 
 module BlockChyp
-  class BooleanPromptTest < TestCase
-    def test_booleanPrompt
+  class TerminalClearTest < TestCase
+    def test_terminal_clear
 
       config = self.load_test_config()
 
@@ -12,30 +12,19 @@ module BlockChyp
       blockchyp.gatewayHost = config["gatewayHost"]
       blockchyp.testGatewayHost = config["testGatewayHost"]
 
+      self.test_delay(blockchyp, "TerminalClearTest")
 
 
       # setup request object
       request = Hash.new
       request["test"] = true
       request["terminalName"] = "Test Terminal"
-      request["prompt"] = "Would you like to become a member?"
-      request["yesCaption"] = "Yes"
-      request["noCaption"] = "No"
-      response = blockchyp.booleanPrompt(request)
-
+      response = blockchyp.clear(request)
 
       assert_not_nil(response)
       # response assertions
       assert(response["success"])
-      assert(response["response"])
     end
-
-
-
-
-
-
-
 
   end
 end

@@ -3,8 +3,8 @@
 require ::File.expand_path("test_helper", __dir__)
 
 module BlockChyp
-  class TerminalPreauthTest < TestCase
-    def test_terminalPreauth
+  class TerminalManualEBTChargeTest < TestCase
+    def test_terminal_manual_ebt_charge
 
       config = self.load_test_config()
 
@@ -12,15 +12,17 @@ module BlockChyp
       blockchyp.gatewayHost = config["gatewayHost"]
       blockchyp.testGatewayHost = config["testGatewayHost"]
 
+      self.test_delay(blockchyp, "TerminalManualEBTChargeTest")
 
 
       # setup request object
       request = Hash.new
       request["terminalName"] = "Test Terminal"
-      request["amount"] = "15.15"
+      request["amount"] = "27.00"
       request["test"] = true
-      response = blockchyp.preauth(request)
-
+      request["cardType"] = CardType::EBT
+      request["manualEntry"] = true
+      response = blockchyp.charge(request)
 
       assert_not_nil(response)
       # response assertions
@@ -34,13 +36,9 @@ module BlockChyp
       assert(!response["paymentType"].empty?)
       assert(!response["maskedPan"].empty?)
       assert(!response["entryMethod"].empty?)
-      assert_equal("15.15", response["authorizedAmount"])
+      assert_equal("27.00", response["authorizedAmount"])
+      assert_equal("73.00", response["remainingBalance"])
     end
-
-
-
-
-
 
   end
 end

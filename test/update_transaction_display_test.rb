@@ -3,8 +3,8 @@
 require ::File.expand_path("test_helper", __dir__)
 
 module BlockChyp
-  class NewTransactionDisplayTest < TestCase
-    def test_newTransactionDisplay
+  class UpdateTransactionDisplayTest < TestCase
+    def test_update_transaction_display
 
       config = self.load_test_config()
 
@@ -12,6 +12,7 @@ module BlockChyp
       blockchyp.gatewayHost = config["gatewayHost"]
       blockchyp.testGatewayHost = config["testGatewayHost"]
 
+      self.test_delay(blockchyp, "UpdateTransactionDisplayTest")
 
 
       # setup request object
@@ -19,17 +20,12 @@ module BlockChyp
       request["test"] = true
       request["terminalName"] = "Test Terminal"
       request["transaction"] = newTransactionDisplayTransaction()
-      response = blockchyp.newTransactionDisplay(request)
-
+      response = blockchyp.updateTransactionDisplay(request)
 
       assert_not_nil(response)
       # response assertions
       assert(response["success"])
     end
-
-
-
-
     def newTransactionDisplayTransaction
       val = Hash.new
       val["subtotal"] = "35.00"
@@ -63,7 +59,6 @@ module BlockChyp
       val["amount"] = "10.00"
       return val
     end
-
 
   end
 end

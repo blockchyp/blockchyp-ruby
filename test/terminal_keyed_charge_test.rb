@@ -3,8 +3,8 @@
 require ::File.expand_path("test_helper", __dir__)
 
 module BlockChyp
-  class PANPreauthTest < TestCase
-    def test_panPreauth
+  class TerminalKeyedChargeTest < TestCase
+    def test_terminal_keyed_charge
 
       config = self.load_test_config()
 
@@ -12,15 +12,16 @@ module BlockChyp
       blockchyp.gatewayHost = config["gatewayHost"]
       blockchyp.testGatewayHost = config["testGatewayHost"]
 
+      self.test_delay(blockchyp, "TerminalKeyedChargeTest")
 
 
       # setup request object
       request = Hash.new
-      request["pan"] = "4111111111111111"
-      request["amount"] = "25.55"
+      request["terminalName"] = "Test Terminal"
+      request["amount"] = "11.11"
+      request["manualEntry"] = true
       request["test"] = true
-      response = blockchyp.preauth(request)
-
+      response = blockchyp.charge(request)
 
       assert_not_nil(response)
       # response assertions
@@ -34,14 +35,8 @@ module BlockChyp
       assert(!response["paymentType"].empty?)
       assert(!response["maskedPan"].empty?)
       assert(!response["entryMethod"].empty?)
-      assert_equal("25.55", response["authorizedAmount"])
-      assert_equal("KEYED", response["entryMethod"])
+      assert_equal("11.11", response["authorizedAmount"])
     end
-
-
-
-
-
 
   end
 end

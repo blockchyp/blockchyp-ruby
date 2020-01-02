@@ -3,8 +3,8 @@
 require ::File.expand_path("test_helper", __dir__)
 
 module BlockChyp
-  class TerminalEBTBalanceTest < TestCase
-    def test_terminalEbtBalance
+  class TextPromptTest < TestCase
+    def test_text_prompt
 
       config = self.load_test_config()
 
@@ -12,26 +12,21 @@ module BlockChyp
       blockchyp.gatewayHost = config["gatewayHost"]
       blockchyp.testGatewayHost = config["testGatewayHost"]
 
+      self.test_delay(blockchyp, "TextPromptTest")
 
 
       # setup request object
       request = Hash.new
       request["test"] = true
       request["terminalName"] = "Test Terminal"
-      request["cardType"] = CardType::EBT
-      response = blockchyp.balance(request)
-
+      request["promptType"] = PromptType::EMAIL
+      response = blockchyp.textPrompt(request)
 
       assert_not_nil(response)
       # response assertions
       assert(response["success"])
-      assert(!response["remainingBalance"].empty?)
+      assert(!response["response"].empty?)
     end
-
-
-
-
-
 
   end
 end

@@ -2,6 +2,7 @@
 
 require 'etc'
 require 'json'
+require 'securerandom'
 
 require "test/unit"
 
@@ -35,6 +36,26 @@ module BlockChyp
       content = configFile.read
 
       return JSON.parse(content)
+
+    end
+
+    def test_delay(client, test_name)
+
+      testDelay = ENV["BC_TEST_DELAY"]
+
+      if (testDelay)
+        testDelayInt = Integer(testDelay)
+        if (testDelayInt > 0)
+
+          sleep testDelayInt
+        end
+      end
+
+    end
+
+    def get_uuid
+
+      return SecureRandom.uuid
 
     end
 

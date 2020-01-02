@@ -3,8 +3,8 @@
 require ::File.expand_path("test_helper", __dir__)
 
 module BlockChyp
-  class TermsAndConditionsTest < TestCase
-    def test_termsAndConditions
+  class SimpleMessageTest < TestCase
+    def test_simple_message
 
       config = self.load_test_config()
 
@@ -12,33 +12,20 @@ module BlockChyp
       blockchyp.gatewayHost = config["gatewayHost"]
       blockchyp.testGatewayHost = config["testGatewayHost"]
 
+      self.test_delay(blockchyp, "SimpleMessageTest")
 
 
       # setup request object
       request = Hash.new
       request["test"] = true
       request["terminalName"] = "Test Terminal"
-      request["tcName"] = "HIPPA Disclosure"
-      request["tcContent"] = "Full contract text"
-      request["sigFormat"] = SignatureFormat::PNG
-      request["sigWidth"] = 200
-      request["sigRequired"] = true
-      response = blockchyp.termsAndConditions(request)
-
+      request["message"] = "Thank You For Your Business"
+      response = blockchyp.message(request)
 
       assert_not_nil(response)
       # response assertions
       assert(response["success"])
     end
-
-
-
-
-
-
-
-
-
 
   end
 end

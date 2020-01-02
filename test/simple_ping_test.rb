@@ -4,7 +4,7 @@ require ::File.expand_path("test_helper", __dir__)
 
 module BlockChyp
   class SimplePingTest < TestCase
-    def test_simplePing
+    def test_simple_ping
 
       config = self.load_test_config()
 
@@ -12,6 +12,7 @@ module BlockChyp
       blockchyp.gatewayHost = config["gatewayHost"]
       blockchyp.testGatewayHost = config["testGatewayHost"]
 
+      self.test_delay(blockchyp, "SimplePingTest")
 
 
       # setup request object
@@ -20,15 +21,10 @@ module BlockChyp
       request["terminalName"] = "Test Terminal"
       response = blockchyp.ping(request)
 
-
       assert_not_nil(response)
       # response assertions
       assert(response["success"])
     end
-
-
-
-
 
   end
 end

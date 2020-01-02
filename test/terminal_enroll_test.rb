@@ -3,8 +3,8 @@
 require ::File.expand_path("test_helper", __dir__)
 
 module BlockChyp
-  class TerminalKeyedChargeTest < TestCase
-    def test_terminalKeyedCharge
+  class TerminalEnrollTest < TestCase
+    def test_terminal_enroll
 
       config = self.load_test_config()
 
@@ -12,16 +12,14 @@ module BlockChyp
       blockchyp.gatewayHost = config["gatewayHost"]
       blockchyp.testGatewayHost = config["testGatewayHost"]
 
+      self.test_delay(blockchyp, "TerminalEnrollTest")
 
 
       # setup request object
       request = Hash.new
       request["terminalName"] = "Test Terminal"
-      request["amount"] = "11.11"
-      request["manualEntry"] = true
       request["test"] = true
-      response = blockchyp.charge(request)
-
+      response = blockchyp.enroll(request)
 
       assert_not_nil(response)
       # response assertions
@@ -35,14 +33,8 @@ module BlockChyp
       assert(!response["paymentType"].empty?)
       assert(!response["maskedPan"].empty?)
       assert(!response["entryMethod"].empty?)
-      assert_equal("11.11", response["authorizedAmount"])
+      assert(!response["token"].empty?)
     end
-
-
-
-
-
-
 
   end
 end
