@@ -57,6 +57,7 @@ You can also view a number of long form demos and learn more about us on our [Yo
 
 You don't want to read words. You want examples. Here's a quick rundown of the
 stuff you can do with the BlockChyp Ruby SDK and a few basic examples.
+
 #### Charge
 
 Executes a standard direct preauth and capture.
@@ -85,6 +86,7 @@ puts "authorizedAmount:" + response["authorizedAmount"]
 
 
 ```
+
 #### Preauthorization
 
 Executes a preauthorization intended to be captured later.
@@ -113,6 +115,7 @@ puts "authorizedAmount:" + response["authorizedAmount"]
 
 
 ```
+
 #### Terminal Ping
 
 Tests connectivity with a payment terminal.
@@ -137,6 +140,7 @@ end
 
 
 ```
+
 #### Balance
 
 Checks the remaining balance on a payment method.
@@ -163,6 +167,7 @@ end
 
 
 ```
+
 #### Terminal Clear
 
 Clears the line item display and any in progress transaction.
@@ -188,6 +193,7 @@ end
 
 
 ```
+
 #### Terms & Conditions Capture
 
 Prompts the user to accept terms and conditions.
@@ -221,6 +227,7 @@ puts "sigFile:" + response["sigFile"]
 
 
 ```
+
 #### Update Transaction Display
 
 Appends items to an existing transaction display Subtotal, Tax, and Total are
@@ -282,6 +289,7 @@ end
 
 
 ```
+
 #### New Transaction Display
 
 Displays a new transaction on the terminal.
@@ -341,6 +349,7 @@ end
 
 
 ```
+
 #### Text Prompt
 
 Asks the consumer text based question.
@@ -368,6 +377,7 @@ puts "response:" + response["response"]
 
 
 ```
+
 #### Boolean Prompt
 
 Asks the consumer a yes/no question.
@@ -397,6 +407,7 @@ puts "response:" + response["response"]
 
 
 ```
+
 #### Display Message
 
 Displays a short message on the terminal.
@@ -423,6 +434,7 @@ end
 
 
 ```
+
 #### Refund
 
 Executes a refund.
@@ -449,6 +461,7 @@ end
 
 
 ```
+
 #### Enroll
 
 Adds a new payment method to the token vault.
@@ -475,6 +488,7 @@ puts "token:" + response["token"]
 
 
 ```
+
 #### Gift Card Activation
 
 Activates or recharges a gift card.
@@ -504,6 +518,7 @@ puts "publicKey:" + response["publicKey"]
 
 
 ```
+
 #### Time Out Reversal
 
 Executes a manual time out reversal.
@@ -537,6 +552,7 @@ end
 
 
 ```
+
 #### Capture Preauthorization
 
 Captures a preauthorization.
@@ -562,6 +578,7 @@ end
 
 
 ```
+
 #### Close Batch
 
 Closes the current credit card batch.
@@ -588,6 +605,7 @@ puts "openPreauths:" + response["openPreauths"]
 
 
 ```
+
 #### Void Transaction
 
 Discards a previous preauth transaction.
@@ -613,6 +631,7 @@ end
 
 
 ```
+
 ## Running Integration Tests
 
 If you'd like to run the integration tests, create a new file on your system
