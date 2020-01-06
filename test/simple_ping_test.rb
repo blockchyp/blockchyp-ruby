@@ -1,29 +1,30 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("test_helper", __dir__)
+require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
   class SimplePingTest < TestCase
     def test_simple_ping
+      config = load_test_config
 
-      config = self.load_test_config()
+      blockchyp = BlockChyp.new(
+        config['apiKey'],
+        config['bearerToken'],
+        config['signingKey']
+      )
+      blockchyp.gateway_host = config['gatewayHost']
+      blockchyp.test_gateway_host = config['testGatewayHost']
 
-      blockchyp = BlockChyp.new(config["apiKey"], config["bearerToken"], config["signingKey"])
-      blockchyp.gatewayHost = config["gatewayHost"]
-      blockchyp.testGatewayHost = config["testGatewayHost"]
-
-      self.test_delay(blockchyp, "SimplePingTest")
-
-
+      test_delay(blockchyp, 'SimplePingTest')
       # setup request object
-      request = Hash.new
-      request["test"] = true
-      request["terminalName"] = "Test Terminal"
+      request = {}
+      request['test'] = true
+      request['terminalName'] = 'Test Terminal'
       response = blockchyp.ping(request)
 
       assert_not_nil(response)
       # response assertions
-      assert(response["success"])
+      assert(response['success'])
     end
 
   end

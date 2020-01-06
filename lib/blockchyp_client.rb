@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require "base64"
+require 'base64'
+require 'cgi'
 require 'digest'
 require 'json'
 require 'net/http'
@@ -9,368 +10,325 @@ require 'time'
 require 'tmpdir'
 require 'uri'
 
-require_relative "crypto_utils"
+require_relative 'crypto_utils'
 
 module BlockChyp
+  # base class for the blockchyp generated blockchyp client
   class BlockChypClient
-
-    def initialize(apiKey, bearerToken, signingKey)
-      @apiKey = apiKey
-      @bearerToken = bearerToken
-      @signingKey = signingKey
-      @gatewayHost = "https://api.blockchyp.com"
-      @testGatewayHost = "https://test.blockchyp.com"
+    def initialize(api_key, bearer_token, signing_key)
+      @api_key = api_key
+      @bearer_token = bearer_token
+      @signing_key = signing_key
+      @gateway_host = 'https://api.blockchyp.com'
+      @test_gateway_host = 'https://test.blockchyp.com'
       @https = false
-      @routeCacheLocation = File.join(Dir.tmpdir(), ".blockchyp_routes")
-      @routeCacheTTL = 60
-      @gatewayTimeout = 20
-      @terminalTimeout = 120
-      @terminalConnectTimeout = 5
-      @offlineCacheEnabled = true
-      @routeCache = Hash.new
-      @offlineFixedKey = "cb22789c9d5c344a10e0474f134db39e25eb3bbf5a1b1a5e89b507f15ea9519c"
+      @route_cache_location = File.join(Dir.tmpdir, '.blockchyp_route')
+      @route_cache_ttl = 60
+      @gateway_timeout = 20
+      @terminal_timeout = 120
+      @terminal_connect_timeout = 5
+      @offline_cache_enabled = true
+      @route_cache = {}
+      @offline_fixed_key = 'cb22789c9d5c344a10e0474f134db39e25eb3bbf5a1b1a5e89b507f15ea9519c'
     end
 
-    attr_reader :apiKey
-    attr_reader :bearerToken
-    attr_reader :signingKey
-    attr_reader :offlineFixedKey
-    attr_accessor :gatewayHost
-    attr_accessor :testGatewayHost
+    attr_reader :api_key
+    attr_reader :bearer_token
+    attr_reader :signing_key
+    attr_reader :offline_fixed_key
+    attr_accessor :gateway_host
+    attr_accessor :test_gateway_host
     attr_accessor :https
-    attr_accessor :routeCacheTTL
-    attr_accessor :gatewayTimeout
-    attr_accessor :terminalTimeout
-    attr_accessor :offlineCacheEnabled
-    attr_accessor :terminalConnectTimeout
-    attr_accessor :routeCacheLocation
+    attr_accessor :route_cache_ttl
+    attr_accessor :gateway_timeout
+    attr_accessor :terminal_timeout
+    attr_accessor :offline_cache_enabled
+    attr_accessor :terminal_connect_timeout
+    attr_accessor :route_cache_location
 
     def gateway_get(path, test)
-
-      path = self.resolve_gateway_url(path, test)
-      puts "GET: " + path
+      path = resolve_gateway_url(path, test)
+      puts 'GET: ' + path
       uri = URI(path)
       req = Net::HTTP::Get.new(uri)
-      headers = self.generateGatewayHeaders()
-      headers.each do | key, value |
+      headers = generate_gateway_headers
+      headers.each do |key, value|
         req[key] = value
       end
-      res = Net::HTTP::new(uri.host, uri.port).start do |http|
-        http.request(req)
+      res = Net::HTTP.new(uri.host, uri.port).start do |inner_http|
+        inner_http.request(req)
       end
       if res.is_a?(Net::HTTPSuccess)
-        return JSON.parse(res.body)
+        JSON.parse(res.body)
       else
         raise res.message
       end
-
     end
 
-    def generateGatewayHeaders()
+    def generate_gateway_headers
+      nonce = CryptoUtils.generate_nonce
+      tsp = CryptoUtils.timestamp
 
-      nonce = CryptoUtils::generateNonce()
-      ts = CryptoUtils::timestamp()
+      sig = compute_hmac(tsp, nonce)
 
-      sig = self.compute_hmac(ts, nonce)
-
-      headers = {
-        "Nonce" => nonce,
-        'Timestamp' => ts,
-        "Authorization" => "Dual " + self.bearerToken + ":" + self.apiKey + ":" + sig
+      {
+        'Nonce' => nonce,
+        'Timestamp' => tsp,
+        'Authorization' => 'Dual ' + bearer_token + ':' + api_key + ':' + sig
       }
-
-      return headers
-
     end
 
-    def compute_hmac(ts, nonce)
+    def compute_hmac(tsp, nonce)
+      canonical_string = api_key + bearer_token + tsp + nonce
 
-      canonicalString = self.apiKey + self.bearerToken + ts + nonce
-
-      return OpenSSL::HMAC.hexdigest('SHA256', CryptoUtils::hex2bin(self.signingKey), canonicalString)
-
+      OpenSSL::HMAC.hexdigest('SHA256', CryptoUtils.hex2bin(signing_key), canonical_string)
     end
 
     def resolve_gateway_url(path, test)
+      url = if test
+              test_gateway_host
+            else
+              gateway_host
+            end
 
-      url = ""
-      if test
-        url = url + self.testGatewayHost
-      else
-        url = url + self.gatewayHost
-      end
-
-      return url + path
-
+      url + path
     end
 
     def generate_error_response(msg)
-
-      return [
-        "success" => false,
-        "error" => $msg,
-        "responseDescription" => $msg
+      [
+        'success' => false,
+        'error' => msg,
+        'responseDescription' => msg
       ]
-
     end
 
-    def route_terminal_request(request, terminalPath, gatewayPath, method)
-      if (!request["terminalName"].nil?)
-        route = resolve_terminal_route(request["terminalName"])
-        if (!route)
-          return generate_error_response("Unkown Terminal")
-        elsif (route["cloudRelayEnabled"])
-          return gateway_request(gatewayPath, request, method)
-        end
-        return terminal_request(route, terminalPath, request, method, true)
+    def route_terminal_request(request, terminal_path, gateway_path, method)
+      if request['terminalName'].nil?
+        return gateway_request(gateway_path, request, method)
       end
-      return gateway_request(gatewayPath, request, method)
+
+      route = resolve_terminal_route(request['terminalName'])
+      if !route
+        return generate_error_response('Unkown Terminal')
+      elsif route['cloudRelayEnabled']
+        return gateway_request(gateway_path, request, method)
+      end
+
+      terminal_request(route, terminal_path, request, method, true)
     end
 
-    def terminal_request(route, path, request, method, openRetry)
-
+    def terminal_request(route, path, request, method, open_retry)
       url = resolve_terminal_url(route, path)
 
-      txCreds = route["transientCredentials"]
+      tx_creds = route['transientCredentials']
 
-      terminalRequest = {
-        "apiKey" => txCreds["apiKey"],
-        "bearerToken" => txCreds["bearerToken"],
-        "signingKey" => txCreds["signingKey"],
-        "request" => request
+      terminal_request = {
+        'apiKey' => tx_creds['apiKey'],
+        'bearerToken' => tx_creds['bearerToken'],
+        'signingKey' => tx_creds['signingKey'],
+        'request' => request
       }
 
-      puts method + ": " + url
-      puts terminalRequest.to_json
+      puts method + ': ' + url
+      puts terminal_request.to_json
 
       uri = URI(url)
-      req = nil
-      if method == "PUT"
-        req = Net::HTTP::Put.new(uri)
-      elsif
-        req = Net::HTTP::Post.new(uri)
-      end
-      json = terminalRequest.to_json
-      req["Content-Type"] = "application/json"
-      req["Content-Length"] = json.length
+      req = if method == 'PUT'
+              Net::HTTP::Put.new(uri)
+            else
+              Net::HTTP::Post.new(uri)
+            end
+      json = terminal_request.to_json
+      req['Content-Type'] = 'application/json'
+      req['Content-Length'] = json.length
       req.body = json
-      http = Net::HTTP::new(uri.host, uri.port)
-      http.open_timeout = self.terminalConnectTimeout
-      http.read_timeout = self.terminalTimeout
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.open_timeout = terminal_connect_timeout
+      http.read_timeout = terminal_timeout
       begin
-        res = http.start() do |http|
-            http.request(req)
+        res = http.start do |inner_http|
+          inner_http.request(req)
         end
       rescue Net::OpenTimeout, Errno::EHOSTDOWN, Errno::EHOSTUNREACH, Errno::ETIMEDOUT, Errno::ENETUNREACH
-        if openRetry
-          evict(route["terminalName"])
-          route = resolve_terminal_route(route["terminalName"])
+        if open_retry
+          evict(route['terminalName'])
+          route = resolve_terminal_route(route['terminalName'])
           return terminal_request(route, path, request, method, false)
         end
       end
       if res.is_a?(Net::HTTPSuccess)
-        puts "Response: " + res.body
-        return JSON.parse(res.body)
+        puts 'Response: ' + res.body
+        JSON.parse(res.body)
       else
         raise res.message
       end
-
     end
 
     def resolve_terminal_url(route, path)
-
-      url = ""
-      if self.https
-        url = url + "https://"
-      elsif
-        url = url + "http://"
-      end
-      url = url + route["ipAddress"]
-      if self.https
-        url = url + ":8443"
-      elsif
-        url = url + ":8080"
-      end
-      url = url + path
-      return url
-
+      url = if https
+              'https://'
+            else
+              'http://'
+            end
+      url += route['ipAddress']
+      port = if https
+               ':8443'
+             else
+               ':8080'
+             end
+      url + port + path
     end
 
     def gateway_request(path, request, method)
+      url = resolve_gateway_url(path, request['test'])
 
-      url = resolve_gateway_url(path, request["test"])
-
-      puts method + ": " + url
+      puts method + ': ' + url
       puts request.to_json
 
       uri = URI(url)
-      req = nil
-      if method == "PUT"
-        req = Net::HTTP::Put.new(uri)
-      elsif
-        req = Net::HTTP::Post.new(uri)
-      end
+      req = if method == 'PUT'
+              Net::HTTP::Put.new(uri)
+            else
+              Net::HTTP::Post.new(uri)
+            end
       json = request.to_json
-      req["Content-Type"] = "application/json"
-      req["Content-Length"] = json.length
-      headers = self.generateGatewayHeaders()
-      headers.each do | key, value |
+      req['Content-Type'] = 'application/json'
+      req['Content-Length'] = json.length
+      headers = generate_gateway_headers
+      headers.each do |key, value|
         req[key] = value
       end
       req.body = json
-      res = Net::HTTP::new(uri.host, uri.port).start do |http|
+      res = Net::HTTP.new(uri.host, uri.port).start do |http|
         http.request(req)
       end
       if res.is_a?(Net::HTTPSuccess)
-        puts "Response: " + res.body
-        return JSON.parse(res.body)
+        puts 'Response: ' + res.body
+        JSON.parse(res.body)
       else
         raise res.message
       end
-
     end
 
     attr_accessor :routeCache
 
     def resolve_terminal_route(terminal_name)
-
       route = route_cache_get(terminal_name, false)
 
       if route.nil?
         route = request_route_from_gateway(terminal_name)
-        if !route.nil?
-          ttl = Time.now.utc + (self.routeCacheTTL * 60)
-          routeCacheEntry = Hash.new
-          routeCacheEntry["route"] = route
-          routeCacheEntry["ttl"] = ttl
-          routeCache[self.apiKey + terminal_name] = routeCacheEntry
-          update_offline_cache(routeCacheEntry)
+        if route.nil?
+          return route
         end
+
+        ttl = Time.now.utc + (route_cache_ttl * 60)
+        route_cache_entry = {}
+        route_cache_entry['route'] = route
+        route_cache_entry['ttl'] = ttl
+        @route_cache[api_key + terminal_name] = route_cache_entry
+        update_offline_cache(route_cache_entry)
       end
-
-      return route
-
+      route
     end
 
-    def update_offline_cache(routeCacheEntry)
-
-      if self.offlineCacheEnabled
-        offlineCache = self.read_offline_cache
-        offlineEntry = routeCacheEntry.clone
-        route = routeCacheEntry["route"].clone
-        txCreds = route["transientCredentials"].clone
-        txCreds["apiKey"] = encrypt(txCreds["apiKey"])
-        txCreds["bearerToken"] = encrypt(txCreds["bearerToken"])
-        txCreds["signingKey"] = encrypt(txCreds["signingKey"])
-        route["transientCredentials"] = txCreds
-        offlineEntry["route"] = route
-        routeCache[self.apiKey + route["terminalName"]] = offlineEntry
-        File.write(self.routeCacheLocation, routeCache.to_json)
+    def update_offline_cache(route_cache_entry)
+      if offline_cache_enabled
+        offline_cache = read_offline_cache
+        offline_entry = route_cache_entry.clone
+        route = route_cache_entry['route'].clone
+        tx_creds = route['transientCredentials'].clone
+        tx_creds['apiKey'] = encrypt(tx_creds['api_key'])
+        tx_creds['bearerToken'] = encrypt(tx_creds['bearerToken'])
+        tx_creds['signingKey'] = encrypt(tx_creds['signingKey'])
+        route['transientCredentials'] = tx_creds
+        offline_entry['route'] = route
+        offline_cache[apiKey + route['terminalName']] = offline_entry
+        File.write(route_cache_location, offline_cache.to_json)
       end
-
     end
 
-    def encrypt(plainText)
-
+    def encrypt(plain_text)
       cipher = OpenSSL::Cipher::AES256.new(:CBC)
       cipher.encrypt
-      cipher.key = derive_offline_key()
+      cipher.key = derive_offline_key
       iv = cipher.random_iv
 
-      encrypted = Base64.encode64(iv) + ":" + Base64.encode64(cipher.update(plainText) + cipher.final)
-
-      return encrypted
-
+      Base64.encode64(iv) + ':' + Base64.encode64(cipher.update(plain_text) + cipher.final)
     end
 
-    def decrypt(cipherText)
-
-      tokens = cipherText.split(':')
+    def decrypt(cipher_text)
+      tokens = cipher_text.split(':')
 
       iv = Base64.decode64(tokens[0])
       cp = Base64.decode64(tokens[1])
 
       decipher = OpenSSL::Cipher::AES256.new(:CBC)
       decipher.decrypt
-      decipher.key = derive_offline_key()
+      decipher.key = derive_offline_key
       decipher.iv = iv
 
-      return decipher.update(cp) + decipher.final
-
+      decipher.update(cp) + decipher.final
     end
 
-    def derive_offline_key()
-
-      return Digest::SHA256.digest self.offlineFixedKey + self.signingKey
-
+    def derive_offline_key
+      Digest::SHA256.digest offline_fixed_key + signing_key
     end
 
     def request_route_from_gateway(terminal_name)
-
-      route = self.gateway_get("/api/terminal-route?terminal=" + URI.escape(terminal_name), false)
-      if (!route.nil?  && !route["ipAddress"].empty?)
-        route["exists"] = true
+      route = gateway_get('/api/terminal-route?terminal=' + CGI.escape(terminal_name), false)
+      if !route.nil? && !route['ipAddress'].empty?
+        route['exists'] = true
       end
-
-      return route
-
+      route
     end
 
     def evict(terminal_name)
+      route_cache.delete(api_key + terminal_name)
 
-      routeCache.delete(self.apiKey + terminal_name)
-
-      offlineCache = read_offline_cache
-      offlineCache.delete(self.apiKey + terminal_name)
-      File.write(self.routeCacheLocation, routeCache.to_json)
-
+      offline_cache = read_offline_cache
+      offline_cache.delete(api_key + terminal_name)
+      File.write(route_cache_location, route_cache.to_json)
     end
 
     def route_cache_get(terminal_name, stale)
+      route_cache_entry = @route_cache[api_key + terminal_name]
 
-      routeCacheEntry = routeCache[self.apiKey + terminal_name]
-
-      if (routeCacheEntry.nil? && self.offlineCacheEnabled)
-        offlineCache = read_offline_cache()
-        routeCacheEntry = offlineCache[self.apiKey + terminal_name]
-        if (routeCacheEntry)
-          route = routeCacheEntry["route"]
-          txCreds = route["transientCredentials"]
-          txCreds["apiKey"] = decrypt(txCreds["apiKey"])
-          txCreds["bearerToken"] = decrypt(txCreds["bearerToken"])
-          txCreds["signingKey"] = decrypt(txCreds["signingKey"])
-          route["transientCredentials"] = txCreds
-          routeCacheEntry["route"] = route
-        end
+      if route_cache_entry.nil? && offline_cache_enabled
+        offline_cache = read_offline_cache
+        route_cache_entry = offline_cache[@api_key + terminal_name]
       end
 
-      if (routeCacheEntry)
+      if route_cache_entry
+        route = route_cache_entry['route']
+        tx_creds = route['transientCredentials']
+        tx_creds['apiKey'] = decrypt(tx_creds['apiKey'])
+        tx_creds['bearerToken'] = decrypt(tx_creds['bearerToken'])
+        tx_creds['signingKey'] = decrypt(tx_creds['signingKey'])
+        route['transientCredentials'] = tx_creds
+        routeCacheEntry['route'] = route
+      end
+
+      if route_cache_entry
         now = Time.new
-        ttl = Time.parse(routeCacheEntry["ttl"])
-        if (stale || now < ttl)
-          puts "Cache Hit " + routeCacheEntry.to_json
-          return routeCacheEntry["route"]
+        ttl = Time.parse(route_cache_entry['ttl'])
+        if stale || now < ttl
+          puts 'Cache Hit ' + route_cache_entry.to_json
+          route_cache_entry['route']
         end
       end
-
-      return nil;
-
     end
 
     def read_offline_cache
+      puts route_cache_location
 
-      puts self.routeCacheLocation
+      if File.file?(route_cache_location)
 
-      if !File.file?(self.routeCacheLocation)
-        return Hash.new
+        config_file = File.open(route_cache_location)
+        content = config_file.read
+
+        return JSON.parse(content)
       end
-
-      configFile = open(self.routeCacheLocation)
-      content = configFile.read
-
-      return JSON.parse(content)
-
+      {}
     end
-
   end
 end

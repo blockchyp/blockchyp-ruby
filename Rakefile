@@ -1,10 +1,40 @@
+# frozen_string_literal: true
+
+require 'bundler'
+
+
+begin
+  Bundler.setup(:default)
+rescue Bundler::BundlerError => e
+  warn e.message
+  warn 'Run `bundle install --path vendor/bundle` to install missing gems'
+  exit e.status_code
+end
+
+require 'rake'
 require 'rake/testtask'
 
-task default: %w[test]
+task(default: %i[test rubocop])
 
-task :test do
-  Rake::TestTask.new do |t|
-    t.libs = ["lib"]
-    t.test_files = FileList['test/*_test.rb']
+Rake::TestTask.new(:test) do |t|
+  t.libs << '.' << 'lib' << 'test'
+  t.test_files = FileList['test/*_test.rb']
+  t.verbose = false
+end
+
+task :rubocop do
+  if RUBY_ENGINE == 'ruby'
+    require 'rubocop/rake_task'
+    RuboCop::RakeTask.new
   end
+end
+
+task(gem: :build)
+task :build do
+  system 'gem build blockchyp.gemspec'
+end
+
+task publish: :build do
+  system "gem push blockchyp-#{BlockChyp::VERSION}.gem"
+  system "rm blockchyp-#{BlockChyp::VERSION}.gem"
 end

@@ -4,72 +4,62 @@ require 'etc'
 require 'json'
 require 'securerandom'
 
-require "test/unit"
+require 'test/unit'
 
-require ::File.expand_path("../lib/blockchyp", __dir__)
+require ::File.expand_path('../lib/blockchyp', __dir__)
 
 module BlockChyp
   class TestCase < Test::Unit::TestCase
-
     def load_test_config
-
-      configHome = ""
-      if self.is_windows()
-        configHome = ENV["userprofile"]
+      config_home = ''
+      if windows?
+        config_home = ENV['userprofile']
       else
-        configHome = ENV["XDG_CONFIG_HOME"]
-        if configHome.nil?
-          configHome = Etc.getpwuid.dir
+        config_home = ENV['XDG_CONFIG_HOME']
+        if config_home.nil?
+          config_home = ENV['HOME']
         end
-        configHome = configHome + "/.config"
+        config_home = File.join(config_home, '.config')
       end
 
-      fileName = File.join(configHome, "blockchyp", "sdk-itest-config.json")
+      file_name = File.join(config_home, 'blockchyp', 'sdk-itest-config.json')
 
-      puts "load config: " + fileName
+      puts 'load config: ' + file_name
 
-      if !File.file?(fileName)
-        raise "file not found: " + fileName
-      end
+      raise 'file not found: ' + file_name unless File.file?(file_name)
 
-      configFile = open(fileName)
-      content = configFile.read
+      config_file = File.open(file_name)
+      content = config_file.read
 
-      return JSON.parse(content)
-
+      JSON.parse(content)
     end
 
     def test_delay(client, test_name)
+      test_delay = ENV['BC_TEST_DELAY']
 
-      testDelay = ENV["BC_TEST_DELAY"]
-
-      if (testDelay)
-        testDelayInt = Integer(testDelay)
-        if (testDelayInt > 0)
-          request = Hash.new
-          request["test"] = true
-          request["terminalName"] = "Test Terminal"
-          request["message"] = "Running " + test_name + " in " + testDelay + " seconds..."
+      if test_delay
+        test_delay_int = Integer(test_delay)
+        if test_delay_int.positive
+          request = {}
+          request['test'] = true
+          request['terminalName'] = 'Test Terminal'
+          request['message'] = "Running #{test_name} in #{test_delay} seconds.."
           response = client.message(request)
 
           assert_not_nil(response)
           # response assertions
-          assert(response["success"])
-          sleep testDelayInt
+          assert(response['success'])
+          sleep test_delay_int
         end
       end
-
     end
 
-    def get_uuid
-
-      return SecureRandom.uuid
-
+    def uuid
+      SecureRandom.uuid
     end
 
-    def is_windows
-      (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+    def windows?
+      !(/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM).nil?
     end
-
   end
 end

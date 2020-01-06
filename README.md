@@ -98,22 +98,26 @@ Executes a standard direct preauth and capture.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["terminalName"] = "Test Terminal"
-request["amount"] = "55.00"
+request = {}
+request['test'] = true
+request['terminalName'] = 'Test Terminal'
+request['amount'] = '55.00'
 
 response = blockchyp.charge(request)
 
-if (response["approved"])
-  puts "Approved"
+if response['approved']
+  puts 'Approved'
 end
 
-puts "authCode:" + response["authCode"]
-puts "authorizedAmount:" + response["authorizedAmount"]
+puts 'authCode:' + response['authCode']
+puts 'authorizedAmount:' + response['authorizedAmount']
 
 
 ```
@@ -127,22 +131,26 @@ Executes a preauthorization intended to be captured later.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["terminalName"] = "Test Terminal"
-request["amount"] = "27.00"
+request = {}
+request['test'] = true
+request['terminalName'] = 'Test Terminal'
+request['amount'] = '27.00'
 
 response = blockchyp.preauth(request)
 
-if (response["approved"])
-  puts "Approved"
+if response['approved']
+  puts 'Approved'
 end
 
-puts "authCode:" + response["authCode"]
-puts "authorizedAmount:" + response["authorizedAmount"]
+puts 'authCode:' + response['authCode']
+puts 'authorizedAmount:' + response['authorizedAmount']
 
 
 ```
@@ -156,16 +164,20 @@ Tests connectivity with a payment terminal.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["terminalName"] = "Test Terminal"
+request = {}
+request['terminalName'] = 'Test Terminal'
 
 response = blockchyp.ping(request)
 
-if (response["success"])
-  puts "Success"
+if response['success']
+  puts 'Success'
 end
 
 
@@ -181,18 +193,22 @@ Checks the remaining balance on a payment method.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["terminalName"] = "Test Terminal"
-request["cardType"] = CardType::EBT
+request = {}
+request['test'] = true
+request['terminalName'] = 'Test Terminal'
+request['cardType'] = CardType::EBT
 
 response = blockchyp.balance(request)
 
-if (response["success"])
-  puts "Success"
+if response['success']
+  puts 'Success'
 end
 
 
@@ -208,17 +224,21 @@ Clears the line item display and any in progress transaction.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["terminalName"] = "Test Terminal"
+request = {}
+request['test'] = true
+request['terminalName'] = 'Test Terminal'
 
 response = blockchyp.clear(request)
 
-if (response["success"])
-  puts "Success"
+if response['success']
+  puts 'Success'
 end
 
 
@@ -234,27 +254,31 @@ Prompts the user to accept terms and conditions.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["terminalName"] = "Test Terminal"
-request["tcAlias"] = "hippa"
-request["tcName"] = "HIPPA Disclosure"
-request["tcContent"] = "Full contract text"
-request["sigFormat"] = SignatureFormat::PNG
-request["sigWidth"] = 200
-request["sigRequired"] = true
+request = {}
+request['test'] = true
+request['terminalName'] = 'Test Terminal'
+request['tcAlias'] = 'hippa'
+request['tcName'] = 'HIPPA Disclosure'
+request['tcContent'] = 'Full contract text'
+request['sigFormat'] = SignatureFormat::PNG
+request['sigWidth'] = 200
+request['sigRequired'] = true
 
 response = blockchyp.termsAndConditions(request)
 
-if (response["success"])
-  puts "Success"
+if response['success']
+  puts 'Success'
 end
 
-puts "sig:" + response["sig"]
-puts "sigFile:" + response["sigFile"]
+puts 'sig:' + response['sig']
+puts 'sigFile:' + response['sigFile']
 
 
 ```
@@ -270,53 +294,63 @@ groups.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["terminalName"] = "Test Terminal"
-request["transaction"] = newTransactionDisplayTransaction()
+request = {}
+request['test'] = true
+request['terminalName'] = 'Test Terminal'
+request['transaction'] = new_transaction_display_transaction
 
 response = blockchyp.updateTransactionDisplay(request)
 
-if (response["success"])
-  puts "Succeded"
+if response['success']
+  puts 'Succeded'
 end
 
-def newTransactionDisplayTransaction()
-  val = hash.new
-  val["subtotal"] = "60.00"
-  val["tax"] = "5.00"
-  val["total"] = "65.00"
-  val["items"] = newTransactionDisplayItems()
-  return val
+def new_transaction_display_transaction
+  val = {}
+  val['subtotal'] = '60.00'
+  val['tax'] = '5.00'
+  val['total'] = '65.00'
+  val['items'] = new_transaction_display_items
+  val
 end
-def newTransactionDisplayItems()
-  val = Array.new
-  val = val.push(newTransactionDisplayItem2())
-  return val
+
+def new_transaction_display_items
+  val = []
+  val = val.push(new_transaction_display_item_2)
+  val
 end
-def newTransactionDisplayItem2()
-  val = Hash.new
-  val["description"] = "Leki Trekking Poles"
-  val["price"] = "35.00"
-  val["quantity"] = 2
-  val["extended"] = "70.00"
-  val["discounts"] = newTransactionDisplayDiscounts()
-  return val
+
+def new_transaction_display_item_2
+  val = {}
+  val['description'] = 'Leki Trekking Poles'
+  val['price'] = '35.00'
+  val['quantity'] = 2
+  val['extended'] = '70.00'
+  val['discounts'] = new_transaction_display_discounts
+  val
 end
-def newTransactionDisplayDiscounts()
-  val = Array.new
-  val = val.push(newTransactionDisplayDiscount2())
-  return val
+
+def new_transaction_display_discounts
+  val = []
+  val = val.push(new_transaction_display_discount_2)
+  val
 end
-def newTransactionDisplayDiscount2()
-  val = Hash.new
-  val["description"] = "memberDiscount"
-  val["amount"] = "10.00"
-  return val
+
+def new_transaction_display_discount_2
+  val = {}
+  val['description'] = 'memberDiscount'
+  val['amount'] = '10.00'
+  val
 end
+
+
 
 
 ```
@@ -330,53 +364,63 @@ Displays a new transaction on the terminal.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["terminalName"] = "Test Terminal"
-request["transaction"] = newTransactionDisplayTransaction()
+request = {}
+request['test'] = true
+request['terminalName'] = 'Test Terminal'
+request['transaction'] = new_transaction_display_transaction
 
 response = blockchyp.newTransactionDisplay(request)
 
-if (response["success"])
-  puts "Succeded"
+if response['success']
+  puts 'Succeded'
 end
 
-def newTransactionDisplayTransaction()
-  val = hash.new
-  val["subtotal"] = "60.00"
-  val["tax"] = "5.00"
-  val["total"] = "65.00"
-  val["items"] = newTransactionDisplayItems()
-  return val
+def new_transaction_display_transaction
+  val = {}
+  val['subtotal'] = '60.00'
+  val['tax'] = '5.00'
+  val['total'] = '65.00'
+  val['items'] = new_transaction_display_items
+  val
 end
-def newTransactionDisplayItems()
-  val = Array.new
-  val = val.push(newTransactionDisplayItem2())
-  return val
+
+def new_transaction_display_items
+  val = []
+  val = val.push(new_transaction_display_item_2)
+  val
 end
-def newTransactionDisplayItem2()
-  val = Hash.new
-  val["description"] = "Leki Trekking Poles"
-  val["price"] = "35.00"
-  val["quantity"] = 2
-  val["extended"] = "70.00"
-  val["discounts"] = newTransactionDisplayDiscounts()
-  return val
+
+def new_transaction_display_item_2
+  val = {}
+  val['description'] = 'Leki Trekking Poles'
+  val['price'] = '35.00'
+  val['quantity'] = 2
+  val['extended'] = '70.00'
+  val['discounts'] = new_transaction_display_discounts
+  val
 end
-def newTransactionDisplayDiscounts()
-  val = Array.new
-  val = val.push(newTransactionDisplayDiscount2())
-  return val
+
+def new_transaction_display_discounts
+  val = []
+  val = val.push(new_transaction_display_discount_2)
+  val
 end
-def newTransactionDisplayDiscount2()
-  val = Hash.new
-  val["description"] = "memberDiscount"
-  val["amount"] = "10.00"
-  return val
+
+def new_transaction_display_discount_2
+  val = {}
+  val['description'] = 'memberDiscount'
+  val['amount'] = '10.00'
+  val
 end
+
+
 
 
 ```
@@ -390,21 +434,25 @@ Asks the consumer text based question.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["terminalName"] = "Test Terminal"
-request["promptType"] = PromptType::EMAIL
+request = {}
+request['test'] = true
+request['terminalName'] = 'Test Terminal'
+request['promptType'] = PromptType::EMAIL
 
 response = blockchyp.textPrompt(request)
 
-if (response["success"])
-  puts "Success"
+if response['success']
+  puts 'Success'
 end
 
-puts "response:" + response["response"]
+puts 'response:' + response['response']
 
 
 ```
@@ -418,23 +466,27 @@ Asks the consumer a yes/no question.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["terminalName"] = "Test Terminal"
-request["prompt"] = "Would you like to become a member?"
-request["yesCaption"] = "Yes"
-request["noCaption"] = "No"
+request = {}
+request['test'] = true
+request['terminalName'] = 'Test Terminal'
+request['prompt'] = 'Would you like to become a member?'
+request['yesCaption'] = 'Yes'
+request['noCaption'] = 'No'
 
 response = blockchyp.booleanPrompt(request)
 
-if (response["success"])
-  puts "Success"
+if response['success']
+  puts 'Success'
 end
 
-puts "response:" + response["response"]
+puts 'response:' + response['response']
 
 
 ```
@@ -448,18 +500,22 @@ Displays a short message on the terminal.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["terminalName"] = "Test Terminal"
-request["message"] = "Thank you for your business."
+request = {}
+request['test'] = true
+request['terminalName'] = 'Test Terminal'
+request['message'] = 'Thank you for your business.'
 
 response = blockchyp.message(request)
 
-if (response["success"])
-  puts "Success"
+if response['success']
+  puts 'Success'
 end
 
 
@@ -475,18 +531,22 @@ Executes a refund.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["terminalName"] = "Test Terminal"
-request["transactionId"] = "<PREVIOUS TRANSACTION ID>"
-request["amount"] = "5.00"
+request = {}
+request['terminalName'] = 'Test Terminal'
+request['transactionId'] = '<PREVIOUS TRANSACTION ID>'
+request['amount'] = '5.00'
 
 response = blockchyp.refund(request)
 
-if (response["approved"])
-  puts "Approved"
+if response['approved']
+  puts 'Approved'
 end
 
 
@@ -502,20 +562,24 @@ Adds a new payment method to the token vault.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["terminalName"] = "Test Terminal"
+request = {}
+request['test'] = true
+request['terminalName'] = 'Test Terminal'
 
 response = blockchyp.enroll(request)
 
-if (response["approved"])
-  puts "Approved"
+if response['approved']
+  puts 'Approved'
 end
 
-puts "token:" + response["token"]
+puts 'token:' + response['token']
 
 
 ```
@@ -529,23 +593,27 @@ Activates or recharges a gift card.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["terminalName"] = "Test Terminal"
-request["amount"] = "50.00"
+request = {}
+request['test'] = true
+request['terminalName'] = 'Test Terminal'
+request['amount'] = '50.00'
 
 response = blockchyp.giftActivate(request)
 
-if (response["approved"])
-  puts "Approved"
+if response['approved']
+  puts 'Approved'
 end
 
-puts "amount:" + response["amount"]
-puts "currentBalance:" + response["currentBalance"]
-puts "publicKey:" + response["publicKey"]
+puts 'amount:' + response['amount']
+puts 'currentBalance:' + response['currentBalance']
+puts 'publicKey:' + response['publicKey']
 
 
 ```
@@ -567,17 +635,21 @@ request to the terminal timed out before you got a response.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["terminalName"] = "Test Terminal"
-request["transactionRef"] = "<LAST TRANSACTION REF>"
+request = {}
+request['terminalName'] = 'Test Terminal'
+request['transactionRef'] = '<LAST TRANSACTION REF>'
 
 response = blockchyp.reverse(request)
 
-if (response["approved"])
-  puts "Approved"
+if response['approved']
+  puts 'Approved'
 end
 
 
@@ -593,17 +665,21 @@ Captures a preauthorization.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["transactionId"] = "<PREAUTH TRANSACTION ID>"
+request = {}
+request['test'] = true
+request['transactionId'] = '<PREAUTH TRANSACTION ID>'
 
 response = blockchyp.capture(request)
 
-if (response["approved"])
-  puts "Approved"
+if response['approved']
+  puts 'Approved'
 end
 
 
@@ -619,20 +695,24 @@ Closes the current credit card batch.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
+request = {}
+request['test'] = true
 
 response = blockchyp.closeBatch(request)
 
-if (response["success"])
-  puts "Success"
+if response['success']
+  puts 'Success'
 end
 
-puts "capturedTotal:" + response["capturedTotal"]
-puts "openPreauths:" + response["openPreauths"]
+puts 'capturedTotal:' + response['capturedTotal']
+puts 'openPreauths:' + response['openPreauths']
 
 
 ```
@@ -646,17 +726,21 @@ Discards a previous preauth transaction.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new("SPBXTSDAQVFFX5MGQMUMIRINVI", "7BXBTBUPSL3BP7I6Z2CFU6H3WQ", "bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e")
+blockchyp = BlockChyp.new(
+  'SPBXTSDAQVFFX5MGQMUMIRINVI',
+  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
+  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+)
 
 # setup request object
-request = Hash.new
-request["test"] = true
-request["transactionId"] = "<PREVIOUS TRANSACTION ID>"
+request = {}
+request['test'] = true
+request['transactionId'] = '<PREVIOUS TRANSACTION ID>'
 
 response = blockchyp.void(request)
 
-if (response["approved"])
-  puts "Approved"
+if response['approved']
+  puts 'Approved'
 end
 
 
