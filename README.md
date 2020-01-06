@@ -2,7 +2,7 @@
 
 [![Build Status](https://circleci.com/gh/blockchyp/blockchyp-ruby/tree/master.svg?style=shield)](https://circleci.com/gh/blockchyp/blockchyp-ruby/tree/master)
 [![Gem](https://img.shields.io/gem/v/blockchyp)](https://rubygems.org/gems/blockchyp)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/blockchyp/blockchyp-ruby/blob/master/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/blockchyp/blockchyp-ruby/blob/master/LICENSE)
 
 This is the SDK for Ruby. Like all BlockChyp SDK's, it provides a full client
 for the BlockChyp gateway and BlockChyp payment terminals.
