@@ -2,14 +2,56 @@ version: 1
 jobs:
   build:
     docker:
-      - image: alpine
+      - image: circleci/ruby:2.6
 
     steps:
       - checkout
 
+      - restore_cache:
+          keys:
+            - gem-{{ checksum "Gemfile" }}
+
+      - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
+
+      - save_cache:
+          key: gem-{{ checksum "Gemfile" }}
+          paths:
+            - vendor/bundle
+
       - run:
           name: Build
-          command: echo placeholder
+          command: make build
+
+      - run:
+          name: Test
+          command: make test
+
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - ./*gem
+
+  publish:
+    docker:
+      - image: circleci/ruby:2.6
+
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: ./
+
+      - restore_cache:
+          keys:
+            - gem-{{ checksum "Gemfile" }}
+
+      - run: |
+          echo -e "---" > ~/.gem/credentials
+          echo -e ":rubygems_api_key: $RUBYGEMS_API_KEY" >> ~/.gem/credentials
+
+      - run:
+          name: Publish
+          command: make publish
 
 workflows:
   version: 2
@@ -17,5 +59,13 @@ workflows:
     jobs:
       - build:
           filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+.*$/
+      - publish:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^v\d+\.\d+\.\d+.*$/

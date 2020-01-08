@@ -237,17 +237,21 @@ module BlockChyp
         offline_entry = route_cache_entry.clone
         route = route_cache_entry['route'].clone
         tx_creds = route['transientCredentials'].clone
-        tx_creds['apiKey'] = encrypt(tx_creds['api_key'])
+        tx_creds['apiKey'] = encrypt(tx_creds['apiKey'])
         tx_creds['bearerToken'] = encrypt(tx_creds['bearerToken'])
         tx_creds['signingKey'] = encrypt(tx_creds['signingKey'])
         route['transientCredentials'] = tx_creds
+        puts 'ENCRYPTED:'
+        puts route
         offline_entry['route'] = route
-        offline_cache[apiKey + route['terminalName']] = offline_entry
+        offline_cache[api_key + route['terminalName']] = offline_entry
         File.write(route_cache_location, offline_cache.to_json)
       end
     end
 
     def encrypt(plain_text)
+      return plain_text if plain_text.nil? || plain_text.empty?
+
       cipher = OpenSSL::Cipher::AES256.new(:CBC)
       cipher.encrypt
       cipher.key = derive_offline_key
@@ -257,6 +261,8 @@ module BlockChyp
     end
 
     def decrypt(cipher_text)
+      return cipher_text if cipher_text.nil? || cipher_text.empty?
+
       tokens = cipher_text.split(':')
 
       iv = Base64.decode64(tokens[0])
@@ -305,7 +311,7 @@ module BlockChyp
         tx_creds['bearerToken'] = decrypt(tx_creds['bearerToken'])
         tx_creds['signingKey'] = decrypt(tx_creds['signingKey'])
         route['transientCredentials'] = tx_creds
-        routeCacheEntry['route'] = route
+        route_cache_entry['route'] = route
       end
 
       if route_cache_entry

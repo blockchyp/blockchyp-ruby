@@ -1,18 +1,20 @@
 # frozen_string_literal: true
 
-Gem::Specification.new do |s|
-  s.name = 'blockchyp'
-  s.version = '2.0.0'
-  s.required_ruby_version = '>= 2.3.0'
-  s.summary = 'BlockChyp Ruby SDK'
-  s.author = 'BlockChyp'
-  s.homepage = 'https://github.com/blockchyp/blockchyp-ruby'
-  s.license = 'MIT'
-  s.metadata = {
+lib = File.expand_path('lib', __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'blockchyp/version'
+
+Gem::Specification.new do |spec|
+  spec.name = 'blockchyp'
+  spec.version = BlockChyp::VERSION
+  spec.required_ruby_version = '>= 2.3.0'
+  spec.summary = 'BlockChyp Ruby SDK'
+  spec.author = 'BlockChyp'
+  spec.homepage = 'https://github.com/blockchyp/blockchyp-ruby'
+  spec.license = 'MIT'
+  spec.metadata = {
     'github_repo' => 'ssh://github.com/blockchyp/blockchyp-ruby.git'
   }
-  s.files = Dir['{test,lib}/**/*'] + ['Rakefile', 'README.md', 'Makefile']
-  s.require_paths = ['lib']
-
-  s.add_development_dependency('bundler', '>= 1.15.0', '< 3.0')
+  spec.files = Dir['{test,lib}/**/*'] + ['Rakefile', 'README.md', 'Makefile']
+  spec.require_paths = ['lib']
 end

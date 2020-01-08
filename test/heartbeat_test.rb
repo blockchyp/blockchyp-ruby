@@ -12,8 +12,8 @@ module BlockChyp
         config['bearerToken'],
         config['signingKey']
       )
-      blockchyp.gatewayHost = config['gatewayHost']
-      blockchyp.testGatewayHost = config['testGatewayHost']
+      blockchyp.gateway_host = config['gatewayHost']
+      blockchyp.test_gateway_host = config['testGatewayHost']
 
       response = blockchyp.heartbeat(true)
       assert_not_nil(response)

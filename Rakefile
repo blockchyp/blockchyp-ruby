@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
-require 'bundler'
-
+require 'bundler/gem_tasks'
 
 begin
   Bundler.setup(:default)
 rescue Bundler::BundlerError => e
   warn e.message
-  warn 'Run `bundle install --path vendor/bundle` to install missing gems'
+  warn 'Run `bundle install` to install missing gems'
   exit e.status_code
 end
 
 require 'rake'
 require 'rake/testtask'
 
-task(default: %i[test rubocop])
+task(default: %i[test lint])
 
 Rake::TestTask.new(:test) do |t|
   t.libs << '.' << 'lib' << 'test'
@@ -22,7 +21,7 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
-task :rubocop do
+task :lint do
   if RUBY_ENGINE == 'ruby'
     require 'rubocop/rake_task'
     RuboCop::RakeTask.new

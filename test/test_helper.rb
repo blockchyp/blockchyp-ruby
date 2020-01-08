@@ -39,7 +39,7 @@ module BlockChyp
 
       if test_delay
         test_delay_int = Integer(test_delay)
-        if test_delay_int.positive
+        if test_delay_int.positive?
           request = {}
           request['test'] = true
           request['terminalName'] = 'Test Terminal'
