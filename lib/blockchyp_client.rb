@@ -48,9 +48,9 @@ module BlockChyp
 
     def gateway_get(path, test)
       path = resolve_gateway_url(path, test)
-      puts 'GET: ' + path
       uri = URI(path)
       req = Net::HTTP::Get.new(uri)
+      req['User-Agent'] = user_agent
       headers = generate_gateway_headers
       headers.each do |key, value|
         req[key] = value
@@ -129,15 +129,13 @@ module BlockChyp
         'request' => request
       }
 
-      puts method + ': ' + url
-      puts terminal_request.to_json
-
       uri = URI(url)
       req = if method == 'PUT'
               Net::HTTP::Put.new(uri)
             else
               Net::HTTP::Post.new(uri)
             end
+      req['User-Agent'] = user_agent
       json = terminal_request.to_json
       req['Content-Type'] = 'application/json'
       req['Content-Length'] = json.length
@@ -157,7 +155,6 @@ module BlockChyp
         end
       end
       if res.is_a?(Net::HTTPSuccess)
-        puts 'Response: ' + res.body
         JSON.parse(res.body)
       else
         raise res.message
@@ -182,15 +179,13 @@ module BlockChyp
     def gateway_request(path, request, method)
       url = resolve_gateway_url(path, request['test'])
 
-      puts method + ': ' + url
-      puts request.to_json
-
       uri = URI(url)
       req = if method == 'PUT'
               Net::HTTP::Put.new(uri)
             else
               Net::HTTP::Post.new(uri)
             end
+      req['User-Agent'] = user_agent
       json = request.to_json
       req['Content-Type'] = 'application/json'
       req['Content-Length'] = json.length
@@ -203,7 +198,6 @@ module BlockChyp
         http.request(req)
       end
       if res.is_a?(Net::HTTPSuccess)
-        puts 'Response: ' + res.body
         JSON.parse(res.body)
       else
         raise res.message
@@ -241,8 +235,6 @@ module BlockChyp
         tx_creds['bearerToken'] = encrypt(tx_creds['bearerToken'])
         tx_creds['signingKey'] = encrypt(tx_creds['signingKey'])
         route['transientCredentials'] = tx_creds
-        puts 'ENCRYPTED:'
-        puts route
         offline_entry['route'] = route
         offline_cache[api_key + route['terminalName']] = offline_entry
         File.write(route_cache_location, offline_cache.to_json)
@@ -318,15 +310,12 @@ module BlockChyp
         now = Time.new
         ttl = Time.parse(route_cache_entry['ttl'])
         if stale || now < ttl
-          puts 'Cache Hit ' + route_cache_entry.to_json
           route_cache_entry['route']
         end
       end
     end
 
     def read_offline_cache
-      puts route_cache_location
-
       if File.file?(route_cache_location)
 
         config_file = File.open(route_cache_location)
@@ -335,6 +324,10 @@ module BlockChyp
         return JSON.parse(content)
       end
       {}
+    end
+
+    def user_agent
+      "BlockChyp-Ruby/#{VERSION}"
     end
   end
 end
