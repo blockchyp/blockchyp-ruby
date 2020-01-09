@@ -313,7 +313,7 @@ request['transaction'] = new_transaction_display_transaction
 response = blockchyp.updateTransactionDisplay(request)
 
 if response['success']
-  puts 'Succeded'
+  puts 'Success'
 end
 
 def new_transaction_display_transaction
@@ -383,7 +383,7 @@ request['transaction'] = new_transaction_display_transaction
 response = blockchyp.newTransactionDisplay(request)
 
 if response['success']
-  puts 'Succeded'
+  puts 'Success'
 end
 
 def new_transaction_display_transaction
