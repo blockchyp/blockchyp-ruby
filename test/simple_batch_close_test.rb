@@ -30,9 +30,11 @@ module BlockChyp
       request['transactionRef'] = uuid
       response = blockchyp.charge(request)
 
+
       # setup request object
       request = {}
       request['test'] = true
+
       response = blockchyp.close_batch(request)
 
       assert_not_nil(response)

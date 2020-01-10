@@ -22,10 +22,12 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'terminal_gift_card_balance_test')
+
       # setup request object
       request = {}
       request['test'] = true
       request['terminalName'] = 'Test Terminal'
+
       response = blockchyp.balance(request)
 
       assert_not_nil(response)

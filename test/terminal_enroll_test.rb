@@ -22,10 +22,12 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'terminal_enroll_test')
+
       # setup request object
       request = {}
       request['terminalName'] = 'Test Terminal'
       request['test'] = true
+
       response = blockchyp.enroll(request)
 
       assert_not_nil(response)

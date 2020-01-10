@@ -22,11 +22,13 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'terminal_charge_test')
+
       # setup request object
       request = {}
       request['terminalName'] = 'Test Terminal'
       request['amount'] = '25.15'
       request['test'] = true
+
       response = blockchyp.charge(request)
 
       assert_not_nil(response)

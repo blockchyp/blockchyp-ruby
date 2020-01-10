@@ -30,10 +30,12 @@ module BlockChyp
       request['transactionRef'] = uuid
       response = blockchyp.charge(request)
 
+
       # setup request object
       request = {}
       request['transactionRef'] = response['transactionRef']
       request['test'] = true
+
       response = blockchyp.reverse(request)
 
       assert_not_nil(response)

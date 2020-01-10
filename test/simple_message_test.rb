@@ -22,11 +22,13 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'simple_message_test')
+
       # setup request object
       request = {}
       request['test'] = true
       request['terminalName'] = 'Test Terminal'
       request['message'] = 'Thank You For Your Business'
+
       response = blockchyp.message(request)
 
       assert_not_nil(response)

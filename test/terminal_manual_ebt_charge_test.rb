@@ -22,6 +22,7 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'terminal_manual_ebt_charge_test')
+
       # setup request object
       request = {}
       request['terminalName'] = 'Test Terminal'
@@ -29,6 +30,7 @@ module BlockChyp
       request['test'] = true
       request['cardType'] = CardType::EBT
       request['manualEntry'] = true
+
       response = blockchyp.charge(request)
 
       assert_not_nil(response)

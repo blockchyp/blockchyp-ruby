@@ -22,6 +22,7 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'boolean_prompt_test')
+
       # setup request object
       request = {}
       request['test'] = true
@@ -29,6 +30,7 @@ module BlockChyp
       request['prompt'] = 'Would you like to become a member?'
       request['yesCaption'] = 'Yes'
       request['noCaption'] = 'No'
+
       response = blockchyp.boolean_prompt(request)
 
       assert_not_nil(response)

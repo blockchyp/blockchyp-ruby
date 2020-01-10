@@ -46,25 +46,6 @@ module BlockChyp
     attr_accessor :terminal_connect_timeout
     attr_accessor :route_cache_location
 
-    def gateway_get(path, test)
-      path = resolve_gateway_url(path, test)
-      uri = URI(path)
-      req = Net::HTTP::Get.new(uri)
-      req['User-Agent'] = user_agent
-      headers = generate_gateway_headers
-      headers.each do |key, value|
-        req[key] = value
-      end
-      res = Net::HTTP.new(uri.host, uri.port).start do |inner_http|
-        inner_http.request(req)
-      end
-      if res.is_a?(Net::HTTPSuccess)
-        JSON.parse(res.body)
-      else
-        raise res.message
-      end
-    end
-
     def generate_gateway_headers
       nonce = CryptoUtils.generate_nonce
       tsp = CryptoUtils.timestamp
@@ -84,14 +65,14 @@ module BlockChyp
       OpenSSL::HMAC.hexdigest('SHA256', CryptoUtils.hex2bin(signing_key), canonical_string)
     end
 
-    def resolve_gateway_url(path, test)
-      url = if test
-              test_gateway_host
-            else
+    def resolve_gateway_uri(path, request)
+      url = if request.nil? || !request['test']
               gateway_host
+            else
+              test_gateway_host
             end
 
-      url + path
+      URI.parse(url + path)
     end
 
     def generate_error_response(msg)
@@ -102,66 +83,74 @@ module BlockChyp
       ]
     end
 
-    def route_terminal_request(request, terminal_path, gateway_path, method)
+    def route_terminal_request(method, terminal_path, gateway_path, request)
       if request['terminalName'].nil?
-        return gateway_request(gateway_path, request, method)
+        return gateway_request(method, gateway_path, request)
       end
 
       route = resolve_terminal_route(request['terminalName'])
       if !route
         return generate_error_response('Unkown Terminal')
       elsif route['cloudRelayEnabled']
-        return gateway_request(gateway_path, request, method)
+        return gateway_request(method, gateway_path, request, relay: true)
       end
 
-      terminal_request(route, terminal_path, request, method, true)
+      terminal_request(method, route, terminal_path, request, true)
     end
 
-    def terminal_request(route, path, request, method, open_retry)
-      url = resolve_terminal_url(route, path)
+    def terminal_request(method, route, path, request, open_retry)
+      uri = resolve_terminal_uri(route, path)
+      http = Net::HTTP.new(uri.host, uri.port)
+      timeout = get_timeout(request, terminal_timeout)
+      http.open_timeout = timeout
+      http.read_timeout = timeout
 
       tx_creds = route['transientCredentials']
 
-      terminal_request = {
+      wrapped_request = {
         'apiKey' => tx_creds['apiKey'],
         'bearerToken' => tx_creds['bearerToken'],
         'signingKey' => tx_creds['signingKey'],
         'request' => request
       }
 
-      uri = URI(url)
-      req = if method == 'PUT'
-              Net::HTTP::Put.new(uri)
-            else
-              Net::HTTP::Post.new(uri)
-            end
+      req = get_http_request(method, uri)
+
       req['User-Agent'] = user_agent
-      json = terminal_request.to_json
+      json = wrapped_request.to_json
       req['Content-Type'] = 'application/json'
       req['Content-Length'] = json.length
       req.body = json
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.open_timeout = terminal_connect_timeout
-      http.read_timeout = terminal_timeout
+
       begin
-        res = http.start do |inner_http|
-          inner_http.request(req)
-        end
+        response = http.request(req)
       rescue Net::OpenTimeout, Errno::EHOSTDOWN, Errno::EHOSTUNREACH, Errno::ETIMEDOUT, Errno::ENETUNREACH
         if open_retry
           evict(route['terminalName'])
           route = resolve_terminal_route(route['terminalName'])
-          return terminal_request(route, path, request, method, false)
+          return terminal_request(method, route, path, request, false)
         end
+        raise
       end
-      if res.is_a?(Net::HTTPSuccess)
-        JSON.parse(res.body)
+      if response.is_a?(Net::HTTPSuccess)
+        JSON.parse(response.body)
       else
-        raise res.message
+        raise response.message
       end
     end
 
-    def resolve_terminal_url(route, path)
+    def get_http_request(method, uri)
+      case method
+      when 'GET'
+        Net::HTTP::Get.new(uri.request_uri)
+      when 'PUT'
+        Net::HTTP::Put.new(uri.request_uri)
+      when 'POST'
+        Net::HTTP::Post.new(uri.request_uri)
+      end
+    end
+
+    def resolve_terminal_uri(route, path)
       url = if https
               'https://'
             else
@@ -173,34 +162,37 @@ module BlockChyp
              else
                ':8080'
              end
-      url + port + path
+      URI.parse(url + port + path)
     end
 
-    def gateway_request(path, request, method)
-      url = resolve_gateway_url(path, request['test'])
+    def gateway_request(method, path, request = nil, relay = false)
+      uri = resolve_gateway_uri(path, request)
+      http = Net::HTTP.new(uri.host, uri.port)
+      timeout = get_timeout(request, relay ? terminal_timeout : gateway_timeout)
+      http.open_timeout = timeout
+      http.read_timeout = timeout
 
-      uri = URI(url)
-      req = if method == 'PUT'
-              Net::HTTP::Put.new(uri)
-            else
-              Net::HTTP::Post.new(uri)
-            end
+      req = get_http_request(method, uri)
+
       req['User-Agent'] = user_agent
-      json = request.to_json
-      req['Content-Type'] = 'application/json'
-      req['Content-Length'] = json.length
+      unless request.nil?
+        json = request.to_json
+        req['Content-Type'] = 'application/json'
+        req['Content-Length'] = json.length
+        req.body = json
+      end
+
       headers = generate_gateway_headers
       headers.each do |key, value|
         req[key] = value
       end
-      req.body = json
-      res = Net::HTTP.new(uri.host, uri.port).start do |http|
-        http.request(req)
-      end
-      if res.is_a?(Net::HTTPSuccess)
-        JSON.parse(res.body)
+
+      response = http.request(req)
+
+      if response.is_a?(Net::HTTPSuccess)
+        JSON.parse(response.body)
       else
-        raise res.message
+        raise response.message
       end
     end
 
@@ -273,7 +265,7 @@ module BlockChyp
     end
 
     def request_route_from_gateway(terminal_name)
-      route = gateway_get('/api/terminal-route?terminal=' + CGI.escape(terminal_name), false)
+      route = gateway_request('GET', '/api/terminal-route?terminal=' + CGI.escape(terminal_name))
       if !route.nil? && !route['ipAddress'].empty?
         route['exists'] = true
       end
@@ -328,6 +320,14 @@ module BlockChyp
 
     def user_agent
       "BlockChyp-Ruby/#{VERSION}"
+    end
+
+    def get_timeout(request, default)
+      if request.nil? || request['timeout'].nil? || request['timeout'].zero?
+        return default
+      end
+
+      request['timeout']
     end
   end
 end

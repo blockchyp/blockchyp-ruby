@@ -22,11 +22,13 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'text_prompt_test')
+
       # setup request object
       request = {}
       request['test'] = true
       request['terminalName'] = 'Test Terminal'
       request['promptType'] = PromptType::EMAIL
+
       response = blockchyp.text_prompt(request)
 
       assert_not_nil(response)

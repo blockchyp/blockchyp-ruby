@@ -22,11 +22,13 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'update_transaction_display_test')
+
       # setup request object
       request = {}
       request['test'] = true
       request['terminalName'] = 'Test Terminal'
       request['transaction'] = new_transaction_display_transaction
+
       response = blockchyp.update_transaction_display(request)
 
       assert_not_nil(response)

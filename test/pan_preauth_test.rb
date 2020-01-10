@@ -22,11 +22,13 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'pan_preauth_test')
+
       # setup request object
       request = {}
       request['pan'] = '4111111111111111'
       request['amount'] = '25.55'
       request['test'] = true
+
       response = blockchyp.preauth(request)
 
       assert_not_nil(response)

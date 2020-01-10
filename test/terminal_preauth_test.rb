@@ -22,11 +22,13 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'terminal_preauth_test')
+
       # setup request object
       request = {}
       request['terminalName'] = 'Test Terminal'
       request['amount'] = '15.15'
       request['test'] = true
+
       response = blockchyp.preauth(request)
 
       assert_not_nil(response)

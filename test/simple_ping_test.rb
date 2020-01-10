@@ -22,10 +22,12 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'simple_ping_test')
+
       # setup request object
       request = {}
       request['test'] = true
       request['terminalName'] = 'Test Terminal'
+
       response = blockchyp.ping(request)
 
       assert_not_nil(response)

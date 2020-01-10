@@ -29,10 +29,12 @@ module BlockChyp
       request['test'] = true
       response = blockchyp.preauth(request)
 
+
       # setup request object
       request = {}
       request['transactionId'] = response['transactionId']
       request['test'] = true
+
       response = blockchyp.capture(request)
 
       assert_not_nil(response)

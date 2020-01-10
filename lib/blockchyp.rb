@@ -35,79 +35,79 @@ module BlockChyp
   class BlockChyp < BlockChypClient
 
     def heartbeat(test)
-      gateway_get('/api/heartbeat', test)
+      gateway_request('GET', '/api/heartbeat', {'test' => test})
     end
 
     # Executes a standard direct preauth and capture.
     def charge(request)
-      route_terminal_request(request, '/api/charge', '/api/charge', 'POST')
+      route_terminal_request('POST', '/api/charge', '/api/charge', request)
     end
 
     # Executes a preauthorization intended to be captured later.
     def preauth(request)
-      route_terminal_request(request, '/api/preauth', '/api/preauth', 'POST')
+      route_terminal_request('POST', '/api/preauth', '/api/preauth', request)
     end
 
     # Tests connectivity with a payment terminal.
     def ping(request)
-      route_terminal_request(request, '/api/test', '/api/terminal-test', 'POST')
+      route_terminal_request('POST', '/api/test', '/api/terminal-test', request)
     end
 
     # Checks the remaining balance on a payment method.
     def balance(request)
-      route_terminal_request(request, '/api/balance', '/api/balance', 'POST')
+      route_terminal_request('POST', '/api/balance', '/api/balance', request)
     end
 
     # Clears the line item display and any in progress transaction.
     def clear(request)
-      route_terminal_request(request, '/api/clear', '/api/terminal-clear', 'POST')
+      route_terminal_request('POST', '/api/clear', '/api/terminal-clear', request)
     end
 
     # Prompts the user to accept terms and conditions.
     def terms_and_conditions(request)
-      route_terminal_request(request, '/api/tc', '/api/terminal-tc', 'POST')
+      route_terminal_request('POST', '/api/tc', '/api/terminal-tc', request)
     end
 
     # Appends items to an existing transaction display Subtotal, Tax, and
     # Total are overwritten by the request. Items with the same description
     # are combined into groups.
     def update_transaction_display(request)
-      route_terminal_request(request, '/api/txdisplay', '/api/terminal-txdisplay', 'PUT')
+      route_terminal_request('PUT', '/api/txdisplay', '/api/terminal-txdisplay', request)
     end
 
     # Displays a new transaction on the terminal.
     def new_transaction_display(request)
-      route_terminal_request(request, '/api/txdisplay', '/api/terminal-txdisplay', 'POST')
+      route_terminal_request('POST', '/api/txdisplay', '/api/terminal-txdisplay', request)
     end
 
     # Asks the consumer text based question.
     def text_prompt(request)
-      route_terminal_request(request, '/api/text-prompt', '/api/text-prompt', 'POST')
+      route_terminal_request('POST', '/api/text-prompt', '/api/text-prompt', request)
     end
 
     # Asks the consumer a yes/no question.
     def boolean_prompt(request)
-      route_terminal_request(request, '/api/boolean-prompt', '/api/boolean-prompt', 'POST')
+      route_terminal_request('POST', '/api/boolean-prompt', '/api/boolean-prompt', request)
     end
 
     # Displays a short message on the terminal.
     def message(request)
-      route_terminal_request(request, '/api/message', '/api/message', 'POST')
+      route_terminal_request('POST', '/api/message', '/api/message', request)
     end
 
     # Executes a refund.
     def refund(request)
-      route_terminal_request(request, '/api/refund', '/api/refund', 'POST')
+      route_terminal_request('POST', '/api/refund', '/api/refund', request)
     end
 
     # Adds a new payment method to the token vault.
     def enroll(request)
-      route_terminal_request(request, '/api/enroll', '/api/enroll', 'POST')
+      route_terminal_request('POST', '/api/enroll', '/api/enroll', request)
     end
 
     # Activates or recharges a gift card.
     def gift_activate(request)
-      route_terminal_request(request, '/api/gift-activate', '/api/gift-activate', 'POST')
+      route_terminal_request('POST', '/api/gift-activate', '/api/gift-activate', request)
     end
     
     # Executes a manual time out reversal.
@@ -121,22 +121,22 @@ module BlockChyp
     # an id, you wouldn't know what it is because your request to the terminal
     # timed out before you got a response.
     def reverse(request)
-      gateway_request('/api/reverse', request, 'POST')
+      gateway_request('POST', '/api/reverse', request)
     end
 
     # Captures a preauthorization.
     def capture(request)
-      gateway_request('/api/capture', request, 'POST')
+      gateway_request('POST', '/api/capture', request)
     end
 
     # Closes the current credit card batch.
     def close_batch(request)
-      gateway_request('/api/close-batch', request, 'POST')
+      gateway_request('POST', '/api/close-batch', request)
     end
 
     # Discards a previous preauth transaction.
     def void(request)
-      gateway_request('/api/void', request, 'POST')
+      gateway_request('POST', '/api/void', request)
     end
 
   end

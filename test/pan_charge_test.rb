@@ -22,12 +22,14 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'pan_charge_test')
+
       # setup request object
       request = {}
       request['pan'] = '4111111111111111'
       request['amount'] = '25.55'
       request['test'] = true
       request['transactionRef'] = uuid
+
       response = blockchyp.charge(request)
 
       assert_not_nil(response)
