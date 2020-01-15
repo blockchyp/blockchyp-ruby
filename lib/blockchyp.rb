@@ -109,6 +109,11 @@ module BlockChyp
     def gift_activate(request)
       route_terminal_request('POST', '/api/gift-activate', '/api/gift-activate', request)
     end
+
+    # Returns the current status of a terminal.
+    def terminal_status(request)
+      route_terminal_request('POST', '/api/terminal-status', '/api/terminal-status', request)
+    end
     
     # Executes a manual time out reversal.
     #
