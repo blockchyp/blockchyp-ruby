@@ -102,10 +102,10 @@ Executes a standard direct preauth and capture.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -116,12 +116,7 @@ request['amount'] = '55.00'
 
 response = blockchyp.charge(request)
 
-if response['approved']
-  puts 'Approved'
-end
-
-puts 'authCode:' + response['authCode']
-puts 'authorizedAmount:' + response['authorizedAmount']
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -135,10 +130,10 @@ Executes a preauthorization intended to be captured later.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -149,12 +144,7 @@ request['amount'] = '27.00'
 
 response = blockchyp.preauth(request)
 
-if response['approved']
-  puts 'Approved'
-end
-
-puts 'authCode:' + response['authCode']
-puts 'authorizedAmount:' + response['authorizedAmount']
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -168,10 +158,10 @@ Tests connectivity with a payment terminal.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -180,10 +170,7 @@ request['terminalName'] = 'Test Terminal'
 
 response = blockchyp.ping(request)
 
-if response['success']
-  puts 'Success'
-end
-
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -197,10 +184,10 @@ Checks the remaining balance on a payment method.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -211,10 +198,7 @@ request['cardType'] = CardType::EBT
 
 response = blockchyp.balance(request)
 
-if response['success']
-  puts 'Success'
-end
-
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -228,10 +212,10 @@ Clears the line item display and any in progress transaction.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -241,10 +225,7 @@ request['terminalName'] = 'Test Terminal'
 
 response = blockchyp.clear(request)
 
-if response['success']
-  puts 'Success'
-end
-
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -258,10 +239,10 @@ Prompts the user to accept terms and conditions.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -277,12 +258,7 @@ request['sigRequired'] = true
 
 response = blockchyp.termsAndConditions(request)
 
-if response['success']
-  puts 'Success'
-end
-
-puts 'sig:' + response['sig']
-puts 'sigFile:' + response['sigFile']
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -298,10 +274,10 @@ groups.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -312,10 +288,7 @@ request['transaction'] = new_transaction_display_transaction
 
 response = blockchyp.updateTransactionDisplay(request)
 
-if response['success']
-  puts 'Success'
-end
-
+puts "Response: #{response.inspect}"
 def new_transaction_display_transaction
   val = {}
   val['subtotal'] = '60.00'
@@ -353,7 +326,6 @@ def new_transaction_display_discount_2
   val['amount'] = '10.00'
   val
 end
-
 
 
 
@@ -368,10 +340,10 @@ Displays a new transaction on the terminal.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -382,10 +354,7 @@ request['transaction'] = new_transaction_display_transaction
 
 response = blockchyp.newTransactionDisplay(request)
 
-if response['success']
-  puts 'Success'
-end
-
+puts "Response: #{response.inspect}"
 def new_transaction_display_transaction
   val = {}
   val['subtotal'] = '60.00'
@@ -426,7 +395,6 @@ end
 
 
 
-
 ```
 
 #### Text Prompt
@@ -438,10 +406,10 @@ Asks the consumer text based question.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -452,11 +420,7 @@ request['promptType'] = PromptType::EMAIL
 
 response = blockchyp.textPrompt(request)
 
-if response['success']
-  puts 'Success'
-end
-
-puts 'response:' + response['response']
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -470,10 +434,10 @@ Asks the consumer a yes/no question.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -486,11 +450,7 @@ request['noCaption'] = 'No'
 
 response = blockchyp.booleanPrompt(request)
 
-if response['success']
-  puts 'Success'
-end
-
-puts 'response:' + response['response']
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -504,10 +464,10 @@ Displays a short message on the terminal.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -518,10 +478,7 @@ request['message'] = 'Thank you for your business.'
 
 response = blockchyp.message(request)
 
-if response['success']
-  puts 'Success'
-end
-
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -535,10 +492,10 @@ Executes a refund.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -549,10 +506,7 @@ request['amount'] = '5.00'
 
 response = blockchyp.refund(request)
 
-if response['approved']
-  puts 'Approved'
-end
-
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -566,10 +520,10 @@ Adds a new payment method to the token vault.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -579,11 +533,7 @@ request['terminalName'] = 'Test Terminal'
 
 response = blockchyp.enroll(request)
 
-if response['approved']
-  puts 'Approved'
-end
-
-puts 'token:' + response['token']
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -597,10 +547,10 @@ Activates or recharges a gift card.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -611,13 +561,7 @@ request['amount'] = '50.00'
 
 response = blockchyp.giftActivate(request)
 
-if response['approved']
-  puts 'Approved'
-end
-
-puts 'amount:' + response['amount']
-puts 'currentBalance:' + response['currentBalance']
-puts 'publicKey:' + response['publicKey']
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -639,10 +583,10 @@ request to the terminal timed out before you got a response.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -652,10 +596,7 @@ request['transactionRef'] = '<LAST TRANSACTION REF>'
 
 response = blockchyp.reverse(request)
 
-if response['approved']
-  puts 'Approved'
-end
-
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -669,10 +610,10 @@ Captures a preauthorization.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -682,10 +623,7 @@ request['transactionId'] = '<PREAUTH TRANSACTION ID>'
 
 response = blockchyp.capture(request)
 
-if response['approved']
-  puts 'Approved'
-end
-
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -699,10 +637,10 @@ Closes the current credit card batch.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -711,12 +649,7 @@ request['test'] = true
 
 response = blockchyp.closeBatch(request)
 
-if response['success']
-  puts 'Success'
-end
-
-puts 'capturedTotal:' + response['capturedTotal']
-puts 'openPreauths:' + response['openPreauths']
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -730,10 +663,10 @@ Discards a previous preauth transaction.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -743,10 +676,7 @@ request['transactionId'] = '<PREVIOUS TRANSACTION ID>'
 
 response = blockchyp.void(request)
 
-if response['approved']
-  puts 'Approved'
-end
-
+puts "Response: #{response.inspect}"
 
 
 ```
@@ -760,10 +690,10 @@ Returns the current status of a terminal.
 
 require 'blockchyp'
 
-blockchyp = BlockChyp.new(
-  'SPBXTSDAQVFFX5MGQMUMIRINVI',
-  '7BXBTBUPSL3BP7I6Z2CFU6H3WQ',
-  'bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e'
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
 )
 
 # setup request object
@@ -772,12 +702,7 @@ request['terminalName'] = 'Test Terminal'
 
 response = blockchyp.terminalStatus(request)
 
-if response['success']
-  puts 'Success'
-end
-
-puts 'idle:' + response['idle']
-puts 'status:' + response['status']
+puts "Response: #{response.inspect}"
 
 
 ```
