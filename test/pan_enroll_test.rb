@@ -32,6 +32,7 @@ module BlockChyp
 
       assert_not_nil(response)
       # response assertions
+      assert(response['success'])
       assert(response['approved'])
       assert(response['test'])
       assert_equal(response['authCode'].length, 6)

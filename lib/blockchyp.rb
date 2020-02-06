@@ -68,7 +68,7 @@ module BlockChyp
       route_terminal_request('POST', '/api/tc', '/api/terminal-tc', request)
     end
 
-    # Appends items to an existing transaction display Subtotal, Tax, and
+    # Appends items to an existing transaction display. Subtotal, Tax, and
     # Total are overwritten by the request. Items with the same description
     # are combined into groups.
     def update_transaction_display(request)
@@ -80,7 +80,7 @@ module BlockChyp
       route_terminal_request('POST', '/api/txdisplay', '/api/terminal-txdisplay', request)
     end
 
-    # Asks the consumer text based question.
+    # Asks the consumer a text based question.
     def text_prompt(request)
       route_terminal_request('POST', '/api/text-prompt', '/api/text-prompt', request)
     end

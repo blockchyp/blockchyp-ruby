@@ -97,6 +97,7 @@ stuff you can do with the BlockChyp Ruby SDK and a few basic examples.
 
 Executes a standard direct preauth and capture.
 
+
 ```ruby
 # frozen_string_literal: true
 
@@ -124,6 +125,7 @@ puts "Response: #{response.inspect}"
 #### Preauthorization
 
 Executes a preauthorization intended to be captured later.
+
 
 ```ruby
 # frozen_string_literal: true
@@ -153,6 +155,7 @@ puts "Response: #{response.inspect}"
 
 Tests connectivity with a payment terminal.
 
+
 ```ruby
 # frozen_string_literal: true
 
@@ -178,6 +181,7 @@ puts "Response: #{response.inspect}"
 #### Balance
 
 Checks the remaining balance on a payment method.
+
 
 ```ruby
 # frozen_string_literal: true
@@ -207,6 +211,7 @@ puts "Response: #{response.inspect}"
 
 Clears the line item display and any in progress transaction.
 
+
 ```ruby
 # frozen_string_literal: true
 
@@ -233,6 +238,7 @@ puts "Response: #{response.inspect}"
 #### Terms & Conditions Capture
 
 Prompts the user to accept terms and conditions.
+
 
 ```ruby
 # frozen_string_literal: true
@@ -265,9 +271,10 @@ puts "Response: #{response.inspect}"
 
 #### Update Transaction Display
 
-Appends items to an existing transaction display Subtotal, Tax, and Total are
+Appends items to an existing transaction display.  Subtotal, Tax, and Total are
 overwritten by the request. Items with the same description are combined into
 groups.
+
 
 ```ruby
 # frozen_string_literal: true
@@ -335,6 +342,7 @@ end
 
 Displays a new transaction on the terminal.
 
+
 ```ruby
 # frozen_string_literal: true
 
@@ -399,7 +407,8 @@ end
 
 #### Text Prompt
 
-Asks the consumer text based question.
+Asks the consumer a text based question.
+
 
 ```ruby
 # frozen_string_literal: true
@@ -428,6 +437,7 @@ puts "Response: #{response.inspect}"
 #### Boolean Prompt
 
 Asks the consumer a yes/no question.
+
 
 ```ruby
 # frozen_string_literal: true
@@ -459,6 +469,7 @@ puts "Response: #{response.inspect}"
 
 Displays a short message on the terminal.
 
+
 ```ruby
 # frozen_string_literal: true
 
@@ -486,6 +497,7 @@ puts "Response: #{response.inspect}"
 #### Refund
 
 Executes a refund.
+
 
 ```ruby
 # frozen_string_literal: true
@@ -515,6 +527,7 @@ puts "Response: #{response.inspect}"
 
 Adds a new payment method to the token vault.
 
+
 ```ruby
 # frozen_string_literal: true
 
@@ -541,6 +554,7 @@ puts "Response: #{response.inspect}"
 #### Gift Card Activation
 
 Activates or recharges a gift card.
+
 
 ```ruby
 # frozen_string_literal: true
@@ -578,6 +592,7 @@ transaction you're trying to reverse because we may not have assigned it an id
 yet. And if we did assign it an id, you wouldn't know what it is because your
 request to the terminal timed out before you got a response.
 
+
 ```ruby
 # frozen_string_literal: true
 
@@ -604,6 +619,7 @@ puts "Response: #{response.inspect}"
 #### Capture Preauthorization
 
 Captures a preauthorization.
+
 
 ```ruby
 # frozen_string_literal: true
@@ -632,6 +648,7 @@ puts "Response: #{response.inspect}"
 
 Closes the current credit card batch.
 
+
 ```ruby
 # frozen_string_literal: true
 
@@ -657,6 +674,7 @@ puts "Response: #{response.inspect}"
 #### Void Transaction
 
 Discards a previous preauth transaction.
+
 
 ```ruby
 # frozen_string_literal: true
@@ -684,6 +702,7 @@ puts "Response: #{response.inspect}"
 #### Terminal Status
 
 Returns the current status of a terminal.
+
 
 ```ruby
 # frozen_string_literal: true
