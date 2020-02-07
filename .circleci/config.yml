@@ -46,6 +46,7 @@ jobs:
             - gem-{{ checksum "Gemfile" }}
 
       - run: |
+          mkdir -p ~/.gem
           echo -e "---" > ~/.gem/credentials
           echo -e ":rubygems_api_key: $RUBYGEMS_API_KEY" >> ~/.gem/credentials
 
