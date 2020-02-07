@@ -12,7 +12,7 @@ SED = sed
 
 # Integration test config
 export BC_TEST_DELAY := 5
-IMAGE := circleci/ruby:2.6
+IMAGE := circleci/ruby
 SCMROOT := $(shell git rev-parse --show-toplevel)
 PWD := $(shell pwd)
 CACHE := $(HOME)/.local/share/blockchyp/itest-cache

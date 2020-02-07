@@ -39,6 +39,7 @@ module BlockChyp
 
       assert_not_nil(response)
       # response assertions
+      assert(response['success'])
       assert(response['approved'])
     end
 

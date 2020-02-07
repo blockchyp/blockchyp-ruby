@@ -249,6 +249,8 @@ module BlockChyp
 
       tokens = cipher_text.split(':')
 
+      return cipher_text if tokens[0].nil? || tokens[1].nil?
+
       iv = Base64.decode64(tokens[0])
       cp = Base64.decode64(tokens[1])
 
@@ -300,7 +302,12 @@ module BlockChyp
 
       if route_cache_entry
         now = Time.new
-        ttl = Time.parse(route_cache_entry['ttl'])
+        raw_ttl = route_cache_entry['ttl']
+        if raw_ttl.instance_of?(Time)
+          ttl = raw_ttl
+        else
+          ttl = Time.parse(route_cache_entry['ttl'])
+        end
         if stale || now < ttl
           route_cache_entry['route']
         end
@@ -319,7 +326,11 @@ module BlockChyp
     end
 
     def user_agent
-      "BlockChyp-Ruby/#{VERSION}"
+      if defined? VERSION
+        "BlockChyp-Ruby/#{VERSION}"
+      else
+        "BlockChyp-Ruby"
+      end
     end
 
     def get_timeout(request, default)
