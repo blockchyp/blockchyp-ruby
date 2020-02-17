@@ -114,6 +114,11 @@ module BlockChyp
     def terminal_status(request)
       route_terminal_request('POST', '/api/terminal-status', '/api/terminal-status', request)
     end
+
+    # Captures and returns a signature.
+    def capture_signature(request)
+      route_terminal_request('POST', '/api/capture-signature', '/api/capture-signature', request)
+    end
     
     # Executes a manual time out reversal.
     #
