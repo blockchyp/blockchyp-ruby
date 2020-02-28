@@ -101,6 +101,7 @@ module BlockChyp
     def terminal_request(method, route, path, request, open_retry)
       uri = resolve_terminal_uri(route, path)
       http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.instance_of?(URI::HTTPS)
       timeout = get_timeout(request, terminal_timeout)
       http.open_timeout = timeout
       http.read_timeout = timeout
@@ -168,6 +169,7 @@ module BlockChyp
     def gateway_request(method, path, request = nil, relay = false)
       uri = resolve_gateway_uri(path, request)
       http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.instance_of?(URI::HTTPS)
       timeout = get_timeout(request, relay ? terminal_timeout : gateway_timeout)
       http.open_timeout = timeout
       http.read_timeout = timeout
