@@ -161,5 +161,30 @@ module BlockChyp
       gateway_request('POST', '/api/void', request)
     end
 
+    # Updates or creates a customer record.
+    def update_customer(request)
+      gateway_request('POST', '/api/update-customer', request)
+    end
+
+    # Retrieves a customer by id.
+    def customer(request)
+      gateway_request('POST', '/api/customer', request)
+    end
+
+    # Searches the customer database.
+    def customer_search(request)
+      gateway_request('POST', '/api/customer-search', request)
+    end
+
+    # Retrieves the current status of a transaction.
+    def transaction_status(request)
+      gateway_request('POST', '/api/tx-status', request)
+    end
+
+    # Creates and send a payment link to a customer.
+    def send_payment_link(request)
+      gateway_request('POST', '/api/send-payment-link', request)
+    end
+
   end
 end

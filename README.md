@@ -755,6 +755,192 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Update Customer
+
+Updates or creates a customer record.
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# setup request object
+request = {}
+request['customer'] = new_customer
+
+response = blockchyp.updateCustomer(request)
+
+puts "Response: #{response.inspect}"
+def new_customer
+  val = {}
+  val['id'] = 'ID of the customer to update'
+  val['customerRef'] = 'Customer reference string'
+  val['firstName'] = 'FirstName'
+  val['lastName'] = 'LastName'
+  val['companyName'] = 'Company Name'
+  val['emailAddress'] = 'support@blockchyp.com'
+  val['smsNumber'] = '(123) 123-1231'
+  val
+end
+
+
+
+```
+
+#### Retrieve Customer
+
+Retrieves a customer by id.
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# setup request object
+request = {}
+request['customerId'] = 'ID of the customer to retrieve'
+
+response = blockchyp.customer(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Search Customer
+
+Searches the customer database.
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# setup request object
+request = {}
+request['query'] = '(123) 123-1234'
+
+response = blockchyp.customerSearch(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Transaction Status
+
+Retrieves the current status of a transaction.
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# setup request object
+request = {}
+request['transactionId'] = 'ID of transaction to retrieve'
+
+response = blockchyp.transactionStatus(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Send Payment Link
+
+Creates and send a payment link to a customer.
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# setup request object
+request = {}
+request['amount'] = '199.99'
+request['description'] = 'Widget'
+request['subject'] = 'Widget invoice'
+request['transaction'] = new_transaction_display_transaction
+request['autoSend'] = true
+request['customer'] = new_customer
+
+response = blockchyp.sendPaymentLink(request)
+
+puts "Response: #{response.inspect}"
+def new_transaction_display_transaction
+  val = {}
+  val['subtotal'] = '195.00'
+  val['tax'] = '4.99'
+  val['total'] = '199.99'
+  val['items'] = new_transaction_display_items
+  val
+end
+
+def new_transaction_display_items
+  val = []
+  val = val.push(new_transaction_display_item_2)
+  val
+end
+
+def new_transaction_display_item_2
+  val = {}
+  val['description'] = 'Widget'
+  val['price'] = '195.00'
+  val['quantity'] = 1
+  val
+end
+
+def new_customer
+  val = {}
+  val['customerRef'] = 'Customer reference string'
+  val['firstName'] = 'FirstName'
+  val['lastName'] = 'LastName'
+  val['companyName'] = 'Company Name'
+  val['emailAddress'] = 'support@blockchyp.com'
+  val['smsNumber'] = '(123) 123-1231'
+  val
+end
+
+
+
+```
+
 ## Running Integration Tests
 
 If you'd like to run the integration tests, create a new file on your system
