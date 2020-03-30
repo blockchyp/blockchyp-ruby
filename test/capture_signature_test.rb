@@ -23,11 +23,12 @@ module BlockChyp
 
       test_delay(blockchyp, 'capture_signature_test')
 
-      # setup request object
-      request = {}
-      request['terminalName'] = 'Test Terminal'
-      request['sigFormat'] = SignatureFormat::PNG
-      request['sigWidth'] = 200
+      # Set request parameters
+      request = {
+        "terminalName": 'Test Terminal',
+        "sigFormat": SignatureFormat::PNG,
+        "sigWidth": 200
+      }
 
       response = blockchyp.capture_signature(request)
 
@@ -35,6 +36,5 @@ module BlockChyp
       # response assertions
       assert(response['success'])
     end
-
   end
 end

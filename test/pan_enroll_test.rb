@@ -23,10 +23,11 @@ module BlockChyp
 
       test_delay(blockchyp, 'pan_enroll_test')
 
-      # setup request object
-      request = {}
-      request['pan'] = '4111111111111111'
-      request['test'] = true
+      # Set request parameters
+      request = {
+        "pan": '4111111111111111',
+        "test": true
+      }
 
       response = blockchyp.enroll(request)
 
@@ -46,6 +47,5 @@ module BlockChyp
       assert_equal('KEYED', response['entryMethod'])
       assert(!response['token'].empty?)
     end
-
   end
 end

@@ -22,18 +22,21 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'simple_batch_close_test')
-      # setup request object
-      request = {}
-      request['pan'] = '4111111111111111'
-      request['amount'] = '25.55'
-      request['test'] = true
-      request['transactionRef'] = uuid
-      response = blockchyp.charge(request)
 
+      # Set request parameters
+      request = {
+        "pan": '4111111111111111',
+        "amount": '25.55',
+        "test": true,
+        "transactionRef": uuid
+      }
 
-      # setup request object
-      request = {}
-      request['test'] = true
+      response = blockchyp.close_batch(request)
+
+      # Set request parameters
+      request = {
+        "test": true
+      }
 
       response = blockchyp.close_batch(request)
 
@@ -43,6 +46,5 @@ module BlockChyp
       assert(!response['capturedTotal'].empty?)
       assert(!response['openPreauths'].empty?)
     end
-
   end
 end

@@ -23,11 +23,12 @@ module BlockChyp
 
       test_delay(blockchyp, 'simple_message_test')
 
-      # setup request object
-      request = {}
-      request['test'] = true
-      request['terminalName'] = 'Test Terminal'
-      request['message'] = 'Thank You For Your Business'
+      # Set request parameters
+      request = {
+        "test": true,
+        "terminalName": 'Test Terminal',
+        "message": 'Thank You For Your Business'
+      }
 
       response = blockchyp.message(request)
 
@@ -35,6 +36,5 @@ module BlockChyp
       # response assertions
       assert(response['success'])
     end
-
   end
 end

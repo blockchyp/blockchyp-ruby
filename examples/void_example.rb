@@ -8,10 +8,11 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['transactionId'] = '<PREVIOUS TRANSACTION ID>'
+# Set request parameters
+request = {
+  "test": true,
+  "transactionId": '<PREVIOUS TRANSACTION ID>'
+}
 
 response = blockchyp.void(request)
 

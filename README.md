@@ -109,11 +109,12 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['amount'] = '55.00'
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+  "amount": '55.00'
+}
 
 response = blockchyp.charge(request)
 
@@ -138,11 +139,12 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['amount'] = '27.00'
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+  "amount": '27.00'
+}
 
 response = blockchyp.preauth(request)
 
@@ -167,9 +169,10 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['terminalName'] = 'Test Terminal'
+# Set request parameters
+request = {
+  "terminalName": 'Test Terminal'
+}
 
 response = blockchyp.ping(request)
 
@@ -194,11 +197,12 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['cardType'] = CardType::EBT
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+  "cardType": CardType::EBT
+}
 
 response = blockchyp.balance(request)
 
@@ -223,10 +227,11 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal'
+}
 
 response = blockchyp.clear(request)
 
@@ -251,16 +256,30 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['tcAlias'] = 'hippa'
-request['tcName'] = 'HIPPA Disclosure'
-request['tcContent'] = 'Full contract text'
-request['sigFormat'] = SignatureFormat::PNG
-request['sigWidth'] = 200
-request['sigRequired'] = true
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+
+  # Alias for a Terms and Conditions template configured in the BlockChyp
+  # dashboard.
+  "tcAlias": 'hippa',
+
+  # Name of the contract or document if not using an alias.
+  "tcName": 'HIPPA Disclosure',
+
+  # Full text of the contract or disclosure if not using an alias.
+  "tcContent": 'Full contract text',
+
+  # File format for the signature image.
+  "sigFormat": SignatureFormat::PNG,
+
+  # Width of the signature image in pixels.
+  "sigWidth": 200,
+
+  # Whether or not a signature is required. Defaults to true.
+  "sigRequired": true
+}
 
 response = blockchyp.termsAndConditions(request)
 
@@ -287,53 +306,34 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['transaction'] = new_transaction_display_transaction
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+  "transaction": {
+    "subtotal": '60.00',
+    "tax": '5.00',
+    "total": '65.00',
+    "items": [
+      {
+        "description": 'Leki Trekking Poles',
+        "price": '35.00',
+        "quantity": 2,
+        "extended": '70.00',
+        "discounts": [
+          {
+            "description": 'memberDiscount',
+            "amount": '10.00'
+          }
+        ]
+      }
+    ]
+  }
+}
 
 response = blockchyp.updateTransactionDisplay(request)
 
 puts "Response: #{response.inspect}"
-def new_transaction_display_transaction
-  val = {}
-  val['subtotal'] = '60.00'
-  val['tax'] = '5.00'
-  val['total'] = '65.00'
-  val['items'] = new_transaction_display_items
-  val
-end
-
-def new_transaction_display_items
-  val = []
-  val = val.push(new_transaction_display_item_2)
-  val
-end
-
-def new_transaction_display_item_2
-  val = {}
-  val['description'] = 'Leki Trekking Poles'
-  val['price'] = '35.00'
-  val['quantity'] = 2
-  val['extended'] = '70.00'
-  val['discounts'] = new_transaction_display_discounts
-  val
-end
-
-def new_transaction_display_discounts
-  val = []
-  val = val.push(new_transaction_display_discount_2)
-  val
-end
-
-def new_transaction_display_discount_2
-  val = {}
-  val['description'] = 'memberDiscount'
-  val['amount'] = '10.00'
-  val
-end
-
 
 
 ```
@@ -354,53 +354,34 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['transaction'] = new_transaction_display_transaction
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+  "transaction": {
+    "subtotal": '60.00',
+    "tax": '5.00',
+    "total": '65.00',
+    "items": [
+      {
+        "description": 'Leki Trekking Poles',
+        "price": '35.00',
+        "quantity": 2,
+        "extended": '70.00',
+        "discounts": [
+          {
+            "description": 'memberDiscount',
+            "amount": '10.00'
+          }
+        ]
+      }
+    ]
+  }
+}
 
 response = blockchyp.newTransactionDisplay(request)
 
 puts "Response: #{response.inspect}"
-def new_transaction_display_transaction
-  val = {}
-  val['subtotal'] = '60.00'
-  val['tax'] = '5.00'
-  val['total'] = '65.00'
-  val['items'] = new_transaction_display_items
-  val
-end
-
-def new_transaction_display_items
-  val = []
-  val = val.push(new_transaction_display_item_2)
-  val
-end
-
-def new_transaction_display_item_2
-  val = {}
-  val['description'] = 'Leki Trekking Poles'
-  val['price'] = '35.00'
-  val['quantity'] = 2
-  val['extended'] = '70.00'
-  val['discounts'] = new_transaction_display_discounts
-  val
-end
-
-def new_transaction_display_discounts
-  val = []
-  val = val.push(new_transaction_display_discount_2)
-  val
-end
-
-def new_transaction_display_discount_2
-  val = {}
-  val['description'] = 'memberDiscount'
-  val['amount'] = '10.00'
-  val
-end
-
 
 
 ```
@@ -421,11 +402,15 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['promptType'] = PromptType::EMAIL
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+
+  # Type of prompt. Can be 'email', 'phone', 'customer-number', or
+  # 'rewards-number'.
+  "promptType": PromptType::EMAIL
+}
 
 response = blockchyp.textPrompt(request)
 
@@ -450,13 +435,14 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['prompt'] = 'Would you like to become a member?'
-request['yesCaption'] = 'Yes'
-request['noCaption'] = 'No'
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+  "prompt": 'Would you like to become a member?',
+  "yesCaption": 'Yes',
+  "noCaption": 'No'
+}
 
 response = blockchyp.booleanPrompt(request)
 
@@ -481,11 +467,12 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['message'] = 'Thank you for your business.'
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+  "message": 'Thank you for your business.'
+}
 
 response = blockchyp.message(request)
 
@@ -510,11 +497,14 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['terminalName'] = 'Test Terminal'
-request['transactionId'] = '<PREVIOUS TRANSACTION ID>'
-request['amount'] = '5.00'
+# Set request parameters
+request = {
+  "terminalName": 'Test Terminal',
+  "transactionId": '<PREVIOUS TRANSACTION ID>',
+
+  # Optional amount for partial refunds.
+  "amount": '5.00'
+}
 
 response = blockchyp.refund(request)
 
@@ -539,10 +529,11 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal'
+}
 
 response = blockchyp.enroll(request)
 
@@ -567,11 +558,12 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['amount'] = '50.00'
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+  "amount": '50.00'
+}
 
 response = blockchyp.giftActivate(request)
 
@@ -604,10 +596,11 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['terminalName'] = 'Test Terminal'
-request['transactionRef'] = '<LAST TRANSACTION REF>'
+# Set request parameters
+request = {
+  "terminalName": 'Test Terminal',
+  "transactionRef": '<LAST TRANSACTION REF>'
+}
 
 response = blockchyp.reverse(request)
 
@@ -632,10 +625,11 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['transactionId'] = '<PREAUTH TRANSACTION ID>'
+# Set request parameters
+request = {
+  "test": true,
+  "transactionId": '<PREAUTH TRANSACTION ID>'
+}
 
 response = blockchyp.capture(request)
 
@@ -660,9 +654,10 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
+# Set request parameters
+request = {
+  "test": true
+}
 
 response = blockchyp.closeBatch(request)
 
@@ -687,10 +682,11 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['transactionId'] = '<PREVIOUS TRANSACTION ID>'
+# Set request parameters
+request = {
+  "test": true,
+  "transactionId": '<PREVIOUS TRANSACTION ID>'
+}
 
 response = blockchyp.void(request)
 
@@ -715,9 +711,10 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['terminalName'] = 'Test Terminal'
+# Set request parameters
+request = {
+  "terminalName": 'Test Terminal'
+}
 
 response = blockchyp.terminalStatus(request)
 
@@ -742,11 +739,16 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['terminalName'] = 'Test Terminal'
-request['sigFormat'] = SignatureFormat::PNG
-request['sigWidth'] = 200
+# Set request parameters
+request = {
+  "terminalName": 'Test Terminal',
+
+  # File format for the signature image.
+  "sigFormat": SignatureFormat::PNG,
+
+  # Width of the signature image in pixels.
+  "sigWidth": 200
+}
 
 response = blockchyp.captureSignature(request)
 
@@ -771,25 +773,22 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['customer'] = new_customer
+# Set request parameters
+request = {
+  "customer": {
+    "id": 'ID of the customer to update',
+    "customerRef": 'Customer reference string',
+    "firstName": 'FirstName',
+    "lastName": 'LastName',
+    "companyName": 'Company Name',
+    "emailAddress": 'support@blockchyp.com',
+    "smsNumber": '(123) 123-1231'
+  }
+}
 
 response = blockchyp.updateCustomer(request)
 
 puts "Response: #{response.inspect}"
-def new_customer
-  val = {}
-  val['id'] = 'ID of the customer to update'
-  val['customerRef'] = 'Customer reference string'
-  val['firstName'] = 'FirstName'
-  val['lastName'] = 'LastName'
-  val['companyName'] = 'Company Name'
-  val['emailAddress'] = 'support@blockchyp.com'
-  val['smsNumber'] = '(123) 123-1231'
-  val
-end
-
 
 
 ```
@@ -810,9 +809,10 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['customerId'] = 'ID of the customer to retrieve'
+# Set request parameters
+request = {
+  "customerId": 'ID of the customer to retrieve'
+}
 
 response = blockchyp.customer(request)
 
@@ -837,9 +837,10 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['query'] = '(123) 123-1234'
+# Set request parameters
+request = {
+  "query": '(123) 123-1234'
+}
 
 response = blockchyp.customerSearch(request)
 
@@ -864,9 +865,10 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['transactionId'] = 'ID of transaction to retrieve'
+# Set request parameters
+request = {
+  "transactionId": 'ID of transaction to retrieve'
+}
 
 response = blockchyp.transactionStatus(request)
 
@@ -891,52 +893,37 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['amount'] = '199.99'
-request['description'] = 'Widget'
-request['subject'] = 'Widget invoice'
-request['transaction'] = new_transaction_display_transaction
-request['autoSend'] = true
-request['customer'] = new_customer
+# Set request parameters
+request = {
+  "amount": '199.99',
+  "description": 'Widget',
+  "subject": 'Widget invoice',
+  "transaction": {
+    "subtotal": '195.00',
+    "tax": '4.99',
+    "total": '199.99',
+    "items": [
+      {
+        "description": 'Widget',
+        "price": '195.00',
+        "quantity": 1
+      }
+    ]
+  },
+  "autoSend": true,
+  "customer": {
+    "customerRef": 'Customer reference string',
+    "firstName": 'FirstName',
+    "lastName": 'LastName',
+    "companyName": 'Company Name',
+    "emailAddress": 'support@blockchyp.com',
+    "smsNumber": '(123) 123-1231'
+  }
+}
 
 response = blockchyp.sendPaymentLink(request)
 
 puts "Response: #{response.inspect}"
-def new_transaction_display_transaction
-  val = {}
-  val['subtotal'] = '195.00'
-  val['tax'] = '4.99'
-  val['total'] = '199.99'
-  val['items'] = new_transaction_display_items
-  val
-end
-
-def new_transaction_display_items
-  val = []
-  val = val.push(new_transaction_display_item_2)
-  val
-end
-
-def new_transaction_display_item_2
-  val = {}
-  val['description'] = 'Widget'
-  val['price'] = '195.00'
-  val['quantity'] = 1
-  val
-end
-
-def new_customer
-  val = {}
-  val['customerRef'] = 'Customer reference string'
-  val['firstName'] = 'FirstName'
-  val['lastName'] = 'LastName'
-  val['companyName'] = 'Company Name'
-  val['emailAddress'] = 'support@blockchyp.com'
-  val['smsNumber'] = '(123) 123-1231'
-  val
-end
-
 
 
 ```

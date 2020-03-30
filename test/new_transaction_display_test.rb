@@ -23,11 +23,30 @@ module BlockChyp
 
       test_delay(blockchyp, 'new_transaction_display_test')
 
-      # setup request object
-      request = {}
-      request['test'] = true
-      request['terminalName'] = 'Test Terminal'
-      request['transaction'] = new_transaction_display_transaction
+      # Set request parameters
+      request = {
+        "test": true,
+        "terminalName": 'Test Terminal',
+        "transaction": {
+          "subtotal": '35.00',
+          "tax": '5.00',
+          "total": '70.00',
+          "items": [
+            {
+              "description": 'Leki Trekking Poles',
+              "price": '35.00',
+              "quantity": 2,
+              "extended": '70.00',
+              "discounts": [
+                {
+                  "description": 'memberDiscount',
+                  "amount": '10.00'
+                }
+              ]
+            }
+          ]
+        }
+      }
 
       response = blockchyp.new_transaction_display(request)
 
@@ -35,44 +54,5 @@ module BlockChyp
       # response assertions
       assert(response['success'])
     end
-
-    def new_transaction_display_transaction
-      val = {}
-      val['subtotal'] = '35.00'
-      val['tax'] = '5.00'
-      val['total'] = '70.00'
-      val['items'] = new_transaction_display_items
-      val
-    end
-
-    def new_transaction_display_items
-      val = []
-      val.push(new_transaction_display_item_2)
-      val
-    end
-
-    def new_transaction_display_item_2
-      val = {}
-      val['description'] = 'Leki Trekking Poles'
-      val['price'] = '35.00'
-      val['quantity'] = 2
-      val['extended'] = '70.00'
-      val['discounts'] = new_transaction_display_discounts
-      val
-    end
-          
-    def new_transaction_display_discounts
-      val = []
-      val.push(new_transaction_display_discount_2)
-      val
-    end
-
-    def new_transaction_display_discount_2
-      val = {}
-      val['description'] = 'memberDiscount'
-      val['amount'] = '10.00'
-      val
-    end
-            
   end
 end

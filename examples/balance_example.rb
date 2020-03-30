@@ -8,11 +8,12 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['cardType'] = CardType::EBT
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+  "cardType": CardType::EBT
+}
 
 response = blockchyp.balance(request)
 

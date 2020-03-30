@@ -23,11 +23,12 @@ module BlockChyp
 
       test_delay(blockchyp, 'simple_gift_activate_test')
 
-      # setup request object
-      request = {}
-      request['test'] = true
-      request['terminalName'] = 'Test Terminal'
-      request['amount'] = '50.00'
+      # Set request parameters
+      request = {
+        "test": true,
+        "terminalName": 'Test Terminal',
+        "amount": '50.00'
+      }
 
       response = blockchyp.gift_activate(request)
 
@@ -37,6 +38,5 @@ module BlockChyp
       assert(response['approved'])
       assert(!response['publicKey'].empty?)
     end
-
   end
 end

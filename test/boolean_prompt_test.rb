@@ -23,13 +23,14 @@ module BlockChyp
 
       test_delay(blockchyp, 'boolean_prompt_test')
 
-      # setup request object
-      request = {}
-      request['test'] = true
-      request['terminalName'] = 'Test Terminal'
-      request['prompt'] = 'Would you like to become a member?'
-      request['yesCaption'] = 'Yes'
-      request['noCaption'] = 'No'
+      # Set request parameters
+      request = {
+        "test": true,
+        "terminalName": 'Test Terminal',
+        "prompt": 'Would you like to become a member?',
+        "yesCaption": 'Yes',
+        "noCaption": 'No'
+      }
 
       response = blockchyp.boolean_prompt(request)
 
@@ -38,6 +39,5 @@ module BlockChyp
       assert(response['success'])
       assert(response['response'])
     end
-
   end
 end

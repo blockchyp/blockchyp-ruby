@@ -23,10 +23,11 @@ module BlockChyp
 
       test_delay(blockchyp, 'terminal_enroll_test')
 
-      # setup request object
-      request = {}
-      request['terminalName'] = 'Test Terminal'
-      request['test'] = true
+      # Set request parameters
+      request = {
+        "terminalName": 'Test Terminal',
+        "test": true
+      }
 
       response = blockchyp.enroll(request)
 
@@ -45,6 +46,5 @@ module BlockChyp
       assert(!response['entryMethod'].empty?)
       assert(!response['token'].empty?)
     end
-
   end
 end

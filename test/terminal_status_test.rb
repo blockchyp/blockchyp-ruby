@@ -23,9 +23,10 @@ module BlockChyp
 
       test_delay(blockchyp, 'terminal_status_test')
 
-      # setup request object
-      request = {}
-      request['terminalName'] = 'Test Terminal'
+      # Set request parameters
+      request = {
+        "terminalName": 'Test Terminal'
+      }
 
       response = blockchyp.terminal_status(request)
 
@@ -34,6 +35,5 @@ module BlockChyp
       assert(response['success'])
       assert(response['idle'])
     end
-
   end
 end

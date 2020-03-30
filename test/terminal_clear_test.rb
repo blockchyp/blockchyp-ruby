@@ -23,10 +23,11 @@ module BlockChyp
 
       test_delay(blockchyp, 'terminal_clear_test')
 
-      # setup request object
-      request = {}
-      request['test'] = true
-      request['terminalName'] = 'Test Terminal'
+      # Set request parameters
+      request = {
+        "test": true,
+        "terminalName": 'Test Terminal'
+      }
 
       response = blockchyp.clear(request)
 
@@ -34,6 +35,5 @@ module BlockChyp
       # response assertions
       assert(response['success'])
     end
-
   end
 end

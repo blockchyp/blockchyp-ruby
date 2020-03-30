@@ -8,9 +8,10 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['transactionId'] = 'ID of transaction to retrieve'
+# Set request parameters
+request = {
+  "transactionId": 'ID of transaction to retrieve'
+}
 
 response = blockchyp.transactionStatus(request)
 

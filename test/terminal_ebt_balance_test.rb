@@ -23,11 +23,12 @@ module BlockChyp
 
       test_delay(blockchyp, 'terminal_ebt_balance_test')
 
-      # setup request object
-      request = {}
-      request['test'] = true
-      request['terminalName'] = 'Test Terminal'
-      request['cardType'] = CardType::EBT
+      # Set request parameters
+      request = {
+        "test": true,
+        "terminalName": 'Test Terminal',
+        "cardType": CardType::EBT
+      }
 
       response = blockchyp.balance(request)
 
@@ -36,6 +37,5 @@ module BlockChyp
       assert(response['success'])
       assert(!response['remainingBalance'].empty?)
     end
-
   end
 end

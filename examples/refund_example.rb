@@ -8,11 +8,14 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['terminalName'] = 'Test Terminal'
-request['transactionId'] = '<PREVIOUS TRANSACTION ID>'
-request['amount'] = '5.00'
+# Set request parameters
+request = {
+  "terminalName": 'Test Terminal',
+  "transactionId": '<PREVIOUS TRANSACTION ID>',
+
+  # Optional amount for partial refunds.
+  "amount": '5.00'
+}
 
 response = blockchyp.refund(request)
 

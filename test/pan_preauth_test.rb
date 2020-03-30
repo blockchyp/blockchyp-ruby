@@ -23,11 +23,12 @@ module BlockChyp
 
       test_delay(blockchyp, 'pan_preauth_test')
 
-      # setup request object
-      request = {}
-      request['pan'] = '4111111111111111'
-      request['amount'] = '25.55'
-      request['test'] = true
+      # Set request parameters
+      request = {
+        "pan": '4111111111111111',
+        "amount": '25.55',
+        "test": true
+      }
 
       response = blockchyp.preauth(request)
 
@@ -47,6 +48,5 @@ module BlockChyp
       assert_equal('25.55', response['authorizedAmount'])
       assert_equal('KEYED', response['entryMethod'])
     end
-
   end
 end

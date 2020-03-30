@@ -23,10 +23,11 @@ module BlockChyp
 
       test_delay(blockchyp, 'terminal_gift_card_balance_test')
 
-      # setup request object
-      request = {}
-      request['test'] = true
-      request['terminalName'] = 'Test Terminal'
+      # Set request parameters
+      request = {
+        "test": true,
+        "terminalName": 'Test Terminal'
+      }
 
       response = blockchyp.balance(request)
 
@@ -35,6 +36,5 @@ module BlockChyp
       assert(response['success'])
       assert(!response['remainingBalance'].empty?)
     end
-
   end
 end

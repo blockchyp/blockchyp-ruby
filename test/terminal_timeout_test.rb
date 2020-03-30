@@ -23,17 +23,17 @@ module BlockChyp
 
       test_delay(blockchyp, 'terminal_timeout_test')
 
-      # setup request object
-      request = {}
-      request['timeout'] = 1
-      request['terminalName'] = 'Test Terminal'
-      request['amount'] = '25.15'
-      request['test'] = true
+      # Set request parameters
+      request = {
+        "timeout": 1,
+        "terminalName": 'Test Terminal',
+        "amount": '25.15',
+        "test": true
+      }
 
       assert_raise Net::ReadTimeout do
       blockchyp.charge(request)
       end
     end
-
   end
 end

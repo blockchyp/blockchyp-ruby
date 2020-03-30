@@ -23,12 +23,13 @@ module BlockChyp
 
       test_delay(blockchyp, 'terminal_ebt_charge_test')
 
-      # setup request object
-      request = {}
-      request['terminalName'] = 'Test Terminal'
-      request['amount'] = '25.00'
-      request['test'] = true
-      request['cardType'] = CardType::EBT
+      # Set request parameters
+      request = {
+        "terminalName": 'Test Terminal',
+        "amount": '25.00',
+        "test": true,
+        "cardType": CardType::EBT
+      }
 
       response = blockchyp.charge(request)
 
@@ -48,6 +49,5 @@ module BlockChyp
       assert_equal('25.00', response['authorizedAmount'])
       assert_equal('75.00', response['remainingBalance'])
     end
-
   end
 end

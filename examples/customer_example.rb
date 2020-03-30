@@ -8,9 +8,10 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['customerId'] = 'ID of the customer to retrieve'
+# Set request parameters
+request = {
+  "customerId": 'ID of the customer to retrieve'
+}
 
 response = blockchyp.customer(request)
 

@@ -23,11 +23,12 @@ module BlockChyp
 
       test_delay(blockchyp, 'text_prompt_test')
 
-      # setup request object
-      request = {}
-      request['test'] = true
-      request['terminalName'] = 'Test Terminal'
-      request['promptType'] = PromptType::EMAIL
+      # Set request parameters
+      request = {
+        "test": true,
+        "terminalName": 'Test Terminal',
+        "promptType": PromptType::EMAIL
+      }
 
       response = blockchyp.text_prompt(request)
 
@@ -36,6 +37,5 @@ module BlockChyp
       assert(response['success'])
       assert(!response['response'].empty?)
     end
-
   end
 end

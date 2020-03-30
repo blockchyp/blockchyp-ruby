@@ -22,19 +22,22 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'simple_refund_test')
-      # setup request object
-      request = {}
-      request['pan'] = '4111111111111111'
-      request['amount'] = '25.55'
-      request['test'] = true
-      request['transactionRef'] = uuid
-      response = blockchyp.charge(request)
 
+      # Set request parameters
+      request = {
+        "pan": '4111111111111111',
+        "amount": '25.55',
+        "test": true,
+        "transactionRef": uuid
+      }
 
-      # setup request object
-      request = {}
-      request['transactionId'] = response['transactionId']
-      request['test'] = true
+      response = blockchyp.refund(request)
+
+      # Set request parameters
+      request = {
+        "transactionId": response['transactionId'],
+        "test": true
+      }
 
       response = blockchyp.refund(request)
 
@@ -43,6 +46,5 @@ module BlockChyp
       assert(response['success'])
       assert(response['approved'])
     end
-
   end
 end

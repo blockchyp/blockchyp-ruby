@@ -8,10 +8,11 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['transactionId'] = '<PREAUTH TRANSACTION ID>'
+# Set request parameters
+request = {
+  "test": true,
+  "transactionId": '<PREAUTH TRANSACTION ID>'
+}
 
 response = blockchyp.capture(request)
 

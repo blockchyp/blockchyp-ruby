@@ -8,11 +8,15 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['promptType'] = PromptType::EMAIL
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+
+  # Type of prompt. Can be 'email', 'phone', 'customer-number', or
+  # 'rewards-number'.
+  "promptType": PromptType::EMAIL
+}
 
 response = blockchyp.textPrompt(request)
 

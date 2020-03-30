@@ -8,13 +8,14 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
-request['prompt'] = 'Would you like to become a member?'
-request['yesCaption'] = 'Yes'
-request['noCaption'] = 'No'
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal',
+  "prompt": 'Would you like to become a member?',
+  "yesCaption": 'Yes',
+  "noCaption": 'No'
+}
 
 response = blockchyp.booleanPrompt(request)
 

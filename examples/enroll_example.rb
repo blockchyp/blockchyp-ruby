@@ -8,10 +8,11 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
-request['terminalName'] = 'Test Terminal'
+# Set request parameters
+request = {
+  "test": true,
+  "terminalName": 'Test Terminal'
+}
 
 response = blockchyp.enroll(request)
 

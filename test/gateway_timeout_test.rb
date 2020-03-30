@@ -23,18 +23,18 @@ module BlockChyp
 
       test_delay(blockchyp, 'gateway_timeout_test')
 
-      # setup request object
-      request = {}
-      request['timeout'] = 1
-      request['pan'] = '5555555555554444'
-      request['amount'] = '25.55'
-      request['test'] = true
-      request['transactionRef'] = uuid
+      # Set request parameters
+      request = {
+        "timeout": 1,
+        "pan": '5555555555554444',
+        "amount": '25.55',
+        "test": true,
+        "transactionRef": uuid
+      }
 
       assert_raise Net::ReadTimeout do
       blockchyp.charge(request)
       end
     end
-
   end
 end

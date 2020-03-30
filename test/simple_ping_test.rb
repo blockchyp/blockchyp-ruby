@@ -23,10 +23,11 @@ module BlockChyp
 
       test_delay(blockchyp, 'simple_ping_test')
 
-      # setup request object
-      request = {}
-      request['test'] = true
-      request['terminalName'] = 'Test Terminal'
+      # Set request parameters
+      request = {
+        "test": true,
+        "terminalName": 'Test Terminal'
+      }
 
       response = blockchyp.ping(request)
 
@@ -34,6 +35,5 @@ module BlockChyp
       # response assertions
       assert(response['success'])
     end
-
   end
 end

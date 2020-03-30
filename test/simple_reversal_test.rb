@@ -22,19 +22,22 @@ module BlockChyp
       blockchyp.test_gateway_host = config['testGatewayHost']
 
       test_delay(blockchyp, 'simple_reversal_test')
-      # setup request object
-      request = {}
-      request['pan'] = '4111111111111111'
-      request['amount'] = '25.55'
-      request['test'] = true
-      request['transactionRef'] = uuid
-      response = blockchyp.charge(request)
 
+      # Set request parameters
+      request = {
+        "pan": '4111111111111111',
+        "amount": '25.55',
+        "test": true,
+        "transactionRef": uuid
+      }
 
-      # setup request object
-      request = {}
-      request['transactionRef'] = response['transactionRef']
-      request['test'] = true
+      response = blockchyp.reverse(request)
+
+      # Set request parameters
+      request = {
+        "transactionRef": response['transactionRef'],
+        "test": true
+      }
 
       response = blockchyp.reverse(request)
 
@@ -43,6 +46,5 @@ module BlockChyp
       assert(response['success'])
       assert(response['approved'])
     end
-
   end
 end

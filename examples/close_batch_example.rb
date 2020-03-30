@@ -8,9 +8,10 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['test'] = true
+# Set request parameters
+request = {
+  "test": true
+}
 
 response = blockchyp.closeBatch(request)
 

@@ -9,8 +9,8 @@
 require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
-  class TerminalPreauthTest < TestCase
-    def test_terminal_preauth
+  class SearchCustomerTest < TestCase
+    def test_search_customer
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -21,31 +21,31 @@ module BlockChyp
       blockchyp.gateway_host = config['gatewayHost']
       blockchyp.test_gateway_host = config['testGatewayHost']
 
-      test_delay(blockchyp, 'terminal_preauth_test')
+      test_delay(blockchyp, 'search_customer_test')
 
       # Set request parameters
       request = {
-        "terminalName": 'Test Terminal',
-        "amount": '15.15',
-        "test": true
+        "customer": {
+          "firstName": 'Test',
+          "lastName": 'Customer',
+          "companyName": 'Test Company',
+          "emailAddress": 'support@blockchyp.com',
+          "smsNumber": '(123) 123-1234'
+        }
       }
 
-      response = blockchyp.preauth(request)
+      response = blockchyp.customer_search(request)
+
+      # Set request parameters
+      request = {
+        "query": '123123'
+      }
+
+      response = blockchyp.customer_search(request)
 
       assert_not_nil(response)
       # response assertions
       assert(response['success'])
-      assert(response['approved'])
-      assert(response['test'])
-      assert_equal(response['authCode'].length, 6)
-      assert(!response['transactionId'].empty?)
-      assert(!response['timestamp'].empty?)
-      assert(!response['tickBlock'].empty?)
-      assert_equal('Approved', response['responseDescription'])
-      assert(!response['paymentType'].empty?)
-      assert(!response['maskedPan'].empty?)
-      assert(!response['entryMethod'].empty?)
-      assert_equal('15.15', response['authorizedAmount'])
     end
   end
 end

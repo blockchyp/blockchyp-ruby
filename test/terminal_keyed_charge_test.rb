@@ -23,12 +23,13 @@ module BlockChyp
 
       test_delay(blockchyp, 'terminal_keyed_charge_test')
 
-      # setup request object
-      request = {}
-      request['terminalName'] = 'Test Terminal'
-      request['amount'] = '11.11'
-      request['manualEntry'] = true
-      request['test'] = true
+      # Set request parameters
+      request = {
+        "terminalName": 'Test Terminal',
+        "amount": '11.11',
+        "manualEntry": true,
+        "test": true
+      }
 
       response = blockchyp.charge(request)
 
@@ -47,6 +48,5 @@ module BlockChyp
       assert(!response['entryMethod'].empty?)
       assert_equal('11.11', response['authorizedAmount'])
     end
-
   end
 end

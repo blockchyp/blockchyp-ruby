@@ -8,10 +8,11 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['terminalName'] = 'Test Terminal'
-request['transactionRef'] = '<LAST TRANSACTION REF>'
+# Set request parameters
+request = {
+  "terminalName": 'Test Terminal',
+  "transactionRef": '<LAST TRANSACTION REF>'
+}
 
 response = blockchyp.reverse(request)
 

@@ -8,9 +8,10 @@ blockchyp = BlockChyp::BlockChyp.new(
   ENV['BC_SIGNING_KEY']
 )
 
-# setup request object
-request = {}
-request['terminalName'] = 'Test Terminal'
+# Set request parameters
+request = {
+  "terminalName": 'Test Terminal'
+}
 
 response = blockchyp.terminalStatus(request)
 
