@@ -176,6 +176,11 @@ module BlockChyp
       gateway_request('POST', '/api/customer-search', request)
     end
 
+    # Calculates the discount for actual cash transactions.
+    def cash_discount(request)
+      gateway_request('POST', '/api/cash-discount', request)
+    end
+
     # Retrieves the current status of a transaction.
     def transaction_status(request)
       gateway_request('POST', '/api/tx-status', request)
