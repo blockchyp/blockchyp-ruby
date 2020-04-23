@@ -43,7 +43,7 @@ module BlockChyp
       assert(!response['transactionId'].empty?)
       assert(!response['timestamp'].empty?)
       assert(!response['tickBlock'].empty?)
-      assert_equal('Approved', response['responseDescription'])
+      assert_equal('approved', response['responseDescription'])
       assert(!response['paymentType'].empty?)
       assert(!response['maskedPan'].empty?)
       assert(!response['entryMethod'].empty?)

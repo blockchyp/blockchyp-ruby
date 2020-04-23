@@ -24,13 +24,13 @@ module BlockChyp
       test_delay(blockchyp, 'simple_capture_test')
 
       # Set request parameters
-      request = {
+      setup_request = {
         "pan": '4111111111111111',
         "amount": '25.55',
         "test": true
       }
 
-      response = blockchyp.capture(request)
+      response = blockchyp.preauth(setup_request)
 
       # Set request parameters
       request = {

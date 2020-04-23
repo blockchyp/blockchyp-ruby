@@ -24,7 +24,7 @@ module BlockChyp
       test_delay(blockchyp, 'search_customer_test')
 
       # Set request parameters
-      request = {
+      setup_request = {
         "customer": {
           "firstName": 'Test',
           "lastName": 'Customer',
@@ -34,7 +34,7 @@ module BlockChyp
         }
       }
 
-      response = blockchyp.customer_search(request)
+      response = blockchyp.update_customer(setup_request)
 
       # Set request parameters
       request = {
