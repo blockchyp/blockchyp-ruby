@@ -24,14 +24,14 @@ module BlockChyp
       test_delay(blockchyp, 'simple_refund_test')
 
       # Set request parameters
-      request = {
+      setup_request = {
         "pan": '4111111111111111',
         "amount": '25.55',
         "test": true,
         "transactionRef": uuid
       }
 
-      response = blockchyp.refund(request)
+      response = blockchyp.charge(setup_request)
 
       # Set request parameters
       request = {
