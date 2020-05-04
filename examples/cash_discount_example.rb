@@ -10,7 +10,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "amount": '100.00'
+  "amount": '100.00',
+  "cashDiscount": true,
+  "surcharge": true
 }
 
 response = blockchyp.cashDiscount(request)

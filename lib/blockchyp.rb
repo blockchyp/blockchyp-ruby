@@ -50,6 +50,11 @@ module BlockChyp
       gateway_request('GET', '/api/heartbeat', {'test' => test})
     end
 
+    # Tests connectivity with a payment terminal.
+    def ping(request)
+      route_terminal_request('POST', '/api/test', '/api/terminal-test', request)
+    end
+
     # Executes a standard direct preauth and capture.
     def charge(request)
       route_terminal_request('POST', '/api/charge', '/api/charge', request)
@@ -58,53 +63,6 @@ module BlockChyp
     # Executes a preauthorization intended to be captured later.
     def preauth(request)
       route_terminal_request('POST', '/api/preauth', '/api/preauth', request)
-    end
-
-    # Tests connectivity with a payment terminal.
-    def ping(request)
-      route_terminal_request('POST', '/api/test', '/api/terminal-test', request)
-    end
-
-    # Checks the remaining balance on a payment method.
-    def balance(request)
-      route_terminal_request('POST', '/api/balance', '/api/balance', request)
-    end
-
-    # Clears the line item display and any in progress transaction.
-    def clear(request)
-      route_terminal_request('POST', '/api/clear', '/api/terminal-clear', request)
-    end
-
-    # Prompts the user to accept terms and conditions.
-    def terms_and_conditions(request)
-      route_terminal_request('POST', '/api/tc', '/api/terminal-tc', request)
-    end
-
-    # Appends items to an existing transaction display. Subtotal, Tax, and
-    # Total are overwritten by the request. Items with the same description
-    # are combined into groups.
-    def update_transaction_display(request)
-      route_terminal_request('PUT', '/api/txdisplay', '/api/terminal-txdisplay', request)
-    end
-
-    # Displays a new transaction on the terminal.
-    def new_transaction_display(request)
-      route_terminal_request('POST', '/api/txdisplay', '/api/terminal-txdisplay', request)
-    end
-
-    # Asks the consumer a text based question.
-    def text_prompt(request)
-      route_terminal_request('POST', '/api/text-prompt', '/api/text-prompt', request)
-    end
-
-    # Asks the consumer a yes/no question.
-    def boolean_prompt(request)
-      route_terminal_request('POST', '/api/boolean-prompt', '/api/boolean-prompt', request)
-    end
-
-    # Displays a short message on the terminal.
-    def message(request)
-      route_terminal_request('POST', '/api/message', '/api/message', request)
     end
 
     # Executes a refund.
@@ -122,16 +80,68 @@ module BlockChyp
       route_terminal_request('POST', '/api/gift-activate', '/api/gift-activate', request)
     end
 
+    # Checks the remaining balance on a payment method.
+    def balance(request)
+      route_terminal_request('POST', '/api/balance', '/api/balance', request)
+    end
+
+    # Clears the line item display and any in progress transaction.
+    def clear(request)
+      route_terminal_request('POST', '/api/clear', '/api/terminal-clear', request)
+    end
+
     # Returns the current status of a terminal.
     def terminal_status(request)
       route_terminal_request('POST', '/api/terminal-status', '/api/terminal-status', request)
+    end
+
+    # Prompts the user to accept terms and conditions.
+    def terms_and_conditions(request)
+      route_terminal_request('POST', '/api/tc', '/api/terminal-tc', request)
     end
 
     # Captures and returns a signature.
     def capture_signature(request)
       route_terminal_request('POST', '/api/capture-signature', '/api/capture-signature', request)
     end
+
+    # Displays a new transaction on the terminal.
+    def new_transaction_display(request)
+      route_terminal_request('POST', '/api/txdisplay', '/api/terminal-txdisplay', request)
+    end
+
+    # Appends items to an existing transaction display. Subtotal, Tax, and
+    # Total are overwritten by the request. Items with the same description
+    # are combined into groups.
+    def update_transaction_display(request)
+      route_terminal_request('PUT', '/api/txdisplay', '/api/terminal-txdisplay', request)
+    end
+
+    # Displays a short message on the terminal.
+    def message(request)
+      route_terminal_request('POST', '/api/message', '/api/message', request)
+    end
+
+    # Asks the consumer a yes/no question.
+    def boolean_prompt(request)
+      route_terminal_request('POST', '/api/boolean-prompt', '/api/boolean-prompt', request)
+    end
+
+    # Asks the consumer a text based question.
+    def text_prompt(request)
+      route_terminal_request('POST', '/api/text-prompt', '/api/text-prompt', request)
+    end
     
+    # Captures a preauthorization.
+    def capture(request)
+      gateway_request('POST', '/api/capture', request)
+    end
+
+    # Discards a previous preauth transaction.
+    def void(request)
+      gateway_request('POST', '/api/void', request)
+    end
+
     # Executes a manual time out reversal.
     #
     # We love time out reversals. Don't be afraid to use them whenever a
@@ -146,19 +156,19 @@ module BlockChyp
       gateway_request('POST', '/api/reverse', request)
     end
 
-    # Captures a preauthorization.
-    def capture(request)
-      gateway_request('POST', '/api/capture', request)
-    end
-
     # Closes the current credit card batch.
     def close_batch(request)
       gateway_request('POST', '/api/close-batch', request)
     end
 
-    # Discards a previous preauth transaction.
-    def void(request)
-      gateway_request('POST', '/api/void', request)
+    # Creates and send a payment link to a customer.
+    def send_payment_link(request)
+      gateway_request('POST', '/api/send-payment-link', request)
+    end
+
+    # Retrieves the current status of a transaction.
+    def transaction_status(request)
+      gateway_request('POST', '/api/tx-status', request)
     end
 
     # Updates or creates a customer record.
@@ -179,16 +189,6 @@ module BlockChyp
     # Calculates the discount for actual cash transactions.
     def cash_discount(request)
       gateway_request('POST', '/api/cash-discount', request)
-    end
-
-    # Retrieves the current status of a transaction.
-    def transaction_status(request)
-      gateway_request('POST', '/api/tx-status', request)
-    end
-
-    # Creates and send a payment link to a customer.
-    def send_payment_link(request)
-      gateway_request('POST', '/api/send-payment-link', request)
     end
 
   end

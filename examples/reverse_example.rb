@@ -10,7 +10,6 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "terminalName": 'Test Terminal',
   "transactionRef": '<LAST TRANSACTION REF>'
 }
 
