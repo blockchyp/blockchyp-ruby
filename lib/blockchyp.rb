@@ -191,5 +191,20 @@ module BlockChyp
       gateway_request('POST', '/api/cash-discount', request)
     end
 
+    # Returns the batch history for a merchant.
+    def batch_history(request)
+      gateway_request('POST', '/api/batch-history', request)
+    end
+
+    # Returns the batch details for a single batch.
+    def batch_details(request)
+      gateway_request('POST', '/api/batch-details', request)
+    end
+
+    # Returns the transaction history for a merchant.
+    def transaction_history(request)
+      gateway_request('POST', '/api/tx-history', request)
+    end
+
   end
 end

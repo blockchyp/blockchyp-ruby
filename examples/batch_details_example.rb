@@ -10,12 +10,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "transactionId": '<PREVIOUS TRANSACTION ID>',
-
-  # Optional amount for partial refunds.
-  "amount": '5.00'
+  "batchId": 'BATCHID'
 }
 
-response = blockchyp.refund(request)
+response = blockchyp.batchDetails(request)
 
 puts "Response: #{response.inspect}"
