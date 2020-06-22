@@ -1352,7 +1352,7 @@ puts "Response: #{response.inspect}"
 Adds or updates a customer record.
 
 If you pass in customer information including `firstName`, `lastName`, `email`,
-`email`, or `sms` without any Customer ID or Customer Ref, a new record will
+or `sms` without any Customer ID or Customer Ref, a new record will
 be created.
 
 If you pass in `customerRef` and `customerId`, the customer record will be updated
@@ -1668,6 +1668,39 @@ request = {
 }
 
 response = blockchyp.transactionHistory(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Merchant Profile
+
+
+
+Returns detailed metadata about the merchant's configuraton, including
+basic identity information, terminal settings, store and forward settings,
+and bank account information for merchants that support split settlement.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+}
+
+response = blockchyp.merchantProfile(request)
 
 puts "Response: #{response.inspect}"
 
