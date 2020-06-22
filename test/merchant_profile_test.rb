@@ -9,8 +9,8 @@
 require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
-  class SimpleBatchCloseTest < TestCase
-    def test_simple_batch_close
+  class MerchantProfileTest < TestCase
+    def test_merchant_profile
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -21,24 +21,13 @@ module BlockChyp
       blockchyp.gateway_host = config['gatewayHost']
       blockchyp.test_gateway_host = config['testGatewayHost']
 
-      test_delay(blockchyp, 'simple_batch_close_test')
-
-      # Set request parameters
-      setup_request = {
-        "pan": '4111111111111111',
-        "amount": '25.55',
-        "test": true,
-        "transactionRef": uuid
-      }
-
-      response = blockchyp.charge(setup_request)
+      test_delay(blockchyp, 'merchant_profile_test')
 
       # Set request parameters
       request = {
-        "test": true
       }
 
-      response = blockchyp.close_batch(request)
+      response = blockchyp.merchant_profile(request)
 
       assert_not_nil(response)
       # response assertions

@@ -1674,6 +1674,39 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Merchant Profile
+
+
+
+Returns detailed metadata about the merchant's configuraton, including
+basic identity information, terminal settings, store and forward settings,
+and bank account information for merchants that support split settlement.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+}
+
+response = blockchyp.merchantProfile(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 ## Running Integration Tests
 
 If you'd like to run the integration tests, create a new file on your system
