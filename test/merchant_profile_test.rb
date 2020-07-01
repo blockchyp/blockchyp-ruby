@@ -25,6 +25,7 @@ module BlockChyp
 
       # Set request parameters
       request = {
+        "test": true
       }
 
       response = blockchyp.merchant_profile(request)
