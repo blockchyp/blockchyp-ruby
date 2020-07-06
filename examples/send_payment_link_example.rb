@@ -10,29 +10,29 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "amount": '199.99',
-  "description": 'Widget',
-  "subject": 'Widget invoice',
-  "transaction": {
-    "subtotal": '195.00',
-    "tax": '4.99',
-    "total": '199.99',
-    "items": [
+  amount: '199.99',
+  description: 'Widget',
+  subject: 'Widget invoice',
+  transaction: {
+    subtotal: '195.00',
+    tax: '4.99',
+    total: '199.99',
+    items: [
       {
-        "description": 'Widget',
-        "price": '195.00',
-        "quantity": 1
+        description: 'Widget',
+        price: '195.00',
+        quantity: 1
       }
     ]
   },
-  "autoSend": true,
-  "customer": {
-    "customerRef": 'Customer reference string',
-    "firstName": 'FirstName',
-    "lastName": 'LastName',
-    "companyName": 'Company Name',
-    "emailAddress": 'support@blockchyp.com',
-    "smsNumber": '(123) 123-1231'
+  autoSend: true,
+  customer: {
+    customerRef: 'Customer reference string',
+    firstName: 'FirstName',
+    lastName: 'LastName',
+    companyName: 'Company Name',
+    emailAddress: 'support@blockchyp.com',
+    smsNumber: '(123) 123-1231'
   }
 }
 

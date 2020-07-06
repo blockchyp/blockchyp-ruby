@@ -14,21 +14,21 @@ module BlockChyp
       config = load_test_config
 
       blockchyp = BlockChyp.new(
-        config['apiKey'],
-        config['bearerToken'],
-        config['signingKey']
+        config[:apiKey],
+        config[:bearerToken],
+        config[:signingKey]
       )
-      blockchyp.gateway_host = config['gatewayHost']
-      blockchyp.test_gateway_host = config['testGatewayHost']
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
 
       test_delay(blockchyp, 'terminal_timeout_test')
 
       # Set request parameters
       request = {
-        "timeout": 1,
-        "terminalName": 'Test Terminal',
-        "amount": '25.15',
-        "test": true
+        timeout: 1,
+        terminalName: 'Test Terminal',
+        amount: '25.15',
+        test: true
       }
 
       assert_raise Net::ReadTimeout do

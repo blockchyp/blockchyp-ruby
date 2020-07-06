@@ -14,29 +14,29 @@ module BlockChyp
       config = load_test_config
 
       blockchyp = BlockChyp.new(
-        config['apiKey'],
-        config['bearerToken'],
-        config['signingKey']
+        config[:apiKey],
+        config[:bearerToken],
+        config[:signingKey]
       )
-      blockchyp.gateway_host = config['gatewayHost']
-      blockchyp.test_gateway_host = config['testGatewayHost']
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
 
       test_delay(blockchyp, 'simple_gift_activate_test')
 
       # Set request parameters
       request = {
-        "test": true,
-        "terminalName": 'Test Terminal',
-        "amount": '50.00'
+        test: true,
+        terminalName: 'Test Terminal',
+        amount: '50.00'
       }
 
       response = blockchyp.gift_activate(request)
 
       assert_not_nil(response)
       # response assertions
-      assert(response['success'])
-      assert(response['approved'])
-      assert(!response['publicKey'].empty?)
+      assert(response[:success])
+      assert(response[:approved])
+      assert(!response[:publicKey].empty?)
     end
   end
 end

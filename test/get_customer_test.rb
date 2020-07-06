@@ -14,23 +14,23 @@ module BlockChyp
       config = load_test_config
 
       blockchyp = BlockChyp.new(
-        config['apiKey'],
-        config['bearerToken'],
-        config['signingKey']
+        config[:apiKey],
+        config[:bearerToken],
+        config[:signingKey]
       )
-      blockchyp.gateway_host = config['gatewayHost']
-      blockchyp.test_gateway_host = config['testGatewayHost']
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
 
       test_delay(blockchyp, 'get_customer_test')
 
       # Set request parameters
       setup_request = {
-        "customer": {
-          "firstName": 'Test',
-          "lastName": 'Customer',
-          "companyName": 'Test Company',
-          "emailAddress": 'support@blockchyp.com',
-          "smsNumber": '(123) 123-1234'
+        customer: {
+          firstName: 'Test',
+          lastName: 'Customer',
+          companyName: 'Test Company',
+          emailAddress: 'support@blockchyp.com',
+          smsNumber: '(123) 123-1234'
         }
       }
 
@@ -38,14 +38,14 @@ module BlockChyp
 
       # Set request parameters
       request = {
-        "customerId": response['customer']['id']
+        customerId: response[:customer][:id]
       }
 
       response = blockchyp.customer(request)
 
       assert_not_nil(response)
       # response assertions
-      assert(response['success'])
+      assert(response[:success])
     end
   end
 end

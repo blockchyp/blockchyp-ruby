@@ -47,7 +47,7 @@ module BlockChyp
   class BlockChyp < BlockChypClient
 
     def heartbeat(test)
-      gateway_request('GET', '/api/heartbeat', {'test' => test})
+      gateway_request('GET', '/api/heartbeat', { test: test })
     end
 
     # Tests connectivity with a payment terminal.

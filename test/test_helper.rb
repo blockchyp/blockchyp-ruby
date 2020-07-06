@@ -31,7 +31,7 @@ module BlockChyp
       config_file = File.open(file_name)
       content = config_file.read
 
-      JSON.parse(content)
+      JSON.parse(content, symbolize_names: true)
     end
 
     def test_delay(client, test_name)
@@ -40,15 +40,16 @@ module BlockChyp
       if test_delay
         test_delay_int = Integer(test_delay)
         if test_delay_int.positive?
-          request = {}
-          request['test'] = true
-          request['terminalName'] = 'Test Terminal'
-          request['message'] = "Running #{test_name} in #{test_delay} seconds.."
+          request = {
+            test: true,
+            terminalName: 'Test Terminal',
+            message: "Running #{test_name} in #{test_delay} seconds.."
+          }
           response = client.message(request)
 
           assert_not_nil(response)
           # response assertions
-          assert(response['success'])
+          assert(response[:success])
           sleep test_delay_int
         end
       end

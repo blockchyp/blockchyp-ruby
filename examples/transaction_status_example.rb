@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "transactionId": 'ID of transaction to retrieve'
+  transactionId: 'ID of transaction to retrieve'
 }
 
 response = blockchyp.transactionStatus(request)

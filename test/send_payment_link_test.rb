@@ -14,40 +14,40 @@ module BlockChyp
       config = load_test_config
 
       blockchyp = BlockChyp.new(
-        config['apiKey'],
-        config['bearerToken'],
-        config['signingKey']
+        config[:apiKey],
+        config[:bearerToken],
+        config[:signingKey]
       )
-      blockchyp.gateway_host = config['gatewayHost']
-      blockchyp.test_gateway_host = config['testGatewayHost']
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
 
       test_delay(blockchyp, 'send_payment_link_test')
 
       # Set request parameters
       request = {
-        "amount": '199.99',
-        "description": 'Widget',
-        "subject": 'Widget invoice',
-        "transaction": {
-          "subtotal": '195.00',
-          "tax": '4.99',
-          "total": '199.99',
-          "items": [
+        amount: '199.99',
+        description: 'Widget',
+        subject: 'Widget invoice',
+        transaction: {
+          subtotal: '195.00',
+          tax: '4.99',
+          total: '199.99',
+          items: [
             {
-              "description": 'Widget',
-              "price": '195.00',
-              "quantity": 1
+              description: 'Widget',
+              price: '195.00',
+              quantity: 1
             }
           ]
         },
-        "autoSend": true,
-        "customer": {
-          "customerRef": 'Customer reference string',
-          "firstName": 'FirstName',
-          "lastName": 'LastName',
-          "companyName": 'Company Name',
-          "emailAddress": 'support@blockchyp.com',
-          "smsNumber": '(123) 123-1231'
+        autoSend: true,
+        customer: {
+          customerRef: 'Customer reference string',
+          firstName: 'FirstName',
+          lastName: 'LastName',
+          companyName: 'Company Name',
+          emailAddress: 'support@blockchyp.com',
+          smsNumber: '(123) 123-1231'
         }
       }
 
@@ -55,8 +55,8 @@ module BlockChyp
 
       assert_not_nil(response)
       # response assertions
-      assert(response['success'])
-      assert(!response['url'].empty?)
+      assert(response[:success])
+      assert(!response[:url].empty?)
     end
   end
 end

@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true
+  test: true
 }
 
 response = blockchyp.closeBatch(request)

@@ -14,26 +14,26 @@ module BlockChyp
       config = load_test_config
 
       blockchyp = BlockChyp.new(
-        config['apiKey'],
-        config['bearerToken'],
-        config['signingKey']
+        config[:apiKey],
+        config[:bearerToken],
+        config[:signingKey]
       )
-      blockchyp.gateway_host = config['gatewayHost']
-      blockchyp.test_gateway_host = config['testGatewayHost']
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
 
       test_delay(blockchyp, 'terminal_status_test')
 
       # Set request parameters
       request = {
-        "terminalName": 'Test Terminal'
+        terminalName: 'Test Terminal'
       }
 
       response = blockchyp.terminal_status(request)
 
       assert_not_nil(response)
       # response assertions
-      assert(response['success'])
-      assert(response['idle'])
+      assert(response[:success])
+      assert(response[:idle])
     end
   end
 end

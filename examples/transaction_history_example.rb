@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "maxResults": 10
+  maxResults: 10
 }
 
 response = blockchyp.transactionHistory(request)

@@ -14,38 +14,38 @@ module BlockChyp
       config = load_test_config
 
       blockchyp = BlockChyp.new(
-        config['apiKey'],
-        config['bearerToken'],
-        config['signingKey']
+        config[:apiKey],
+        config[:bearerToken],
+        config[:signingKey]
       )
-      blockchyp.gateway_host = config['gatewayHost']
-      blockchyp.test_gateway_host = config['testGatewayHost']
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
 
       test_delay(blockchyp, 'terminal_preauth_test')
 
       # Set request parameters
       request = {
-        "terminalName": 'Test Terminal',
-        "amount": '15.15',
-        "test": true
+        terminalName: 'Test Terminal',
+        amount: '15.15',
+        test: true
       }
 
       response = blockchyp.preauth(request)
 
       assert_not_nil(response)
       # response assertions
-      assert(response['success'])
-      assert(response['approved'])
-      assert(response['test'])
-      assert_equal(response['authCode'].length, 6)
-      assert(!response['transactionId'].empty?)
-      assert(!response['timestamp'].empty?)
-      assert(!response['tickBlock'].empty?)
-      assert_equal('approved', response['responseDescription'])
-      assert(!response['paymentType'].empty?)
-      assert(!response['maskedPan'].empty?)
-      assert(!response['entryMethod'].empty?)
-      assert_equal('15.15', response['authorizedAmount'])
+      assert(response[:success])
+      assert(response[:approved])
+      assert(response[:test])
+      assert_equal(response[:authCode].length, 6)
+      assert(!response[:transactionId].empty?)
+      assert(!response[:timestamp].empty?)
+      assert(!response[:tickBlock].empty?)
+      assert_equal('approved', response[:responseDescription])
+      assert(!response[:paymentType].empty?)
+      assert(!response[:maskedPan].empty?)
+      assert(!response[:entryMethod].empty?)
+      assert_equal('15.15', response[:authorizedAmount])
     end
   end
 end

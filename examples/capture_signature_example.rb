@@ -10,13 +10,13 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "terminalName": 'Test Terminal',
+  terminalName: 'Test Terminal',
 
   # File format for the signature image.
-  "sigFormat": SignatureFormat::PNG,
+  sigFormat: SignatureFormat::PNG,
 
   # Width of the signature image in pixels.
-  "sigWidth": 200
+  sigWidth: 200
 }
 
 response = blockchyp.captureSignature(request)

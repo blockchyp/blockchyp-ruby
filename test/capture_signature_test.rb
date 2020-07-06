@@ -14,27 +14,27 @@ module BlockChyp
       config = load_test_config
 
       blockchyp = BlockChyp.new(
-        config['apiKey'],
-        config['bearerToken'],
-        config['signingKey']
+        config[:apiKey],
+        config[:bearerToken],
+        config[:signingKey]
       )
-      blockchyp.gateway_host = config['gatewayHost']
-      blockchyp.test_gateway_host = config['testGatewayHost']
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
 
       test_delay(blockchyp, 'capture_signature_test')
 
       # Set request parameters
       request = {
-        "terminalName": 'Test Terminal',
-        "sigFormat": SignatureFormat::PNG,
-        "sigWidth": 200
+        terminalName: 'Test Terminal',
+        sigFormat: SignatureFormat::PNG,
+        sigWidth: 200
       }
 
       response = blockchyp.capture_signature(request)
 
       assert_not_nil(response)
       # response assertions
-      assert(response['success'])
+      assert(response[:success])
     end
   end
 end

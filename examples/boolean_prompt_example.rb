@@ -10,11 +10,11 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "prompt": 'Would you like to become a member?',
-  "yesCaption": 'Yes',
-  "noCaption": 'No'
+  test: true,
+  terminalName: 'Test Terminal',
+  prompt: 'Would you like to become a member?',
+  yesCaption: 'Yes',
+  noCaption: 'No'
 }
 
 response = blockchyp.booleanPrompt(request)

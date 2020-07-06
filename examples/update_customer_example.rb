@@ -10,14 +10,14 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "customer": {
-    "id": 'ID of the customer to update',
-    "customerRef": 'Customer reference string',
-    "firstName": 'FirstName',
-    "lastName": 'LastName',
-    "companyName": 'Company Name',
-    "emailAddress": 'support@blockchyp.com',
-    "smsNumber": '(123) 123-1231'
+  customer: {
+    id: 'ID of the customer to update',
+    customerRef: 'Customer reference string',
+    firstName: 'FirstName',
+    lastName: 'LastName',
+    companyName: 'Company Name',
+    emailAddress: 'support@blockchyp.com',
+    smsNumber: '(123) 123-1231'
   }
 }
 

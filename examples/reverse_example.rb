@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "transactionRef": '<LAST TRANSACTION REF>'
+  transactionRef: '<LAST TRANSACTION REF>'
 }
 
 response = blockchyp.reverse(request)

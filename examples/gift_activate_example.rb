@@ -10,9 +10,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "amount": '50.00'
+  test: true,
+  terminalName: 'Test Terminal',
+  amount: '50.00'
 }
 
 response = blockchyp.giftActivate(request)

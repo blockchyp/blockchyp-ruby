@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "customerId": 'ID of the customer to retrieve'
+  customerId: 'ID of the customer to retrieve'
 }
 
 response = blockchyp.customer(request)

@@ -10,9 +10,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "message": 'Thank you for your business.'
+  test: true,
+  terminalName: 'Test Terminal',
+  message: 'Thank you for your business.'
 }
 
 response = blockchyp.message(request)

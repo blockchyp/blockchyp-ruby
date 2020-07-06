@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "terminalName": 'Test Terminal'
+  terminalName: 'Test Terminal'
 }
 
 response = blockchyp.terminalStatus(request)

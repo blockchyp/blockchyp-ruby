@@ -14,33 +14,33 @@ module BlockChyp
       config = load_test_config
 
       blockchyp = BlockChyp.new(
-        config['apiKey'],
-        config['bearerToken'],
-        config['signingKey']
+        config[:apiKey],
+        config[:bearerToken],
+        config[:signingKey]
       )
-      blockchyp.gateway_host = config['gatewayHost']
-      blockchyp.test_gateway_host = config['testGatewayHost']
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
 
       test_delay(blockchyp, 'update_transaction_display_test')
 
       # Set request parameters
       request = {
-        "test": true,
-        "terminalName": 'Test Terminal',
-        "transaction": {
-          "subtotal": '35.00',
-          "tax": '5.00',
-          "total": '70.00',
-          "items": [
+        test: true,
+        terminalName: 'Test Terminal',
+        transaction: {
+          subtotal: '35.00',
+          tax: '5.00',
+          total: '70.00',
+          items: [
             {
-              "description": 'Leki Trekking Poles',
-              "price": '35.00',
-              "quantity": 2,
-              "extended": '70.00',
-              "discounts": [
+              description: 'Leki Trekking Poles',
+              price: '35.00',
+              quantity: 2,
+              extended: '70.00',
+              discounts: [
                 {
-                  "description": 'memberDiscount',
-                  "amount": '10.00'
+                  description: 'memberDiscount',
+                  amount: '10.00'
                 }
               ]
             }
@@ -52,7 +52,7 @@ module BlockChyp
 
       assert_not_nil(response)
       # response assertions
-      assert(response['success'])
+      assert(response[:success])
     end
   end
 end

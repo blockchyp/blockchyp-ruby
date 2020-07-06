@@ -10,12 +10,12 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
+  test: true,
+  terminalName: 'Test Terminal',
 
   # Type of prompt. Can be 'email', 'phone', 'customer-number', or
   # 'rewards-number'.
-  "promptType": PromptType::EMAIL
+  promptType: PromptType::EMAIL
 }
 
 response = blockchyp.textPrompt(request)

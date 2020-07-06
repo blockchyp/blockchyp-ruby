@@ -10,8 +10,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "maxResults": 250,
-  "startIndex": 1
+  maxResults: 250,
+  startIndex: 1
 }
 
 response = blockchyp.batchHistory(request)

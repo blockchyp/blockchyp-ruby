@@ -10,9 +10,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "amount": '55.00'
+  test: true,
+  terminalName: 'Test Terminal',
+  amount: '55.00'
 }
 
 response = blockchyp.charge(request)

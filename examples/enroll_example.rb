@@ -10,8 +10,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal'
+  test: true,
+  terminalName: 'Test Terminal'
 }
 
 response = blockchyp.enroll(request)

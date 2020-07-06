@@ -10,9 +10,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "cardType": CardType::EBT
+  test: true,
+  terminalName: 'Test Terminal',
+  cardType: CardType::EBT
 }
 
 response = blockchyp.balance(request)

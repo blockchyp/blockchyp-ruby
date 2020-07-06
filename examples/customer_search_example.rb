@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "query": '(123) 123-1234'
+  query: '(123) 123-1234'
 }
 
 response = blockchyp.customerSearch(request)

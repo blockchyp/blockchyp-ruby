@@ -45,6 +45,7 @@ module BlockChyp
     attr_accessor :offline_cache_enabled
     attr_accessor :terminal_connect_timeout
     attr_accessor :route_cache_location
+    attr_accessor :route_cache
 
     def generate_gateway_headers
       nonce = CryptoUtils.generate_nonce
@@ -66,32 +67,28 @@ module BlockChyp
     end
 
     def resolve_gateway_uri(path, request)
-      url = if request.nil? || !request['test']
-              gateway_host
-            else
-              test_gateway_host
-            end
+      url = request.nil? || !request[:test] ? gateway_host : test_gateway_host
 
-      URI.parse(url + path)
+      URI.parse(path.nil? ? url : url + path)
     end
 
     def generate_error_response(msg)
-      [
-        'success' => false,
-        'error' => msg,
-        'responseDescription' => msg
-      ]
+      {
+        success: false,
+        error: msg,
+        responseDescription: msg
+      }
     end
 
     def route_terminal_request(method, terminal_path, gateway_path, request)
-      if request['terminalName'].nil?
+      unless request.key?(:terminalName)
         return gateway_request(method, gateway_path, request)
       end
 
-      route = resolve_terminal_route(request['terminalName'])
+      route = resolve_terminal_route(request[:terminalName])
       if !route
         return generate_error_response('Unkown Terminal')
-      elsif route['cloudRelayEnabled']
+      elsif route[:cloudRelayEnabled]
         return gateway_request(method, gateway_path, request, relay: true)
       end
 
@@ -106,13 +103,13 @@ module BlockChyp
       http.open_timeout = timeout
       http.read_timeout = timeout
 
-      tx_creds = route['transientCredentials']
+      tx_creds = route[:transientCredentials]
 
       wrapped_request = {
-        'apiKey' => tx_creds['apiKey'],
-        'bearerToken' => tx_creds['bearerToken'],
-        'signingKey' => tx_creds['signingKey'],
-        'request' => request
+        apiKey: tx_creds[:apiKey],
+        bearerToken: tx_creds[:bearerToken],
+        signingKey: tx_creds[:signingKey],
+        request: request
       }
 
       req = get_http_request(method, uri)
@@ -127,14 +124,14 @@ module BlockChyp
         response = http.request(req)
       rescue Net::OpenTimeout, Errno::EHOSTDOWN, Errno::EHOSTUNREACH, Errno::ETIMEDOUT, Errno::ENETUNREACH
         if open_retry
-          evict(route['terminalName'])
-          route = resolve_terminal_route(route['terminalName'])
+          evict(route[:terminalName])
+          route = resolve_terminal_route(route[:terminalName])
           return terminal_request(method, route, path, request, false)
         end
         raise
       end
       if response.is_a?(Net::HTTPSuccess)
-        JSON.parse(response.body)
+        JSON.parse(response.body, symbolize_names: true)
       else
         raise response.message
       end
@@ -157,7 +154,7 @@ module BlockChyp
             else
               'http://'
             end
-      url += route['ipAddress']
+      url += route[:ipAddress]
       port = if https
                ':8443'
              else
@@ -192,13 +189,11 @@ module BlockChyp
       response = http.request(req)
 
       if response.is_a?(Net::HTTPSuccess)
-        JSON.parse(response.body)
+        JSON.parse(response.body, symbolize_names: true)
       else
         raise response.message
       end
     end
-
-    attr_accessor :routeCache
 
     def resolve_terminal_route(terminal_name)
       route = route_cache_get(terminal_name, false)
@@ -211,8 +206,8 @@ module BlockChyp
 
         ttl = Time.now.utc + (route_cache_ttl * 60)
         route_cache_entry = {}
-        route_cache_entry['route'] = route
-        route_cache_entry['ttl'] = ttl
+        route_cache_entry[:route] = route
+        route_cache_entry[:ttl] = ttl
         @route_cache[api_key + terminal_name] = route_cache_entry
         update_offline_cache(route_cache_entry)
       end
@@ -223,14 +218,14 @@ module BlockChyp
       if offline_cache_enabled
         offline_cache = read_offline_cache
         offline_entry = route_cache_entry.clone
-        route = route_cache_entry['route'].clone
-        tx_creds = route['transientCredentials'].clone
-        tx_creds['apiKey'] = encrypt(tx_creds['apiKey'])
-        tx_creds['bearerToken'] = encrypt(tx_creds['bearerToken'])
-        tx_creds['signingKey'] = encrypt(tx_creds['signingKey'])
-        route['transientCredentials'] = tx_creds
-        offline_entry['route'] = route
-        offline_cache[api_key + route['terminalName']] = offline_entry
+        route = route_cache_entry[:route].clone
+        tx_creds = route[:transientCredentials].clone
+        tx_creds[:apiKey] = encrypt(tx_creds[:apiKey])
+        tx_creds[:bearerToken] = encrypt(tx_creds[:bearerToken])
+        tx_creds[:signingKey] = encrypt(tx_creds[:signingKey])
+        route[:transientCredentials] = tx_creds
+        offline_entry[:route] = route
+        offline_cache[api_key + route[:terminalName]] = offline_entry
         File.write(route_cache_location, offline_cache.to_json)
       end
     end
@@ -270,8 +265,8 @@ module BlockChyp
 
     def request_route_from_gateway(terminal_name)
       route = gateway_request('GET', '/api/terminal-route?terminal=' + CGI.escape(terminal_name))
-      if !route.nil? && !route['ipAddress'].empty?
-        route['exists'] = true
+      if !route.nil? && !route[:ipAddress].empty?
+        route[:exists] = true
       end
       route
     end
@@ -293,25 +288,20 @@ module BlockChyp
       end
 
       if route_cache_entry
-        route = route_cache_entry['route']
-        tx_creds = route['transientCredentials']
-        tx_creds['apiKey'] = decrypt(tx_creds['apiKey'])
-        tx_creds['bearerToken'] = decrypt(tx_creds['bearerToken'])
-        tx_creds['signingKey'] = decrypt(tx_creds['signingKey'])
-        route['transientCredentials'] = tx_creds
-        route_cache_entry['route'] = route
-      end
+        route = route_cache_entry[:route]
+        tx_creds = route[:transientCredentials]
+        tx_creds[:apiKey] = decrypt(tx_creds[:apiKey])
+        tx_creds[:bearerToken] = decrypt(tx_creds[:bearerToken])
+        tx_creds[:signingKey] = decrypt(tx_creds[:signingKey])
+        route[:transientCredentials] = tx_creds
+        route_cache_entry[:route] = route
 
-      if route_cache_entry
-        now = Time.new
-        raw_ttl = route_cache_entry['ttl']
-        if raw_ttl.instance_of?(Time)
-          ttl = raw_ttl
-        else
-          ttl = Time.parse(route_cache_entry['ttl'])
-        end
-        if stale || now < ttl
-          route_cache_entry['route']
+        raw_ttl = route_cache_entry[:ttl]
+
+        ttl = raw_ttl.instance_of?(Time) ? raw_ttl : Time.parse(route_cache_entry[:ttl])
+
+        if stale || Time.new < ttl
+          route_cache_entry[:route]
         end
       end
     end
@@ -322,7 +312,7 @@ module BlockChyp
         config_file = File.open(route_cache_location)
         content = config_file.read
 
-        return JSON.parse(content)
+        return JSON.parse(content, symbolize_names: true)
       end
       {}
     end
@@ -331,16 +321,16 @@ module BlockChyp
       if defined? VERSION
         "BlockChyp-Ruby/#{VERSION}"
       else
-        "BlockChyp-Ruby"
+        'BlockChyp-Ruby'
       end
     end
 
     def get_timeout(request, default)
-      if request.nil? || request['timeout'].nil? || request['timeout'].zero?
+      if request.nil? || !request.key?(:timeout) || request[:timeout].zero?
         return default
       end
 
-      request['timeout']
+      request[:timeout]
     end
   end
 end

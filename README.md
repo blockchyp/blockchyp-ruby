@@ -104,7 +104,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "terminalName": 'Test Terminal'
+  terminalName: 'Test Terminal'
 }
 
 response = blockchyp.ping(request)
@@ -166,9 +166,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "amount": '55.00'
+  test: true,
+  terminalName: 'Test Terminal',
+  amount: '55.00'
 }
 
 response = blockchyp.charge(request)
@@ -230,9 +230,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "amount": '27.00'
+  test: true,
+  terminalName: 'Test Terminal',
+  amount: '27.00'
 }
 
 response = blockchyp.preauth(request)
@@ -270,8 +270,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "transactionId": '<PREAUTH TRANSACTION ID>'
+  test: true,
+  transactionId: '<PREAUTH TRANSACTION ID>'
 }
 
 response = blockchyp.capture(request)
@@ -346,10 +346,10 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "transactionId": '<PREVIOUS TRANSACTION ID>',
+  transactionId: '<PREVIOUS TRANSACTION ID>',
 
   # Optional amount for partial refunds.
-  "amount": '5.00'
+  amount: '5.00'
 }
 
 response = blockchyp.refund(request)
@@ -394,8 +394,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal'
+  test: true,
+  terminalName: 'Test Terminal'
 }
 
 response = blockchyp.enroll(request)
@@ -431,8 +431,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "transactionId": '<PREVIOUS TRANSACTION ID>'
+  test: true,
+  transactionId: '<PREVIOUS TRANSACTION ID>'
 }
 
 response = blockchyp.void(request)
@@ -479,7 +479,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "transactionRef": '<LAST TRANSACTION REF>'
+  transactionRef: '<LAST TRANSACTION REF>'
 }
 
 response = blockchyp.reverse(request)
@@ -559,9 +559,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "amount": '50.00'
+  test: true,
+  terminalName: 'Test Terminal',
+  amount: '50.00'
 }
 
 response = blockchyp.giftActivate(request)
@@ -617,9 +617,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "cardType": CardType::EBT
+  test: true,
+  terminalName: 'Test Terminal',
+  cardType: CardType::EBT
 }
 
 response = blockchyp.balance(request)
@@ -656,7 +656,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true
+  test: true
 }
 
 response = blockchyp.closeBatch(request)
@@ -768,29 +768,29 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "amount": '199.99',
-  "description": 'Widget',
-  "subject": 'Widget invoice',
-  "transaction": {
-    "subtotal": '195.00',
-    "tax": '4.99',
-    "total": '199.99',
-    "items": [
+  amount: '199.99',
+  description: 'Widget',
+  subject: 'Widget invoice',
+  transaction: {
+    subtotal: '195.00',
+    tax: '4.99',
+    total: '199.99',
+    items: [
       {
-        "description": 'Widget',
-        "price": '195.00',
-        "quantity": 1
+        description: 'Widget',
+        price: '195.00',
+        quantity: 1
       }
     ]
   },
-  "autoSend": true,
-  "customer": {
-    "customerRef": 'Customer reference string',
-    "firstName": 'FirstName',
-    "lastName": 'LastName',
-    "companyName": 'Company Name',
-    "emailAddress": 'support@blockchyp.com',
-    "smsNumber": '(123) 123-1231'
+  autoSend: true,
+  customer: {
+    customerRef: 'Customer reference string',
+    firstName: 'FirstName',
+    lastName: 'LastName',
+    companyName: 'Company Name',
+    emailAddress: 'support@blockchyp.com',
+    smsNumber: '(123) 123-1231'
   }
 }
 
@@ -828,7 +828,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "transactionId": 'ID of transaction to retrieve'
+  transactionId: 'ID of transaction to retrieve'
 }
 
 response = blockchyp.transactionStatus(request)
@@ -862,8 +862,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal'
+  test: true,
+  terminalName: 'Test Terminal'
 }
 
 response = blockchyp.clear(request)
@@ -904,7 +904,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "terminalName": 'Test Terminal'
+  terminalName: 'Test Terminal'
 }
 
 response = blockchyp.terminalStatus(request)
@@ -972,27 +972,27 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
+  test: true,
+  terminalName: 'Test Terminal',
 
   # Alias for a Terms and Conditions template configured in the BlockChyp
   # dashboard.
-  "tcAlias": 'hippa',
+  tcAlias: 'hippa',
 
   # Name of the contract or document if not using an alias.
-  "tcName": 'HIPPA Disclosure',
+  tcName: 'HIPPA Disclosure',
 
   # Full text of the contract or disclosure if not using an alias.
-  "tcContent": 'Full contract text',
+  tcContent: 'Full contract text',
 
   # File format for the signature image.
-  "sigFormat": SignatureFormat::PNG,
+  sigFormat: SignatureFormat::PNG,
 
   # Width of the signature image in pixels.
-  "sigWidth": 200,
+  sigWidth: 200,
 
   # Whether or not a signature is required. Defaults to true.
-  "sigRequired": true
+  sigRequired: true
 }
 
 response = blockchyp.termsAndConditions(request)
@@ -1041,13 +1041,13 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "terminalName": 'Test Terminal',
+  terminalName: 'Test Terminal',
 
   # File format for the signature image.
-  "sigFormat": SignatureFormat::PNG,
+  sigFormat: SignatureFormat::PNG,
 
   # Width of the signature image in pixels.
-  "sigWidth": 200
+  sigWidth: 200
 }
 
 response = blockchyp.captureSignature(request)
@@ -1097,22 +1097,22 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "transaction": {
-    "subtotal": '60.00',
-    "tax": '5.00',
-    "total": '65.00',
-    "items": [
+  test: true,
+  terminalName: 'Test Terminal',
+  transaction: {
+    subtotal: '60.00',
+    tax: '5.00',
+    total: '65.00',
+    items: [
       {
-        "description": 'Leki Trekking Poles',
-        "price": '35.00',
-        "quantity": 2,
-        "extended": '70.00',
-        "discounts": [
+        description: 'Leki Trekking Poles',
+        price: '35.00',
+        quantity: 2,
+        extended: '70.00',
+        discounts: [
           {
-            "description": 'memberDiscount',
-            "amount": '10.00'
+            description: 'memberDiscount',
+            amount: '10.00'
           }
         ]
       }
@@ -1175,22 +1175,22 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "transaction": {
-    "subtotal": '60.00',
-    "tax": '5.00',
-    "total": '65.00',
-    "items": [
+  test: true,
+  terminalName: 'Test Terminal',
+  transaction: {
+    subtotal: '60.00',
+    tax: '5.00',
+    total: '65.00',
+    items: [
       {
-        "description": 'Leki Trekking Poles',
-        "price": '35.00',
-        "quantity": 2,
-        "extended": '70.00',
-        "discounts": [
+        description: 'Leki Trekking Poles',
+        price: '35.00',
+        quantity: 2,
+        extended: '70.00',
+        discounts: [
           {
-            "description": 'memberDiscount',
-            "amount": '10.00'
+            description: 'memberDiscount',
+            amount: '10.00'
           }
         ]
       }
@@ -1229,9 +1229,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "message": 'Thank you for your business.'
+  test: true,
+  terminalName: 'Test Terminal',
+  message: 'Thank you for your business.'
 }
 
 response = blockchyp.message(request)
@@ -1274,11 +1274,11 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
-  "prompt": 'Would you like to become a member?',
-  "yesCaption": 'Yes',
-  "noCaption": 'No'
+  test: true,
+  terminalName: 'Test Terminal',
+  prompt: 'Would you like to become a member?',
+  yesCaption: 'Yes',
+  noCaption: 'No'
 }
 
 response = blockchyp.booleanPrompt(request)
@@ -1330,12 +1330,12 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "test": true,
-  "terminalName": 'Test Terminal',
+  test: true,
+  terminalName: 'Test Terminal',
 
   # Type of prompt. Can be 'email', 'phone', 'customer-number', or
   # 'rewards-number'.
-  "promptType": PromptType::EMAIL
+  promptType: PromptType::EMAIL
 }
 
 response = blockchyp.textPrompt(request)
@@ -1389,14 +1389,14 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "customer": {
-    "id": 'ID of the customer to update',
-    "customerRef": 'Customer reference string',
-    "firstName": 'FirstName',
-    "lastName": 'LastName',
-    "companyName": 'Company Name',
-    "emailAddress": 'support@blockchyp.com',
-    "smsNumber": '(123) 123-1231'
+  customer: {
+    id: 'ID of the customer to update',
+    customerRef: 'Customer reference string',
+    firstName: 'FirstName',
+    lastName: 'LastName',
+    companyName: 'Company Name',
+    emailAddress: 'support@blockchyp.com',
+    smsNumber: '(123) 123-1231'
   }
 }
 
@@ -1432,7 +1432,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "customerId": 'ID of the customer to retrieve'
+  customerId: 'ID of the customer to retrieve'
 }
 
 response = blockchyp.customer(request)
@@ -1467,7 +1467,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "query": '(123) 123-1234'
+  query: '(123) 123-1234'
 }
 
 response = blockchyp.customerSearch(request)
@@ -1503,9 +1503,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "amount": '100.00',
-  "cashDiscount": true,
-  "surcharge": true
+  amount: '100.00',
+  cashDiscount: true,
+  surcharge: true
 }
 
 response = blockchyp.cashDiscount(request)
@@ -1557,8 +1557,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "maxResults": 250,
-  "startIndex": 1
+  maxResults: 250,
+  startIndex: 1
 }
 
 response = blockchyp.batchHistory(request)
@@ -1596,7 +1596,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "batchId": 'BATCHID'
+  batchId: 'BATCHID'
 }
 
 response = blockchyp.batchDetails(request)
@@ -1664,7 +1664,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  "maxResults": 10
+  maxResults: 10
 }
 
 response = blockchyp.transactionHistory(request)
