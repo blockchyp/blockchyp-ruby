@@ -27,6 +27,8 @@ module BlockChyp
       request = {
         timeout: 1,
         pan: '5555555555554444',
+        expMonth: '12',
+        expYear: '2025',
         amount: '25.55',
         test: true,
         transactionRef: uuid
