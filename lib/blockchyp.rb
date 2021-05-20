@@ -137,7 +137,7 @@ module BlockChyp
       gateway_request('POST', '/api/capture', request)
     end
 
-    # Discards a previous preauth transaction.
+    # Discards a previous transaction.
     def void(request)
       gateway_request('POST', '/api/void', request)
     end
