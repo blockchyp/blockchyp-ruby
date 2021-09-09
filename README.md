@@ -1712,6 +1712,75 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### List Queued Transactions
+
+
+
+Returns a list of transaction refs of transactions queued on a terminal.
+Details about the transactions can be retrieved using the Transaction Status
+API.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  terminalName: 'Test Terminal'
+}
+
+response = blockchyp.listQueuedTransactions(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Delete Queued Transaction
+
+
+
+Deletes one or all queued transactions from a terminal. If `*` is passed as
+a transaction ref, then the entire terminal queue will be cleared. An error is
+returned if the passed transaction ref is not queued on the terminal.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  terminalName: 'Test Terminal',
+  transactionRef: '*'
+}
+
+response = blockchyp.deleteQueuedTransaction(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 ## Running Integration Tests
 
 If you'd like to run the integration tests, create a new file on your system

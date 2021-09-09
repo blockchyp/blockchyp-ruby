@@ -139,6 +139,16 @@ module BlockChyp
     def text_prompt(request)
       route_terminal_request('POST', '/api/text-prompt', '/api/text-prompt', request)
     end
+
+    # Returns a list of queued transactions on a terminal.
+    def list_queued_transactions(request)
+      route_terminal_request('GET', '/api/queue/list', '/api/queue/list', request)
+    end
+
+    # Deletes a queued transaction from the terminal.
+    def delete_queued_transaction(request)
+      route_terminal_request('POST', '/api/queue/delete', '/api/queue/delete', request)
+    end
     
     # Captures a preauthorization.
     def capture(request)
