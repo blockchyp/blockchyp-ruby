@@ -1781,6 +1781,70 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Delete Customer
+
+
+
+Deletes a customer record.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  customerId: 'ID of the customer to delete'
+}
+
+response = blockchyp.deleteCustomer(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Delete Token
+
+
+
+Deletes a payment token from the gateway.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  token: 'Token to delete'
+}
+
+response = blockchyp.deleteToken(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 ## Running Integration Tests
 
 If you'd like to run the integration tests, create a new file on your system

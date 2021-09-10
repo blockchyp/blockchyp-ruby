@@ -21,11 +21,11 @@ module BlockChyp
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
 
-      test_delay(blockchyp, 'terminal_charge_test')
+      test_delay(blockchyp, 'terminal_charge_test', config[:defaultTerminalName])
 
       # Set request parameters
       request = {
-        terminalName: 'Test Terminal',
+        terminalName: '$testTerminal',
         amount: '25.15',
         test: true
       }

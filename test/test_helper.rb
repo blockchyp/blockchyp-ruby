@@ -34,7 +34,7 @@ module BlockChyp
       JSON.parse(content, symbolize_names: true)
     end
 
-    def test_delay(client, test_name)
+    def test_delay(client, test_name, terminal_name)
       test_delay = ENV['BC_TEST_DELAY']
 
       if test_delay
@@ -42,7 +42,7 @@ module BlockChyp
         if test_delay_int.positive?
           request = {
             test: true,
-            terminalName: 'Test Terminal',
+            terminalName: terminal_name,
             message: "Running #{test_name} in #{test_delay} seconds.."
           }
           response = client.message(request)

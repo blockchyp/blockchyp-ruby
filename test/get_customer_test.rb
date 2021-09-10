@@ -21,7 +21,7 @@ module BlockChyp
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
 
-      test_delay(blockchyp, 'get_customer_test')
+      test_delay(blockchyp, 'get_customer_test', config[:defaultTerminalName])
 
       # Set request parameters
       setup_request = {

@@ -21,12 +21,12 @@ module BlockChyp
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
 
-      test_delay(blockchyp, 'boolean_prompt_test')
+      test_delay(blockchyp, 'boolean_prompt_test', config[:defaultTerminalName])
 
       # Set request parameters
       request = {
         test: true,
-        terminalName: 'Test Terminal',
+        terminalName: config[:defaultTerminalName],
         prompt: 'Would you like to become a member?',
         yesCaption: 'Yes',
         noCaption: 'No'

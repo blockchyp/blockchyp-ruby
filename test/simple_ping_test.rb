@@ -21,12 +21,12 @@ module BlockChyp
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
 
-      test_delay(blockchyp, 'simple_ping_test')
+      test_delay(blockchyp, 'simple_ping_test', config[:defaultTerminalName])
 
       # Set request parameters
       request = {
         test: true,
-        terminalName: 'Test Terminal'
+        terminalName: '$testTerminal'
       }
 
       response = blockchyp.ping(request)

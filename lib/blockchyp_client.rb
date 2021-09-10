@@ -145,6 +145,8 @@ module BlockChyp
         Net::HTTP::Put.new(uri.request_uri)
       when 'POST'
         Net::HTTP::Post.new(uri.request_uri)
+      when 'DELETE'
+        Net::HTTP::Delete.new(uri.request_uri)
       end
     end
 

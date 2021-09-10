@@ -9,8 +9,8 @@
 require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
-  class SimpleGiftActivateTest < TestCase
-    def test_simple_gift_activate
+  class DeleteCustomerTest < TestCase
+    def test_delete_customer
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -21,22 +21,31 @@ module BlockChyp
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
 
-      test_delay(blockchyp, 'simple_gift_activate_test', config[:defaultTerminalName])
+      test_delay(blockchyp, 'delete_customer_test', config[:defaultTerminalName])
+
+      # Set request parameters
+      setup_request = {
+        customer: {
+          firstName: 'Test',
+          lastName: 'Customer',
+          companyName: 'Test Company',
+          emailAddress: 'support@blockchyp.com',
+          smsNumber: '(123) 123-1234'
+        }
+      }
+
+      response = blockchyp.update_customer(setup_request)
 
       # Set request parameters
       request = {
-        test: true,
-        terminalName: config[:defaultTerminalName],
-        amount: '50.00'
+        customerId: response[:customer][:id]
       }
 
-      response = blockchyp.gift_activate(request)
+      response = blockchyp.delete_customer(request)
 
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
-      assert(response[:approved])
-      assert(!response[:publicKey].empty?)
     end
   end
 end

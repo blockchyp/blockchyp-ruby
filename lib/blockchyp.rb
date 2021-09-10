@@ -142,7 +142,7 @@ module BlockChyp
 
     # Returns a list of queued transactions on a terminal.
     def list_queued_transactions(request)
-      route_terminal_request('GET', '/api/queue/list', '/api/queue/list', request)
+      route_terminal_request('POST', '/api/queue/list', '/api/queue/list', request)
     end
 
     # Deletes a queued transaction from the terminal.
@@ -227,6 +227,16 @@ module BlockChyp
     # Returns profile information for a merchant.
     def merchant_profile(request)
       gateway_request('POST', '/api/public-merchant-profile', request)
+    end
+
+    # Deletes a customer record.
+    def delete_customer(request)
+      gateway_request('DELETE', '/api/customer/' + request[:customerId], request)
+    end
+
+    # Deletes a payment token.
+    def delete_token(request)
+      gateway_request('DELETE', '/api/token/' + request[:token], request)
     end
 
   end
