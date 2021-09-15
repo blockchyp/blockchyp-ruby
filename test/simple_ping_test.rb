@@ -26,7 +26,7 @@ module BlockChyp
       # Set request parameters
       request = {
         test: true,
-        terminalName: '$testTerminal'
+        terminalName: config[:defaultTerminalName]
       }
 
       response = blockchyp.ping(request)

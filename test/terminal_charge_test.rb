@@ -25,7 +25,7 @@ module BlockChyp
 
       # Set request parameters
       request = {
-        terminalName: '$testTerminal',
+        terminalName: config[:defaultTerminalName],
         amount: '25.15',
         test: true
       }
