@@ -244,5 +244,20 @@ module BlockChyp
       gateway_request('DELETE', '/api/token/' + request[:token], request)
     end
 
+    # Retrieves payment token metadata.
+    def token_metadata(request)
+      gateway_request('GET', '/api/token/' + request[:token], request)
+    end
+
+    # Links a token to a customer record.
+    def link_token(request)
+      gateway_request('POST', '/api/link-token', request)
+    end
+
+    # Removes a link between a customer and a token.
+    def unlink_token(request)
+      gateway_request('POST', '/api/unlink-token', request)
+    end
+
   end
 end
