@@ -26,7 +26,12 @@ module BlockChyp
       # Set request parameters
       setup_request = {
         pan: '4111111111111111',
-        test: true
+        test: true,
+        customer: {
+          customerRef: 'TESTCUSTOMER',
+          firstName: 'Test',
+          lastName: 'Customer'
+        }
       }
 
       response = blockchyp.enroll(setup_request)
@@ -34,7 +39,7 @@ module BlockChyp
       # Set request parameters
       request = {
         token: response[:token],
-        customerId: '$customerId'
+        customerId: response[:customer][:id]
       }
 
       response = blockchyp.link_token(request)

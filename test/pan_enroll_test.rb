@@ -26,7 +26,12 @@ module BlockChyp
       # Set request parameters
       request = {
         pan: '4111111111111111',
-        test: true
+        test: true,
+        customer: {
+          customerRef: 'TESTCUSTOMER',
+          firstName: 'Test',
+          lastName: 'Customer'
+        }
       }
 
       response = blockchyp.enroll(request)
