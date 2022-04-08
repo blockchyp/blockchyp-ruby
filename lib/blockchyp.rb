@@ -150,6 +150,11 @@ module BlockChyp
       route_terminal_request('POST', '/api/queue/delete', '/api/queue/delete', request)
     end
     
+    # Returns routing and location data for a payment terminal.
+    def locate(request)
+      gateway_request('POST', '/api/terminal-locate', request)
+    end
+
     # Captures a preauthorization.
     def capture(request)
       gateway_request('POST', '/api/capture', request)

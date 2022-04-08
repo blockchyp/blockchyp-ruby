@@ -114,6 +114,42 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Terminal Locate
+
+
+This endpoint returns routing and location information for a terminal.
+
+The result will indicate whether or not the terminal is in cloud relay mode and will
+return the local IP address if the terminal is in local mode.
+
+The terminal will also return the public key for the terminal.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  terminalName: 'Test Terminal'
+}
+
+response = blockchyp.locate(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 #### Charge
 
 
