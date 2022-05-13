@@ -2030,6 +2030,140 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Add Test Merchant
+
+
+
+This is a partner level API that can be used to create test merchant accounts.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  dbaName: 'DBA name.',
+  companyName: 'test merchant customer name.'
+}
+
+response = blockchyp.addTestMerchant(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Get Merchants
+
+
+
+This is a partner or organization level API that can be used to return the merchant portfolio.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  test: true
+}
+
+response = blockchyp.getMerchants(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Update Or Create Merchant
+
+
+
+This API can be used to update or create merchant accounts.
+
+Merchant scoped API credentials can be used to update merchant account settings.
+
+Partner scoped API credentials can be used to update merchants, create new test 
+merchants or board new gateway merchants. 
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  test: true
+}
+
+response = blockchyp.updateMerchant(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Delete Test Merchant
+
+
+
+This partner API can be used to deleted unused test merchant accounts.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  merchantId: 'ID for the test merchant being deleted.'
+}
+
+response = blockchyp.deleteTestMerchant(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 ## Running Integration Tests
 
 If you'd like to run the integration tests, create a new file on your system
