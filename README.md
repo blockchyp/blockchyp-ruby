@@ -2809,6 +2809,358 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Upload Status
+
+
+
+This API returns the status of a file upload.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  timeout: 120
+}
+
+response = blockchyp.uploadStatus(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Media Library
+
+
+
+This API returns the media library associated with the API credentials.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  timeout: 120
+}
+
+response = blockchyp.media(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Get Media Asset
+
+
+
+This API returns a detailed media asset.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  timeout: 120
+}
+
+response = blockchyp.mediaAsset(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Delete Media Asset
+
+
+
+This API deletes a media asset.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  timeout: 120
+}
+
+response = blockchyp.deleteMediaAsset(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Update Slide Show
+
+
+
+This API updates or creates a slide show.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  timeout: 120
+}
+
+response = blockchyp.updateSlideShow(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Slide Shows
+
+
+
+This API returns all slide shows.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  timeout: 120
+}
+
+response = blockchyp.slideShows(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Slide Show
+
+
+
+This API returns a single slide show.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  timeout: 120
+}
+
+response = blockchyp.slideShow(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Delete Slide Show
+
+
+
+This API deletes a single slide show.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  timeout: 120
+}
+
+response = blockchyp.deleteSlideShow(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Terminal Branding
+
+
+
+This API returns the terminal branding stack for a given API scope.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  timeout: 120
+}
+
+response = blockchyp.terminalBranding(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Update Branding Asset
+
+
+
+This API updates a single branding asset.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  timeout: 120
+}
+
+response = blockchyp.updateBrandingAsset(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
+#### Delete Branding Asset
+
+
+
+This API deletes a branding asset.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  timeout: 120
+}
+
+response = blockchyp.deleteBrandingAsset(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 ## Running Integration Tests
 
 If you'd like to run the integration tests, create a new file on your system
