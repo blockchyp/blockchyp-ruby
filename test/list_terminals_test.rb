@@ -9,8 +9,8 @@
 require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
-  class CreateTestMerchantTest < TestCase
-    def test_create_test_merchant
+  class ListTerminalsTest < TestCase
+    def test_list_terminals
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -21,15 +21,13 @@ module BlockChyp
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
 
-      test_delay(blockchyp, 'create_test_merchant_test', config[:defaultTerminalName])
+      test_delay(blockchyp, 'list_terminals_test', config[:defaultTerminalName])
 
       # Set request parameters
       request = {
-        dbaName: 'Test Merchant',
-        companyName: 'Test Merchant'
       }
 
-      response = blockchyp.create_test_merchant(request)
+      response = blockchyp.terminals(request)
 
       assert_not_nil(response)
       # response assertions
