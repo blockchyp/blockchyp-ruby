@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# Copyright 2019 BlockChyp, Inc. All rights reserved. Use of this code is
+# Copyright 2019-2022 BlockChyp, Inc. All rights reserved. Use of this code is
 # governed by a license that can be found in the LICENSE file.
 #
-# This file was generated automatically. Changes to this file will be lost
-# every time the code is regenerated.
+# This file was generated automatically by the BlockChyp SDK Generator.
+# Changes to this file will be lost every time the code is regenerated.
 
 require ::File.expand_path('test_helper', __dir__)
 
@@ -24,7 +24,17 @@ module BlockChyp
       test_delay(blockchyp, 'tc_template_test', config[:defaultTerminalName])
 
       # Set request parameters
+      setup_request = {
+        alias: uuid,
+        name: 'HIPPA Disclosure',
+        content: 'Lorem ipsum dolor sit amet.'
+      }
+
+      response = blockchyp.tc_update_template(setup_request)
+
+      # Set request parameters
       request = {
+        templateId: 
       }
 
       response = blockchyp.tc_template(request)
@@ -32,6 +42,8 @@ module BlockChyp
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
+      assert_equal('HIPPA Disclosure', response[:name])
+      assert_equal('Lorem ipsum dolor sit amet.', response[:content])
     end
   end
 end

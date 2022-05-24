@@ -9,8 +9,8 @@
 require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
-  class BooleanPromptTest < TestCase
-    def test_boolean_prompt
+  class TerminalQueuedTransactionTest < TestCase
+    def test_terminal_queued_transaction
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -21,23 +21,25 @@ module BlockChyp
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
 
-      test_delay(blockchyp, 'boolean_prompt_test', config[:defaultTerminalName])
+      test_delay(blockchyp, 'terminal_queued_transaction_test', config[:defaultTerminalName])
 
       # Set request parameters
       request = {
-        test: true,
         terminalName: config[:defaultTerminalName],
-        prompt: 'Would you like to become a member?',
-        yesCaption: 'Yes',
-        noCaption: 'No'
+        transactionRef: uuid,
+        description: '1060 West Addison',
+        amount: '25.15',
+        test: true,
+        queue: true
       }
 
-      response = blockchyp.boolean_prompt(request)
+      response = blockchyp.charge(request)
 
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
-      assert(response[:response])
+      assert(!response[:approved])
+      assert_equal('Queued', response[:responseDescription])
     end
   end
 end
