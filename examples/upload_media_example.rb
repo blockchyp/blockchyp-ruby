@@ -10,7 +10,9 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  timeout: 120
+  fileName: 'aviato.png',
+  fileSize: 18843,
+  uploadId: '<RANDOM ID>'
 }
 
 response = blockchyp.uploadMedia(request)

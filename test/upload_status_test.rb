@@ -24,7 +24,17 @@ module BlockChyp
       test_delay(blockchyp, 'upload_status_test', config[:defaultTerminalName])
 
       # Set request parameters
+      setup_request = {
+        fileName: 'aviato.png',
+        fileSize: 18843,
+        uploadId: uuid
+      }
+
+      response = blockchyp.upload_media(setup_request)
+
+      # Set request parameters
       request = {
+        uploadId: 
       }
 
       response = blockchyp.upload_status(request)

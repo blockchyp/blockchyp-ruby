@@ -24,7 +24,17 @@ module BlockChyp
       test_delay(blockchyp, 'delete_media_asset_test', config[:defaultTerminalName])
 
       # Set request parameters
+      setup_request = {
+        fileName: 'aviato.png',
+        fileSize: 18843,
+        uploadId: uuid
+      }
+
+      response = blockchyp.upload_media(setup_request)
+
+      # Set request parameters
       request = {
+        mediaId: 
       }
 
       response = blockchyp.delete_media_asset(request)

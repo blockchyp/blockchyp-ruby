@@ -10,7 +10,10 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  timeout: 120
+  ordinal: 1,
+  questionText: 'Would you shop here again?',
+  questionType: 'yes_no',
+  enabled: true
 }
 
 response = blockchyp.updateSurveyQuestion(request)

@@ -10,7 +10,13 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  timeout: 120
+  name: 'Test Slide Show',
+  delay: 5,
+  slides: [
+    {
+      mediaId: 
+    }
+  ]
 }
 
 response = blockchyp.updateSlideShow(request)

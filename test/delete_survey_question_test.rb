@@ -24,7 +24,17 @@ module BlockChyp
       test_delay(blockchyp, 'delete_survey_question_test', config[:defaultTerminalName])
 
       # Set request parameters
+      setup_request = {
+        ordinal: 1,
+        questionText: 'Would you shop here again?',
+        questionType: 'yes_no'
+      }
+
+      response = blockchyp.update_survey_question(setup_request)
+
+      # Set request parameters
       request = {
+        questionId: 
       }
 
       response = blockchyp.delete_survey_question(request)

@@ -24,7 +24,23 @@ module BlockChyp
       test_delay(blockchyp, 'update_slide_show_test', config[:defaultTerminalName])
 
       # Set request parameters
+      setup_request = {
+        fileName: 'aviato.png',
+        fileSize: 18843,
+        uploadId: uuid
+      }
+
+      response = blockchyp.upload_media(setup_request)
+
+      # Set request parameters
       request = {
+        name: 'Test Slide Show',
+        delay: 5,
+        slides: [
+          {
+            mediaId: 
+          }
+        ]
       }
 
       response = blockchyp.update_slide_show(request)

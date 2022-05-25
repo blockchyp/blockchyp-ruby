@@ -24,7 +24,14 @@ module BlockChyp
       test_delay(blockchyp, 'survey_question_test', config[:defaultTerminalName])
 
       # Set request parameters
+      setup_request = {
+      }
+
+      response = blockchyp.survey_questions(setup_request)
+
+      # Set request parameters
       request = {
+        questionId: 
       }
 
       response = blockchyp.survey_question(request)

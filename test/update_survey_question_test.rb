@@ -25,6 +25,9 @@ module BlockChyp
 
       # Set request parameters
       request = {
+        ordinal: 1,
+        questionText: 'Would you shop here again?',
+        questionType: 'yes_no'
       }
 
       response = blockchyp.update_survey_question(request)
@@ -32,6 +35,8 @@ module BlockChyp
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
+      assert_equal('Would you shop here again?', response[:questionText])
+      assert_equal('yes_no', response[:questionType])
     end
   end
 end

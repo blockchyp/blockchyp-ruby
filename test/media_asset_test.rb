@@ -24,7 +24,17 @@ module BlockChyp
       test_delay(blockchyp, 'media_asset_test', config[:defaultTerminalName])
 
       # Set request parameters
+      setup_request = {
+        fileName: 'aviato.png',
+        fileSize: 18843,
+        uploadId: uuid
+      }
+
+      response = blockchyp.upload_media(setup_request)
+
+      # Set request parameters
       request = {
+        mediaId: 
       }
 
       response = blockchyp.media_asset(request)
@@ -32,6 +42,10 @@ module BlockChyp
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
+      assert(!response[:id].empty?)
+      assert_equal('aviato.png', response[:originalFile])
+      assert(!response[:fileUrl].empty?)
+      assert(!response[:thumbnailUrl].empty?)
     end
   end
 end

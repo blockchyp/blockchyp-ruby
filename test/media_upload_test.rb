@@ -25,6 +25,9 @@ module BlockChyp
 
       # Set request parameters
       request = {
+        fileName: 'aviato.png',
+        fileSize: 18843,
+        uploadId: uuid
       }
 
       response = blockchyp.upload_media(request)
@@ -32,6 +35,10 @@ module BlockChyp
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
+      assert(!response[:id].empty?)
+      assert_equal('aviato.png', response[:originalFile])
+      assert(!response[:fileUrl].empty?)
+      assert(!response[:thumbnailUrl].empty?)
     end
   end
 end
