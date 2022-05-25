@@ -24,7 +24,16 @@ module BlockChyp
       test_delay(blockchyp, 'slide_show_test', config[:defaultTerminalName])
 
       # Set request parameters
+      setup_request = {
+        name: 'Test Slide Show',
+        delay: 5
+      }
+
+      response = blockchyp.update_slide_show(setup_request)
+
+      # Set request parameters
       request = {
+        slideShowId: 
       }
 
       response = blockchyp.slide_show(request)
@@ -32,6 +41,7 @@ module BlockChyp
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
+      assert_equal('Test Slide Show', response[:name])
     end
   end
 end

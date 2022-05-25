@@ -34,6 +34,7 @@ module BlockChyp
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
+      assert_equal('Test Slide Show', response[:name])
     end
   end
 end

@@ -2901,7 +2901,10 @@ puts "Response: #{response.inspect}"
 
 
 
-This API returns a single slide show.
+This API returns a single slide show.  Slide level detail is returned with the fully qualified thumbnail URL
+for each slide.
+
+`slideShowId` is the only required parameter.
 
 
 
@@ -2919,7 +2922,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  timeout: 120
+  slideShowId: '<SLIDE SHOW ID>'
 }
 
 response = blockchyp.slideShow(request)
@@ -2978,7 +2981,7 @@ puts "Response: #{response.inspect}"
 
 
 
-This API deletes a single slide show.
+This API deletes a slide show  `slideShowId` is the only required parameter.
 
 
 
@@ -2996,7 +2999,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  timeout: 120
+  slideShowId: '<SLIDE SHOW ID>'
 }
 
 response = blockchyp.deleteSlideShow(request)

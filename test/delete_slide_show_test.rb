@@ -24,7 +24,16 @@ module BlockChyp
       test_delay(blockchyp, 'delete_slide_show_test', config[:defaultTerminalName])
 
       # Set request parameters
+      setup_request = {
+        name: 'Test Slide Show',
+        delay: 5
+      }
+
+      response = blockchyp.update_slide_show(setup_request)
+
+      # Set request parameters
       request = {
+        slideShowId: 
       }
 
       response = blockchyp.delete_slide_show(request)
