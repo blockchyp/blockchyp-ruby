@@ -9,8 +9,8 @@
 require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
-  class DeleteBrandingAssetTest < TestCase
-    def test_delete_branding_asset
+  class EmptyBrandingAssetTest < TestCase
+    def test_empty_branding_asset
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -21,22 +21,15 @@ module BlockChyp
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
 
-      test_delay(blockchyp, 'delete_branding_asset_test', config[:defaultTerminalName])
+      test_delay(blockchyp, 'empty_branding_asset_test', config[:defaultTerminalName])
 
       # Set request parameters
-      setup_request = {
+      request = {
         notes: 'Empty Asset',
         enabled: false
       }
 
-      response = blockchyp.update_branding_asset(setup_request)
-
-      # Set request parameters
-      request = {
-        assetId: 
-      }
-
-      response = blockchyp.delete_branding_asset(request)
+      response = blockchyp.update_branding_asset(request)
 
       assert_not_nil(response)
       # response assertions

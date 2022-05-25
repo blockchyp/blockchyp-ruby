@@ -24,7 +24,26 @@ module BlockChyp
       test_delay(blockchyp, 'update_branding_asset_test', config[:defaultTerminalName])
 
       # Set request parameters
+      setup_request = {
+        fileName: 'aviato.png',
+        fileSize: 18843,
+        uploadId: uuid
+      }
+
+      response = blockchyp.upload_media(setup_request)
+
+      # Set request parameters
       request = {
+        mediaId: ,
+        padded: true,
+        ordinal: 10,
+        startDate: '01/06/2021',
+        startTime: '14:00',
+        endDate: '11/05/2024',
+        endTime: '16:00',
+        notes: 'Test Branding Asset',
+        preview: false,
+        enabled: true
       }
 
       response = blockchyp.update_branding_asset(request)
