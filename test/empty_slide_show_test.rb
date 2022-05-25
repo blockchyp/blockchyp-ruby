@@ -9,8 +9,8 @@
 require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
-  class SlideShowsTest < TestCase
-    def test_slide_shows
+  class EmptySlideShowTest < TestCase
+    def test_empty_slide_show
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -21,21 +21,15 @@ module BlockChyp
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
 
-      test_delay(blockchyp, 'slide_shows_test', config[:defaultTerminalName])
+      test_delay(blockchyp, 'empty_slide_show_test', config[:defaultTerminalName])
 
       # Set request parameters
-      setup_request = {
+      request = {
         name: 'Test Slide Show',
         delay: 5
       }
 
-      response = blockchyp.update_slide_show(setup_request)
-
-      # Set request parameters
-      request = {
-      }
-
-      response = blockchyp.slide_shows(request)
+      response = blockchyp.update_slide_show(request)
 
       assert_not_nil(response)
       # response assertions
