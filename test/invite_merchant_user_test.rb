@@ -25,6 +25,9 @@ module BlockChyp
 
       # Set request parameters
       request = {
+        email: 'doublea@blockchypteam.m8r.co',
+        firstName: 'Aaron',
+        lastName: 'Anderson'
       }
 
       response = blockchyp.invite_merchant_user(request)

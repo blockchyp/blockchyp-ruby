@@ -34,6 +34,9 @@ module BlockChyp
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
+      assert_equal('Test Merchant', response[:dbaName])
+      assert_equal('Test Merchant', response[:companyName])
+      assert(response[:visa])
     end
   end
 end
