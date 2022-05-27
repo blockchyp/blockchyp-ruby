@@ -24,7 +24,16 @@ module BlockChyp
       test_delay(blockchyp, 'merchant_platforms_test', config[:defaultTerminalName])
 
       # Set request parameters
+      setup_request = {
+        dbaName: 'Test Merchant',
+        companyName: 'Test Merchant'
+      }
+
+      response = blockchyp.add_test_merchant(setup_request)
+
+      # Set request parameters
       request = {
+        merchantId: 
       }
 
       response = blockchyp.merchant_platforms(request)
