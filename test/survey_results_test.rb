@@ -31,6 +31,7 @@ module BlockChyp
 
       # Set request parameters
       request = {
+        questionId: 
       }
 
       response = blockchyp.survey_results(request)

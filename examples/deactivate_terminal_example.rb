@@ -10,8 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  terminalId: uuid,
-  timeout: 120
+  terminalId: '<TERMINAL ID>'
 }
 
 response = blockchyp.deactivateTerminal(request)

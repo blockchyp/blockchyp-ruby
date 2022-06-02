@@ -1661,8 +1661,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  terminalId: uuid,
-  timeout: 120
+  terminalId: '<TERMINAL ID>'
 }
 
 response = blockchyp.deactivateTerminal(request)
@@ -2965,7 +2964,7 @@ request = {
   delay: 5,
   slides: [
     {
-      mediaId: 
+      mediaId: '<MEDIA ID>'
     }
   ]
 }
