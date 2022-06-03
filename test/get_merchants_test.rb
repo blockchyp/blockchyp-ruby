@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class GetMerchantsTest < TestCase
     def test_get_merchants
+
+      puts "Running test_get_merchants..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,20 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'get_merchants_test', config[:defaultTerminalName])
+
+      profile = config[:profiles][:partner]
+      blockchyp = BlockChyp.new(
+        profile[:apiKey],
+        profile[:bearerToken],
+        profile[:signingKey]
+      )
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
+
+
 
       # Set request parameters
       request = {
@@ -29,7 +44,6 @@ module BlockChyp
       }
 
       response = blockchyp.get_merchants(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

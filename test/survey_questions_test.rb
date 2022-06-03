@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class SurveyQuestionsTest < TestCase
     def test_survey_questions
+
+      puts "Running test_survey_questions..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,11 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'survey_questions_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       setup_request = {
@@ -29,7 +35,6 @@ module BlockChyp
         questionText: 'Would you shop here again?',
         questionType: 'yes_no'
       }
-
       response = blockchyp.update_survey_question(setup_request)
 
       # Set request parameters
@@ -37,7 +42,6 @@ module BlockChyp
       }
 
       response = blockchyp.survey_questions(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

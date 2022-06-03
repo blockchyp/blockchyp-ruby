@@ -21,6 +21,7 @@ module BlockChyp
       @signing_key = signing_key
       @gateway_host = 'https://api.blockchyp.com'
       @test_gateway_host = 'https://test.blockchyp.com'
+      @dashboard_host = 'https://dashboard.blockchyp.com'
       @https = false
       @route_cache_location = File.join(Dir.tmpdir, '.blockchyp_route')
       @route_cache_ttl = 60
@@ -38,6 +39,7 @@ module BlockChyp
     attr_reader :offline_fixed_key
     attr_accessor :gateway_host
     attr_accessor :test_gateway_host
+    attr_accessor :dashboard_host
     attr_accessor :https
     attr_accessor :route_cache_ttl
     attr_accessor :gateway_timeout
@@ -70,6 +72,10 @@ module BlockChyp
       url = request.nil? || !request[:test] ? gateway_host : test_gateway_host
 
       URI.parse(path.nil? ? url : url + path)
+    end
+
+    def resolve_dashboard_uri(path, request)
+      URI.parse(dashboard_host + path)
     end
 
     def generate_error_response(msg)
@@ -163,6 +169,78 @@ module BlockChyp
                ':8080'
              end
       URI.parse(url + port + path)
+    end
+
+    def dashboard_request(method, path, request = nil)
+      uri = resolve_dashboard_uri(path, request)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.instance_of?(URI::HTTPS)
+      timeout = get_timeout(request, gateway_timeout)
+      http.open_timeout = timeout
+      http.read_timeout = timeout
+
+      req = get_http_request(method, uri)
+
+      req['User-Agent'] = user_agent
+      unless request.nil?
+        json = request.to_json
+        req['Content-Type'] = 'application/json'
+        req['Content-Length'] = json.length
+        req.body = json
+      end
+
+      headers = generate_gateway_headers
+      headers.each do |key, value|
+        req[key] = value
+      end
+
+      response = http.request(req)
+
+      if response.is_a?(Net::HTTPSuccess)
+        JSON.parse(response.body, symbolize_names: true)
+      else
+        raise response.message
+      end
+    end
+
+    def upload_request(path, request, content)
+      uri = resolve_dashboard_uri(path, request)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.instance_of?(URI::HTTPS)
+      timeout = get_timeout(request, gateway_timeout)
+      http.open_timeout = timeout
+      http.read_timeout = timeout
+
+      req = get_http_request("POST", uri)
+      req.body = content
+      req['User-Agent'] = user_agent
+      req['Content-Type'] = 'application/octet-stream'
+
+      if request[:fileName]
+        req['X-Upload-File-Name'] = request[:fileName]
+      end
+
+      if request[:uploadId]
+        req['X-Upload-ID'] = request[:uploadId]
+      end
+
+      if request[:fileSize]
+        req['X-File-Size'] = request[:fileSize]
+        req['Content-Length'] = request[:fileSize]
+      end
+
+      headers = generate_gateway_headers
+      headers.each do |key, value|
+        req[key] = value
+      end
+
+      response = http.request(req)
+
+      if response.is_a?(Net::HTTPSuccess)
+        JSON.parse(response.body, symbolize_names: true)
+      else
+        raise response.message
+      end
     end
 
     def gateway_request(method, path, request = nil, relay = false)

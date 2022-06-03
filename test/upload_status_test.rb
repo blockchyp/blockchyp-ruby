@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class UploadStatusTest < TestCase
     def test_upload_status
+
+      puts "Running test_upload_status..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,11 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'upload_status_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       setup_request = {
@@ -29,16 +35,16 @@ module BlockChyp
         fileSize: 18843,
         uploadId: uuid
       }
-
-      response = blockchyp.upload_media(setup_request)
+      file = File.open("test/testdata/aviato.png")
+      content = file.read
+      response = blockchyp.upload_media(setup_request, content)
 
       # Set request parameters
       request = {
-        uploadId: 
+        uploadId: setup_request[:uploadId]
       }
 
       response = blockchyp.upload_status(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

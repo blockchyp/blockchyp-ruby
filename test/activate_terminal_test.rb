@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class ActivateTerminalTest < TestCase
     def test_activate_terminal
+
+      puts "Running test_activate_terminal..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,11 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'activate_terminal_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       request = {
@@ -30,7 +36,6 @@ module BlockChyp
       }
 
       response = blockchyp.activate_terminal(request)
-
       assert_not_nil(response)
       # response assertions
       assert(!response[:success])

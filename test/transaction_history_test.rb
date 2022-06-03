@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class TransactionHistoryTest < TestCase
     def test_transaction_history
+
+      puts "Running test_transaction_history..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,11 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'transaction_history_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       setup_request = {
@@ -32,7 +38,6 @@ module BlockChyp
         test: true,
         transactionRef: uuid
       }
-
       response = blockchyp.charge(setup_request)
 
       # Set request parameters
@@ -41,7 +46,6 @@ module BlockChyp
       }
 
       response = blockchyp.transaction_history(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

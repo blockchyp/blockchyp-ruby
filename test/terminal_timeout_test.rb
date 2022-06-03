@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class TerminalTimeoutTest < TestCase
     def test_terminal_timeout
+
+      puts "Running test_terminal_timeout..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,12 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
       test_delay(blockchyp, 'terminal_timeout_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       request = {

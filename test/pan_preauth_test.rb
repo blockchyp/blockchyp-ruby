@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class PANPreauthTest < TestCase
     def test_pan_preauth
+
+      puts "Running test_pan_preauth..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,12 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
       test_delay(blockchyp, 'pan_preauth_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       request = {
@@ -33,7 +40,6 @@ module BlockChyp
       }
 
       response = blockchyp.preauth(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

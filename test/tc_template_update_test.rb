@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class TCTemplateUpdateTest < TestCase
     def test_tc_template_update
+
+      puts "Running test_tc_template_update..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,11 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'tc_template_update_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       request = {
@@ -31,7 +37,6 @@ module BlockChyp
       }
 
       response = blockchyp.tc_update_template(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

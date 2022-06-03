@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class DeactivateTerminalTest < TestCase
     def test_deactivate_terminal
+
+      puts "Running test_deactivate_terminal..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,19 +23,20 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'deactivate_terminal_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       request = {
         terminalId: uuid
       }
 
-      response = blockchyp.deactivate_terminal(request)
-
-      assert_not_nil(response)
-      # response assertions
-      assert(!response[:success])
+      assert_raise RuntimeError do
+      blockchyp.deactivate_terminal(request)
+      end
     end
   end
 end

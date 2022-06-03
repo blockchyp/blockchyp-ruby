@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class GetCustomerTest < TestCase
     def test_get_customer
+
+      puts "Running test_get_customer..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,11 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'get_customer_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       setup_request = {
@@ -33,7 +39,6 @@ module BlockChyp
           smsNumber: '(123) 123-1234'
         }
       }
-
       response = blockchyp.update_customer(setup_request)
 
       # Set request parameters
@@ -42,7 +47,6 @@ module BlockChyp
       }
 
       response = blockchyp.customer(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

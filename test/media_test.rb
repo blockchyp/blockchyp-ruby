@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class MediaTest < TestCase
     def test_media
+
+      puts "Running test_media..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,15 +23,17 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'media_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       request = {
       }
 
       response = blockchyp.media(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

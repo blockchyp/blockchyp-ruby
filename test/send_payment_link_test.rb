@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class SendPaymentLinkTest < TestCase
     def test_send_payment_link
+
+      puts "Running test_send_payment_link..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,11 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'send_payment_link_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       request = {
@@ -52,7 +58,6 @@ module BlockChyp
       }
 
       response = blockchyp.send_payment_link(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class TCTemplateTest < TestCase
     def test_tc_template
+
+      puts "Running test_tc_template..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,11 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'tc_template_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       setup_request = {
@@ -29,16 +35,14 @@ module BlockChyp
         name: 'HIPPA Disclosure',
         content: 'Lorem ipsum dolor sit amet.'
       }
-
       response = blockchyp.tc_update_template(setup_request)
 
       # Set request parameters
       request = {
-        templateId: 
+        templateId: response[:id]
       }
 
       response = blockchyp.tc_template(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

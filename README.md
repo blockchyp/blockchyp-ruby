@@ -2750,7 +2750,9 @@ request = {
   uploadId: '<RANDOM ID>'
 }
 
-response = blockchyp.uploadMedia(request)
+file = File.open("aviato.png")
+content = file.read
+response = blockchyp.uploadMedia(request, content)
 
 puts "Response: #{response.inspect}"
 

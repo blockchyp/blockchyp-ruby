@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class CaptureSignatureTest < TestCase
     def test_capture_signature
+
+      puts "Running test_capture_signature..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,12 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
       test_delay(blockchyp, 'capture_signature_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       request = {
@@ -31,7 +38,6 @@ module BlockChyp
       }
 
       response = blockchyp.capture_signature(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

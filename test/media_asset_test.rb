@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class MediaAssetTest < TestCase
     def test_media_asset
+
+      puts "Running test_media_asset..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,11 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'media_asset_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       setup_request = {
@@ -29,16 +35,16 @@ module BlockChyp
         fileSize: 18843,
         uploadId: uuid
       }
-
-      response = blockchyp.upload_media(setup_request)
+      file = File.open("test/testdata/aviato.png")
+      content = file.read
+      response = blockchyp.upload_media(setup_request, content)
 
       # Set request parameters
       request = {
-        mediaId: 
+        mediaId: response[:id]
       }
 
       response = blockchyp.media_asset(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

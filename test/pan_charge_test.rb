@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class PANChargeTest < TestCase
     def test_pan_charge
+
+      puts "Running test_pan_charge..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,12 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
       test_delay(blockchyp, 'pan_charge_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       request = {
@@ -34,7 +41,6 @@ module BlockChyp
       }
 
       response = blockchyp.charge(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

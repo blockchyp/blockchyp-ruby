@@ -24,8 +24,6 @@ module BlockChyp
 
       file_name = File.join(config_home, 'blockchyp', 'sdk-itest-config.json')
 
-      puts 'load config: ' + file_name
-
       raise 'file not found: ' + file_name unless File.file?(file_name)
 
       config_file = File.open(file_name)

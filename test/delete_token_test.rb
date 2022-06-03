@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class DeleteTokenTest < TestCase
     def test_delete_token
+
+      puts "Running test_delete_token..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,11 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'delete_token_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       setup_request = {
@@ -33,7 +39,6 @@ module BlockChyp
           lastName: 'Customer'
         }
       }
-
       response = blockchyp.enroll(setup_request)
 
       # Set request parameters
@@ -42,7 +47,6 @@ module BlockChyp
       }
 
       response = blockchyp.delete_token(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

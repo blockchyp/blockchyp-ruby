@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class DeleteTestMerchantTest < TestCase
     def test_delete_test_merchant
+
+      puts "Running test_delete_test_merchant..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,24 +23,34 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'delete_test_merchant_test', config[:defaultTerminalName])
+
+      profile = config[:profiles][:partner]
+      blockchyp = BlockChyp.new(
+        profile[:apiKey],
+        profile[:bearerToken],
+        profile[:signingKey]
+      )
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
+
+
 
       # Set request parameters
       setup_request = {
         dbaName: 'Test Merchant',
         companyName: 'Test Merchant'
       }
-
       response = blockchyp.add_test_merchant(setup_request)
 
       # Set request parameters
       request = {
-        merchantId: 
+        merchantId: response[:merchantId]
       }
 
       response = blockchyp.delete_test_merchant(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

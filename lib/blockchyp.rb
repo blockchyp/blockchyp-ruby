@@ -264,5 +264,185 @@ module BlockChyp
       gateway_request('DELETE', '/api/token/' + request[:token], request)
     end
 
+
+    # Adds a test merchant account.
+    def get_merchants(request)
+      dashboard_request('POST', '/api/get-merchants', request)
+    end
+
+    # Adds or updates a merchant account. Can be used to create or update test
+    # merchants. Only gateway only partners may create new live merchants.
+    def update_merchant(request)
+      dashboard_request('POST', '/api/update-merchant', request)
+    end
+
+    # List all active users and pending invites for a merchant account.
+    def merchant_users(request)
+      dashboard_request('POST', '/api/merchant-users', request)
+    end
+
+    # Invites a user to join a merchant account.
+    def invite_merchant_user(request)
+      dashboard_request('POST', '/api/invite-merchant-user', request)
+    end
+
+    # Adds a test merchant account.
+    def add_test_merchant(request)
+      dashboard_request('POST', '/api/add-test-merchant', request)
+    end
+
+    # Deletes a test merchant account. Supports partner scoped API credentials
+    # only. Live merchant accounts cannot be deleted.
+    def delete_test_merchant(request)
+      dashboard_request('DELETE', '/api/test-merchant/' + request[:merchantId], request)
+    end
+
+    # List all merchant platforms configured for a gateway merchant.
+    def merchant_platforms(request)
+      dashboard_request('GET', '/api/plugin-configs/' + request[:merchantId], request)
+    end
+
+    # List all merchant platforms configured for a gateway merchant.
+    def update_merchant_platforms(request)
+      dashboard_request('POST', '/api/plugin-configs', request)
+    end
+
+    # Deletes a boarding platform configuration.
+    def delete_merchant_platforms(request)
+      dashboard_request('DELETE', '/api/plugin-config/' + request[:platformId], request)
+    end
+
+    # Returns all terminals associated with the merchant account.
+    def terminals(request)
+      dashboard_request('GET', '/api/terminals', request)
+    end
+
+    # Deactivates a terminal.
+    def deactivate_terminal(request)
+      dashboard_request('DELETE', '/api/terminal/' + request[:terminalId], request)
+    end
+
+    # Activates a terminal.
+    def activate_terminal(request)
+      dashboard_request('POST', '/api/terminal-activate', request)
+    end
+
+    # Returns a list of terms and conditions templates associated with a
+    # merchant account.
+    def tc_templates(request)
+      dashboard_request('GET', '/api/tc-templates', request)
+    end
+
+    # Returns a single terms and conditions template.
+    def tc_template(request)
+      dashboard_request('GET', '/api/tc-templates/' + request[:templateId], request)
+    end
+
+    # Updates or creates a terms and conditions template.
+    def tc_update_template(request)
+      dashboard_request('POST', '/api/tc-templates', request)
+    end
+
+    # Deletes a single terms and conditions template.
+    def tc_delete_template(request)
+      dashboard_request('DELETE', '/api/tc-templates/' + request[:templateId], request)
+    end
+
+    # Returns up to 250 entries from the Terms and Conditions log.
+    def tc_log(request)
+      dashboard_request('POST', '/api/tc-log', request)
+    end
+
+    # Returns a single detailed Terms and Conditions entry.
+    def tc_entry(request)
+      dashboard_request('GET', '/api/tc-entry/' + request[:logEntryId], request)
+    end
+
+    # Returns all survey questions for a given merchant.
+    def survey_questions(request)
+      dashboard_request('GET', '/api/survey-questions', request)
+    end
+
+    # Returns a single survey question with response data.
+    def survey_question(request)
+      dashboard_request('GET', '/api/survey-questions/' + request[:questionId], request)
+    end
+
+    # Updates or creates a survey question.
+    def update_survey_question(request)
+      dashboard_request('POST', '/api/survey-questions', request)
+    end
+
+    # Deletes a survey question.
+    def delete_survey_question(request)
+      dashboard_request('DELETE', '/api/survey-questions/' + request[:questionId], request)
+    end
+
+    # Returns results for a single survey question.
+    def survey_results(request)
+      dashboard_request('POST', '/api/survey-results', request)
+    end
+
+    # Returns the media library for a given partner, merchant, or
+    # organization.
+    def media(request)
+      dashboard_request('GET', '/api/media', request)
+    end
+
+    # Uploads a media asset to the media library.
+    def upload_media(request, file)
+      upload_request('/api/upload-media', request, file)
+    end
+
+    # Retrieves the current status of a file upload.
+    def upload_status(request)
+      dashboard_request('GET', '/api/media-upload/' + request[:uploadId], request)
+    end
+
+    # Returns the media details for a single media asset.
+    def media_asset(request)
+      dashboard_request('GET', '/api/media/' + request[:mediaId], request)
+    end
+
+    # Deletes a media asset.
+    def delete_media_asset(request)
+      dashboard_request('DELETE', '/api/media/' + request[:mediaId], request)
+    end
+
+    # Returns a collection of slide shows.
+    def slide_shows(request)
+      dashboard_request('GET', '/api/slide-shows', request)
+    end
+
+    # Returns a single slide show with slides.
+    def slide_show(request)
+      dashboard_request('GET', '/api/slide-shows/' + request[:slideShowId], request)
+    end
+
+    # Updates or creates a slide show.
+    def update_slide_show(request)
+      dashboard_request('POST', '/api/slide-shows', request)
+    end
+
+    # Deletes a single slide show.
+    def delete_slide_show(request)
+      dashboard_request('DELETE', '/api/slide-shows/' + request[:slideShowId], request)
+    end
+
+    # Returns the terminal branding stack for a given set of API credentials.
+    def terminal_branding(request)
+      dashboard_request('GET', '/api/terminal-branding', request)
+    end
+
+    # Updates a branding asset.
+    def update_branding_asset(request)
+      dashboard_request('POST', '/api/terminal-branding', request)
+    end
+
+    # Deletes a branding asset.
+    def delete_branding_asset(request)
+      dashboard_request('DELETE', '/api/terminal-branding/' + request[:assetId], request)
+    end
+
   end
 end

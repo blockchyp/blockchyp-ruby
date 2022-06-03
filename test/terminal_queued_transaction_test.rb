@@ -11,6 +11,9 @@ require ::File.expand_path('test_helper', __dir__)
 module BlockChyp
   class TerminalQueuedTransactionTest < TestCase
     def test_terminal_queued_transaction
+
+      puts "Running test_terminal_queued_transaction..."
+
       config = load_test_config
 
       blockchyp = BlockChyp.new(
@@ -20,8 +23,12 @@ module BlockChyp
       )
       blockchyp.gateway_host = config[:gatewayHost]
       blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
       test_delay(blockchyp, 'terminal_queued_transaction_test', config[:defaultTerminalName])
+
+
+
 
       # Set request parameters
       request = {
@@ -34,7 +41,6 @@ module BlockChyp
       }
 
       response = blockchyp.charge(request)
-
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
