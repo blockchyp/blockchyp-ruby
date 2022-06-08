@@ -13,6 +13,7 @@ module CardType
   DEBIT = 1
   EBT = 2
   BLOCKCHAIN_GIFT = 3
+  HEALTHCARE = 4
 end
 
 module SignatureFormat
@@ -48,6 +49,14 @@ module CVMType
   ONLINE_PIN = 'Online PIN'
   CDCVM = 'CDCVM'
   NO_CVM = 'No CVM'
+end
+
+module HealthcareType
+  HEALTHCARE = 'healthcare'
+  PRESCRIPTION = 'prescription'
+  VISION = 'vision'
+  CLINIC = 'clinic'
+  DENTAL = 'dental'
 end
 
 module BlockChyp
