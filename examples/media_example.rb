@@ -10,7 +10,6 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  timeout: 120
 }
 
 response = blockchyp.media(request)

@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  token: 'Token to retrieve'
+  token: '<TOKEN>'
 }
 
 response = blockchyp.tokenMetadata(request)

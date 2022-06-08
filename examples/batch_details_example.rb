@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  batchId: 'BATCHID'
+  batchId: '<BATCH ID>'
 }
 
 response = blockchyp.batchDetails(request)

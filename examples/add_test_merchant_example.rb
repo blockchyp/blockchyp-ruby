@@ -10,8 +10,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  dbaName: 'DBA name.',
-  companyName: 'test merchant customer name.'
+  dbaName: 'DBA Name',
+  companyName: 'Corporate Entity Name'
 }
 
 response = blockchyp.addTestMerchant(request)

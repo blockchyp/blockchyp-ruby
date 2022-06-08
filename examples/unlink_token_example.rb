@@ -10,8 +10,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  token: 'Token to unlink',
-  customerId: 'Customer to unlink'
+  token: '<TOKEN>',
+  customerId: '<CUSTOMER ID>'
 }
 
 response = blockchyp.unlinkToken(request)

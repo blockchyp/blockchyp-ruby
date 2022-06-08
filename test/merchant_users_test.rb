@@ -31,7 +31,6 @@ module BlockChyp
 
       # Set request parameters
       request = {
-        timeout: 120
       }
 
       response = blockchyp.merchant_users(request)

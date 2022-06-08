@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  questionId: '<SURVEY QUESTION ID>'
+  questionId: '<QUESTION ID>'
 }
 
 response = blockchyp.surveyResults(request)

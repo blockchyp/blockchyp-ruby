@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  questionId: 'XXXXXXXX'
+  questionId: '<QUESTION ID>'
 }
 
 response = blockchyp.deleteSurveyQuestion(request)

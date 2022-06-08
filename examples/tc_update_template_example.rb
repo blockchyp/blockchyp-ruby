@@ -12,8 +12,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 request = {
   alias: 'HIPPA',
   name: 'HIPPA Disclosure',
-  content: 'Lorem ipsum dolor sit amet.',
-  timeout: 120
+  content: 'Lorem ipsum dolor sit amet.'
 }
 
 response = blockchyp.tcUpdateTemplate(request)

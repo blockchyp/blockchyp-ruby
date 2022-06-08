@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  timeout: 120
+  logEntryId: '<LOG ENTRY ID>'
 }
 
 response = blockchyp.tcLog(request)

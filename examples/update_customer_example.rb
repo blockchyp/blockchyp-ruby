@@ -11,7 +11,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 # Set request parameters
 request = {
   customer: {
-    id: 'ID of the customer to update',
+    id: '<CUSTOMER ID>',
     customerRef: 'Customer reference string',
     firstName: 'FirstName',
     lastName: 'LastName',

@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  customerId: 'ID of the customer to delete'
+  customerId: '<CUSTOMER ID>'
 }
 
 response = blockchyp.deleteCustomer(request)

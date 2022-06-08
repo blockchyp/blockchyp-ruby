@@ -10,6 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
+  id: '<QUESTION ID>',
   ordinal: 1,
   questionText: 'Would you shop here again?',
   questionType: 'yes_no',

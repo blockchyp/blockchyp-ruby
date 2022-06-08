@@ -10,7 +10,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  maxResults: 10
+  maxResults: 10,
+  batchId: '<BATCH ID>'
 }
 
 response = blockchyp.transactionHistory(request)

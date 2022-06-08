@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  merchantId: 'XXXXXXXXXXXXX'
+  merchantId: '<MERCHANT ID>'
 }
 
 response = blockchyp.merchantUsers(request)

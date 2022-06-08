@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  timeout: 120
+  templateId: '<TEMPLATE ID>'
 }
 
 response = blockchyp.tcTemplate(request)

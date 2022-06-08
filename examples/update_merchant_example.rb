@@ -10,7 +10,16 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  test: true
+  merchantId: '<MERCHANT ID>',
+  test: true,
+  dbaName: 'Test Merchant',
+  companyName: 'Test Merchant',
+  billingAddress: {
+    address1: '1060 West Addison',
+    city: 'Chicago',
+    stateOrProvince: 'IL',
+    postalCode: '60613'
+  }
 }
 
 response = blockchyp.updateMerchant(request)

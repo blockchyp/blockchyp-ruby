@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  linkCode: 'Payment link code to cancel'
+  linkCode: '<PAYMENT LINK CODE>'
 }
 
 response = blockchyp.cancelPaymentLink(request)

@@ -11,7 +11,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 # Set request parameters
 request = {
   terminalName: 'Test Terminal',
-  timeout: 120
+  activationCode: '<ACTIVATION CODE>'
 }
 
 response = blockchyp.activateTerminal(request)

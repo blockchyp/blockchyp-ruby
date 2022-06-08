@@ -10,7 +10,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  merchantId: 'ID for the test merchant being deleted.'
+  merchantId: '<MERCHANT ID>'
 }
 
 response = blockchyp.deleteTestMerchant(request)

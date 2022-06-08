@@ -11,7 +11,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 # Set request parameters
 request = {
   test: true,
-  transactionId: '<PREAUTH TRANSACTION ID>'
+  transactionId: '<ORIGINAL TRANSACTION ID>',
+  amount: '32.00'
 }
 
 response = blockchyp.capture(request)

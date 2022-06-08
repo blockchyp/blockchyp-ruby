@@ -10,8 +10,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  token: 'Token to link',
-  customerId: 'Customer to link'
+  token: '<TOKEN>',
+  customerId: '<CUSTOMER ID>'
 }
 
 response = blockchyp.linkToken(request)
