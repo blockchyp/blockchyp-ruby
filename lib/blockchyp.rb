@@ -158,6 +158,11 @@ module BlockChyp
     def delete_queued_transaction(request)
       route_terminal_request('POST', '/api/queue/delete', '/api/queue/delete', request)
     end
+
+    # Reboot a payment terminal.
+    def reboot(request)
+      route_terminal_request('POST', '/api/reboot', '/api/terminal-reboot', request)
+    end
     
     # Returns routing and location data for a payment terminal.
     def locate(request)
