@@ -84,6 +84,10 @@ These are the core payment APIs used to execute and work with payment transactio
 #### Charge
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 Our most popular transaction executes a standard authorization and capture.
 This is the most basic of
 basic payment transactions, typically used in conventional retail.
@@ -147,6 +151,10 @@ puts "Response: #{response.inspect}"
 
 #### Preauthorization
 
+
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 A preauthorization puts a hold on funds and must be captured later.  This is used
 in scenarios where the final transaction amount might change.  A common examples would
@@ -216,6 +224,10 @@ puts "Response: #{response.inspect}"
 #### Capture Preauthorization
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 This API allows you to capture a previously approved preauthorization.
 
 You'll need to make sure you pass in the Transaction ID returned by the original preauth transaction so we know which transaction we're capturing.  If you want to capture the transaction for the
@@ -255,6 +267,10 @@ puts "Response: #{response.inspect}"
 
 #### Refund
 
+
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 It's not ideal, but sometimes customers want their money back.
 
@@ -340,6 +356,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 Mistakes happen.  If a transaction is made by mistake, you can void it
 with this API.  All that's needed is to pass in a Transaction ID and execute
 the void before the original transaction's batch closes.
@@ -381,6 +400,9 @@ puts "Response: #{response.inspect}"
 #### Time Out Reversal
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Payment transactions require a stable network to function correctly and
 no network is stable all the time.  Time out reversals are a great line
@@ -432,6 +454,10 @@ puts "Response: #{response.inspect}"
 
 #### Gift Card Activation
 
+
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 This API can be used to activate or add value to BlockChyp gift cards.
 Just pass in the terminal name and the amount to add to the card.
@@ -516,6 +542,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 Checks a gift or EBT card balance.
 
 **Gift Card Balance Checks**
@@ -573,6 +602,10 @@ puts "Response: #{response.inspect}"
 #### Close Batch
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 This API will close the merchant's batch if it's currently open.
 
 By default, merchant batches will close automatically at 3 AM in their
@@ -610,6 +643,9 @@ puts "Response: #{response.inspect}"
 #### Send Payment Link
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 This API allows you to send an invoice to a customer and capture payment
 via a BlockChyp hosted payment page.
@@ -759,6 +795,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 Cancels a payment link.
 
 
@@ -790,6 +829,9 @@ puts "Response: #{response.inspect}"
 #### Transaction Status
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Returns the current status for any transaction.  You can lookup a transaction
 by its BlockChyp assigned Transaction ID or your own Transaction Ref.
@@ -828,6 +870,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 Calculates the surcharge, cash discount, and total amounts for cash transactions.
 
 If you're using BlockChyp's cash discounting features, you can use this endpoint
@@ -865,6 +910,9 @@ puts "Response: #{response.inspect}"
 #### Batch History
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 This endpoint allows developers to query the gateway for the merchant's batch history.
 The data will be returned in descending order of open date with the most recent
@@ -919,6 +967,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 This endpoint allows developers to pull down details for a specific batch,
 including captured volume, gift card activity, expected deposit, and
 captured volume broken down by terminal.
@@ -956,6 +1007,9 @@ puts "Response: #{response.inspect}"
 #### Transaction History
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 This endpoint provides a number of different methods to sift through
 transaction history.
@@ -1035,6 +1089,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 Returns a list of transaction refs of transactions queued on a terminal.
 Details about the transactions can be retrieved using the Transaction Status
 API.
@@ -1068,6 +1125,9 @@ puts "Response: #{response.inspect}"
 #### Delete Queued Transaction
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Deletes one or all queued transactions from a terminal. If `*` is passed as
 a transaction ref, then the entire terminal queue will be cleared. An error is
@@ -1112,6 +1172,10 @@ to extend the functionality of a point of sale systems.
 #### Terminal Ping
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 This simple test transaction helps ensure you have good communication with a payment terminal and is usually the first one you'll run in development.
 
 It tests communication with the terminal and returns a positive response if everything
@@ -1152,6 +1216,10 @@ puts "Response: #{response.inspect}"
 #### Terminal Locate
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 This endpoint returns routing and location information for a terminal.
 
 The result will indicate whether or not the terminal is in cloud relay mode and will
@@ -1189,6 +1257,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 This API interrupts whatever a terminal may be doing and returns it to the
 idle state.
 
@@ -1223,6 +1294,9 @@ puts "Response: #{response.inspect}"
 #### Terminal Status
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Returns the current status of a payment terminal.  This is typically used
 as a way to determine if the terminal is busy before sending a new transaction.
@@ -1264,6 +1338,9 @@ puts "Response: #{response.inspect}"
 #### Capture Signature
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 This endpoint captures a written signature from the terminal and returns the
 image.
@@ -1319,6 +1396,9 @@ puts "Response: #{response.inspect}"
 #### New Transaction Display
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Sends totals and line item level data to the terminal.
 
@@ -1389,6 +1469,9 @@ puts "Response: #{response.inspect}"
 #### Update Transaction Display
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Similar to *New Transaction Display*, this variant allows developers to update
 line item level data currently being displayed on the terminal.
@@ -1468,6 +1551,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 Displays a message on the payment terminal.
 
 Just specify the target terminal and the message using the `message` parameter.
@@ -1503,6 +1589,9 @@ puts "Response: #{response.inspect}"
 #### Boolean Prompt
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Prompts the customer to answer a yes or no question.
 
@@ -1550,6 +1639,9 @@ puts "Response: #{response.inspect}"
 #### Text Prompt
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Prompts the customer to enter numeric or alphanumeric data.
 
@@ -1608,6 +1700,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant & Partner
+* **Required Role:** Terminal Management
+
 This API returns details about terminals associated with a merchant account.
 
 Status and resource information is returned for all terminals along with a preview of the 
@@ -1641,6 +1736,9 @@ puts "Response: #{response.inspect}"
 #### Deactivate Terminal
 
 
+
+* **API Credential Types:** Merchant & Partner
+* **Required Role:** Terminal Management
 
 This API deactivates a payment terminal.
 
@@ -1676,6 +1774,9 @@ puts "Response: #{response.inspect}"
 #### Activate Terminal
 
 
+
+* **API Credential Types:** Merchant & Partner
+* **Required Role:** Terminal Management
 
 This API activates a payment terminal.
 
@@ -1716,9 +1817,12 @@ puts "Response: #{response.inspect}"
 
 ```
 
-#### Reboot terminal
+#### Reboot Terminal
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 This API reboots the terminal.
 
@@ -1773,6 +1877,9 @@ can also be linked to a transaction if a transaction id is provided with the ori
 #### Terms & Conditions Capture
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Terms & Conditions Management
 
 This API allows you to prompt a customer to accept a legal agreement on the terminal
 and (usually) capture their signature.
@@ -1862,6 +1969,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Terms & Conditions Management
+
 This API returns all terms and conditions templates associated with a merchant account.
 
 
@@ -1892,6 +2002,9 @@ puts "Response: #{response.inspect}"
 #### Get Template
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Terms & Conditions Management
 
 This API returns as single terms and conditions template.
 
@@ -1924,6 +2037,9 @@ puts "Response: #{response.inspect}"
 #### Update Template
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Terms & Conditions Management
 
 This API updates or creates a terms and conditions template.
 
@@ -1967,6 +2083,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Terms & Conditions Management
+
 This API deletes a terms and conditions template.
 
 If a template is deleted, its alias can be reused and any previous Terms & Conditions log entry
@@ -2002,6 +2121,9 @@ puts "Response: #{response.inspect}"
 #### Terms & Conditions Log
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Terms & Conditions Management
 
 This API allows developers to search and sort through terms and conditions log entries.
 
@@ -2044,6 +2166,9 @@ puts "Response: #{response.inspect}"
 #### Terms & Conditions Details
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Terms & Conditions Management
 
 This API returns details for a single terms and conditions log entry.  The `logEntryId` of the record to be returned is the only required parameter.
 
@@ -2090,6 +2215,10 @@ merchants by special arrangement with BlockChyp.  Contact your BlockChyp rep to 
 
 #### Enroll
 
+
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 This API allows you to tokenize and enroll a payment method in the token
 vault.  You can also pass in customer information and associate the
@@ -2138,6 +2267,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 Retrieves status and metadata information about a token, 
 including any links to customer records.  
 
@@ -2176,6 +2308,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 Links a payment token with a customer record.  Usually this would only be needed
 to reverse a previous unlink operation.
 
@@ -2209,6 +2344,9 @@ puts "Response: #{response.inspect}"
 #### Unlink Token
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Removes a payment token link from a customer record.
 
@@ -2245,6 +2383,9 @@ puts "Response: #{response.inspect}"
 #### Delete Token
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Deletes a payment token from the gateway.  Tokens are deleted automatically if they have not been used
 for a year.
@@ -2292,6 +2433,9 @@ repeat customers.
 #### Update Customer
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Adds or updates a customer record.
 
@@ -2355,6 +2499,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 Retrieves detailed information about a customer record, including saved payment
 methods if available.
 
@@ -2390,6 +2537,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
 Searches the customer database and returns matching results.
 
 Use `query` to pass in a search string and the system will return all results whose
@@ -2424,6 +2574,9 @@ puts "Response: #{response.inspect}"
 #### Delete Customer
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Deletes a customer record.
 
@@ -2471,6 +2624,9 @@ or result visualization into their own systems.
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Survey Management
+
 This API returns all survey questions in the order in which they would be presented on the terminal.
 
 All questions are returned, whether enabled or disabled.
@@ -2504,6 +2660,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Survey Management
+
 This API returns a single survey question with response data.  `questionId` is required.
 
 
@@ -2535,6 +2694,9 @@ puts "Response: #{response.inspect}"
 #### Update Question
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Survey Management
 
 This API updates or creates survey questions.  `questionText` and `questionType` are required 
 fields.  The following values are valid for `questionType`.
@@ -2581,6 +2743,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant
+* **Required Role:** Survey Management
+
 This API deletes a survey question. `questionId` is a required parameter.
 
 
@@ -2612,6 +2777,9 @@ puts "Response: #{response.inspect}"
 #### Survey Results
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Survey Management
 
 This API returns survey results for a single question.
 
@@ -2696,6 +2864,9 @@ The order of priority for the Terminal Branding Stack is given below.
 
 
 
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Media Management
+
 This API returns the entire media library associated with the API Credentials (Merchant, Partner, or Organization).  The media library results will include the ID used
 to reference a media asset in slide shows and branding assets along with the full file url and thumbnail.
 
@@ -2727,6 +2898,9 @@ puts "Response: #{response.inspect}"
 #### Upload Media
 
 
+
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Media Management
 
 This API supports media library uploads.  The operation of this API works slightly differently depending 
 on the SDK platform.  In all cases, the intent is to allow the file's binary to be passed into the SDK using 
@@ -2795,6 +2969,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Media Management
+
 This API returns status and progress information about in progress or recently completed uploads.
 
 Before calling this API, developers must first start a file upload with `fileSize` and `uploadId` parameters.
@@ -2834,6 +3011,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Media Management
+
 This API returns a detailed media asset.  The data returned includes the exact same media information returned
 by the full media library endpoint, including fully qualified URLs pointing to the original media file
 and the thumbnail.
@@ -2868,6 +3048,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Media Management
+
 This API deletes a media asset.  Note that a media asset cannot be deleted if it is in use in a slide 
 show or in the terminal branding stack.
 
@@ -2901,6 +3084,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Media Management
+
 This API returns all slide shows.  
 
 Note that slide level data is not returned with this API.   Use the Get Slide Show API to get slide level detail.
@@ -2933,6 +3119,9 @@ puts "Response: #{response.inspect}"
 #### Get Slide Show
 
 
+
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Media Management
 
 This API returns a single slide show.  Slide level detail is returned with the fully qualified thumbnail URL
 for each slide.
@@ -2968,6 +3157,9 @@ puts "Response: #{response.inspect}"
 #### Update Slide Show
 
 
+
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Media Management
 
 This API updates or creates a slide show.  `name`, `delay` and `slides` are required.
 
@@ -3014,6 +3206,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Media Management
+
 This API deletes a slide show  `slideShowId` is the only required parameter.
 
 
@@ -3045,6 +3240,9 @@ puts "Response: #{response.inspect}"
 #### Terminal Branding
 
 
+
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Media Management
 
 This API returns the full branding stack for a given API scope in the order of priority.
 
@@ -3085,6 +3283,9 @@ puts "Response: #{response.inspect}"
 #### Update Branding Asset
 
 
+
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Media Management
 
 This API updates or creates a single Branding Asset.
 
@@ -3190,6 +3391,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Media Management
+
 This API deletes a Branding Asset from the branding stack.
 
 Note that deleting a Branding Asset does not delete the underlying media from the media library or slide
@@ -3237,6 +3441,9 @@ the standard underwriting process via offer codes and invitations.
 #### Merchant Profile
 
 
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
 
 Returns detailed metadata about the merchant's configuraton, including
 basic identity information, terminal settings, store and forward settings,
@@ -3333,6 +3540,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Partner & Organization
+* **Required Role:** Merchant Management
+
 This is a partner or organization level API that can be used to return the merchant portfolio.
 
 Live merchants are returned by default.  Use the `test` flag to return only test merchants.  The 
@@ -3370,6 +3580,9 @@ puts "Response: #{response.inspect}"
 #### Update Merchant
 
 
+
+* **API Credential Types:** Merchant, Partner, & Organization
+* **Required Role:** Merchant Management
 
 This API can be used to update or create merchant accounts.
 
@@ -3475,6 +3688,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Partner & Organization
+* **Required Role:** Merchant Management
+
 This API returns all users and pending invites associated with a merchant account including any assigned role codes.
 
 
@@ -3506,6 +3722,9 @@ puts "Response: #{response.inspect}"
 #### Invite Merchant User
 
 
+
+* **API Credential Types:** Partner & Organization
+* **Required Role:** Merchant Management
 
 Invites a new user to join a merchant account.  `email`, `firstName`, and `lastName` are required.
 
@@ -3546,6 +3765,9 @@ puts "Response: #{response.inspect}"
 
 
 
+* **API Credential Types:** Partner
+* **Required Role:** Merchant Management
+
 This is a partner level API that can be used to create test merchant accounts.  This creates
 a basic test merchant with default settings.
 
@@ -3581,6 +3803,9 @@ puts "Response: #{response.inspect}"
 #### Delete Test Merchant
 
 
+
+* **API Credential Types:** Partner
+* **Required Role:** Merchant Management
 
 This partner API can be used to deleted unused test merchant accounts. `merchantId` is a required parameter.
 
