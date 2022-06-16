@@ -285,7 +285,7 @@ module BlockChyp
     end
 
     # Adds or updates a merchant account. Can be used to create or update test
-    # merchants. Only gateway only partners may create new live merchants.
+    # merchants. Only gateway partners may create new live merchants.
     def update_merchant(request)
       dashboard_request('POST', '/api/update-merchant', request)
     end
