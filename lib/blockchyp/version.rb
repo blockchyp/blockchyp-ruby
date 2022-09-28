@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module BlockChyp
-  VERSION = 'github.pre.migration-test-5'
+  VERSION = '2.13.1'
 end
