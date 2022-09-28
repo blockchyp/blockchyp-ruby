@@ -63,7 +63,7 @@ integration:
 # Performs any tasks necessary before a release build
 .PHONY: stage
 stage:
-	$(SED) -i "s/VERSION = '.*'/VERSION = '$(shell sed 's/-/.pre./' <<<$(VERSION))'/" lib/blockchyp/version.rb
+	$(SED) -i'' "s/VERSION = '.*'/VERSION = '$(shell sed 's/-/.pre./' <<<$(VERSION))'/" lib/blockchyp/version.rb
 
 # Publish
 .PHONY: publish
