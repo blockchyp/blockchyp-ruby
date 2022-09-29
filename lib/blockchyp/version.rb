@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module BlockChyp
-  VERSION = '2.13.4'
+  VERSION = '1.24.4'
 end
