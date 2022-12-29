@@ -23,6 +23,12 @@ module SignatureFormat
   GIF = 'gif'
 end
 
+module RoundingMode
+  UP = 'up'
+  NEAREST = 'nearest'
+  DOWN = 'down'
+end
+
 module PromptType
   AMOUNT = 'amount'
   EMAIL = 'email'
