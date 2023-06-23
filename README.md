@@ -1,6 +1,6 @@
 # BlockChyp Ruby SDK
 
-[![Build Status](https://circleci.com/gh/blockchyp/blockchyp-ruby/tree/master.svg?style=shield)](https://circleci.com/gh/blockchyp/blockchyp-ruby/tree/master)
+[![Build Status](https://github.com/blockchyp/blockchyp-ruby/actions/workflows/main.yml/badge.svg)](https://github.com/blockchyp/blockchyp-ruby/actions/workflows/main.yml)
 [![Gem](https://img.shields.io/gem/v/blockchyp)](https://rubygems.org/gems/blockchyp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/blockchyp/blockchyp-ruby/blob/master/LICENSE)
 
