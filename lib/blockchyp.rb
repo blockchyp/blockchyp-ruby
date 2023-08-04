@@ -209,6 +209,11 @@ module BlockChyp
       gateway_request('POST', '/api/send-payment-link', request)
     end
 
+    # Resends payment link.
+    def resend_payment_link(request)
+      gateway_request('POST', '/api/resend-payment-link', request)
+    end
+
     # Cancels a payment link.
     def cancel_payment_link(request)
       gateway_request('POST', '/api/cancel-payment-link', request)
