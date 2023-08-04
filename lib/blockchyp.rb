@@ -214,6 +214,11 @@ module BlockChyp
       gateway_request('POST', '/api/cancel-payment-link', request)
     end
 
+    # Retrieves the status of a payment link.
+    def payment_link_status(request)
+      gateway_request('POST', '/api/payment-link-status', request)
+    end
+
     # Retrieves the current status of a transaction.
     def transaction_status(request)
       gateway_request('POST', '/api/tx-status', request)

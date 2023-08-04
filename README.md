@@ -829,6 +829,42 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Payment Link Status
+
+
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
+This API allows you to check on the status of a payment link, including transaction data
+and the full history of attempted transactions.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  linkCode: response[:linkCode]
+}
+
+response = blockchyp.paymentLinkStatus(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 #### Transaction Status
 
 
