@@ -9,10 +9,10 @@
 require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
-  class UpdateTransactionDisplayTest < TestCase
-    def test_update_transaction_display
+  class PaymentLinkStatusTest < TestCase
+    def test_payment_link_status
 
-      puts "Running test_update_transaction_display..."
+      puts "Running test_payment_link_status..."
 
       config = load_test_config
 
@@ -25,37 +25,45 @@ module BlockChyp
       blockchyp.test_gateway_host = config[:testGatewayHost]
       blockchyp.dashboard_host = config[:dashboardHost]
 
-      test_delay(blockchyp, 'update_transaction_display_test', config[:defaultTerminalName])
 
 
 
 
       # Set request parameters
-      request = {
-        test: true,
-        terminalName: config[:defaultTerminalName],
+      setup_request = {
+        amount: '199.99',
+        description: 'Widget',
+        subject: 'Widget invoice',
         transaction: {
-          subtotal: '35.00',
-          tax: '5.00',
-          total: '70.00',
+          subtotal: '195.00',
+          tax: '4.99',
+          total: '199.99',
           items: [
             {
-              description: 'Leki Trekking Poles',
-              price: '35.00',
-              quantity: 2,
-              extended: '70.00',
-              discounts: [
-                {
-                  description: 'memberDiscount',
-                  amount: '10.00'
-                }
-              ]
+              description: 'Widget',
+              price: '195.00',
+              quantity: 1
             }
           ]
+        },
+        autoSend: true,
+        customer: {
+          customerRef: 'Customer reference string',
+          firstName: 'FirstName',
+          lastName: 'LastName',
+          companyName: 'Company Name',
+          emailAddress: 'notifications@blockchypteam.m8r.co',
+          smsNumber: '(123) 123-1231'
         }
       }
+      response = blockchyp.send_payment_link(setup_request)
 
-      response = blockchyp.update_transaction_display(request)
+      # Set request parameters
+      request = {
+        transactionRef: response[:transactionRef]
+      }
+
+      response = blockchyp.payment_link_status(request)
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

@@ -9,10 +9,10 @@
 require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
-  class EmptyBrandingAssetTest < TestCase
-    def test_empty_branding_asset
+  class ResendPaymentLinkTest < TestCase
+    def test_resend_payment_link
 
-      puts "Running test_empty_branding_asset..."
+      puts "Running test_resend_payment_link..."
 
       config = load_test_config
 
@@ -30,12 +30,17 @@ module BlockChyp
 
 
       # Set request parameters
+      setup_request = {
+        linkCode: response[:linkCode]
+      }
+      response = blockchyp.resend_payment_link(setup_request)
+
+      # Set request parameters
       request = {
-        notes: 'Empty Asset',
-        enabled: false
+        linkCode: response[:linkCode]
       }
 
-      response = blockchyp.update_branding_asset(request)
+      response = blockchyp.resend_payment_link(request)
       assert_not_nil(response)
       # response assertions
       assert(response[:success])

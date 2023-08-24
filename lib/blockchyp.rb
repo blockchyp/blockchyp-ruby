@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2019-2022 BlockChyp, Inc. All rights reserved. Use of this code is
+# Copyright 2019-2023 BlockChyp, Inc. All rights reserved. Use of this code is
 # governed by a license that can be found in the LICENSE file.
 #
 # This file was generated automatically by the BlockChyp SDK Generator.
@@ -209,9 +209,19 @@ module BlockChyp
       gateway_request('POST', '/api/send-payment-link', request)
     end
 
+    # Resends payment link.
+    def resend_payment_link(request)
+      gateway_request('POST', '/api/resend-payment-link', request)
+    end
+
     # Cancels a payment link.
     def cancel_payment_link(request)
       gateway_request('POST', '/api/cancel-payment-link', request)
+    end
+
+    # Retrieves the status of a payment link.
+    def payment_link_status(request)
+      gateway_request('POST', '/api/payment-link-status', request)
     end
 
     # Retrieves the current status of a transaction.
