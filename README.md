@@ -900,7 +900,7 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  linkCode: response[:linkCode]
+  linkCode: '<PAYMENT LINK CODE>'
 }
 
 response = blockchyp.paymentLinkStatus(request)

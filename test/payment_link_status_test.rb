@@ -60,7 +60,7 @@ module BlockChyp
 
       # Set request parameters
       request = {
-        transactionRef: response[:transactionRef]
+        linkCode: response[:linkCode]
       }
 
       response = blockchyp.payment_link_status(request)
