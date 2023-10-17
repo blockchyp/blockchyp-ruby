@@ -264,6 +264,11 @@ module BlockChyp
       gateway_request('POST', '/api/tx-history', request)
     end
 
+    # Returns pricing policy for a merchant.
+    def pricing_policy(request)
+      gateway_request('POST', '/api/read-pricing-policy', request)
+    end
+
     # Returns profile information for a merchant.
     def merchant_profile(request)
       gateway_request('POST', '/api/public-merchant-profile', request)
