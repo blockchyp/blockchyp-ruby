@@ -264,9 +264,14 @@ module BlockChyp
       gateway_request('POST', '/api/tx-history', request)
     end
 
-    # Returns pricing policy for a merchant.
+    # Returns a list of partner statements.
     def partner_statements(request)
       gateway_request('POST', '/api/partner-statement-list', request)
+    end
+
+    # Returns detail for a single partner statement.
+    def partner_statement_detail(request)
+      gateway_request('POST', '/api/partner-statement-detail', request)
     end
 
     # Returns pricing policy for a merchant.
