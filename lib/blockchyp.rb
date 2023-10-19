@@ -265,6 +265,11 @@ module BlockChyp
     end
 
     # Returns pricing policy for a merchant.
+    def partner_statements(request)
+      gateway_request('POST', '/api/partner-statement-list', request)
+    end
+
+    # Returns pricing policy for a merchant.
     def pricing_policy(request)
       gateway_request('POST', '/api/read-pricing-policy', request)
     end
