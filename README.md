@@ -3987,6 +3987,43 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Merchant Invoices
+
+
+
+* **API Credential Types:** Partner or Merchant
+* **Required Role:** Partner API Access or Merchant API 
+
+The API returns a list of partner residual statements.  By default, all statements are returned with the most recent
+statements listed first.  Optional date parameters can filter statements to a specific date range.
+
+
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+}
+
+response = blockchyp.merchantInvoices(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 #### Partner Statement Detail
 
 

@@ -34,7 +34,7 @@ module BlockChyp
         test: true
       }
 
-      response = blockchyp.partner_statements(request)
+      response = blockchyp.merchant_invoices(request)
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
