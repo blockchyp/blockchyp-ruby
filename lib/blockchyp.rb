@@ -289,6 +289,12 @@ module BlockChyp
       gateway_request('POST', '/api/read-pricing-policy', request)
     end
 
+    # Returns low level details for how partner commissions were calculated
+    # for a specific merchant statement.
+    def partner_commission_breakdown(request)
+      gateway_request('POST', '/api/partner-commission-breakdown', request)
+    end
+
     # Returns profile information for a merchant.
     def merchant_profile(request)
       gateway_request('POST', '/api/public-merchant-profile', request)

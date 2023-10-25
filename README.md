@@ -4130,6 +4130,40 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Partner Commission Breakdown
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Partner API Access
+
+This API allows partners to pull down the low level data used to compute a partner commission for a specific merchant statuement.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+}
+
+response = blockchyp.partnerCommissionBreakdown(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 
 
 
