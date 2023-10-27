@@ -9,10 +9,10 @@
 require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
-  class PartnerStatementsTest < TestCase
-    def test_partner_statements
+  class MerchantInvoicesTest < TestCase
+    def test_merchant_invoices
 
-      puts "Running test_partner_statements..."
+      puts "Running test_merchant_invoices..."
 
       config = load_test_config
 
@@ -34,7 +34,7 @@ module BlockChyp
         test: true
       }
 
-      response = blockchyp.partner_statements(request)
+      response = blockchyp.merchant_invoices(request)
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
