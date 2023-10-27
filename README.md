@@ -4051,6 +4051,44 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Partner Statement Detail
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Partner API Access
+
+The API returns detailed information about a specific partner statement.  Aggregate data is returned along with
+line item level data for each underlying merchant statement.
+
+Use the merchant statement id with the *Merchant Statement Detail* API and the *Partner Commission Breakdown* API 
+to get the merchant statement and the card brand fee and misc cost breakdown respectively.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+}
+
+response = blockchyp.partnerStatementDetail(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 #### Merchant Invoices
 
 
@@ -4118,42 +4156,6 @@ request = {
 }
 
 response = blockchyp.merchantInvoiceDetail(request)
-
-puts "Response: #{response.inspect}"
-
-
-```
-
-#### Partner Statement Detail
-
-
-
-* **API Credential Types:** Partner
-* **Required Role:** Partner API Access
-
-The API returns detailed information about a specific partner statement.  The optional `includeMerchantStatement` and
-`includeInterchange` parameters can be used to return low level detail about how the 
-residuals or commissions were computed.
-
-
-
-
-```ruby
-# frozen_string_literal: true
-
-require 'blockchyp'
-
-blockchyp = BlockChyp::BlockChyp.new(
-  ENV['BC_API_KEY'],
-  ENV['BC_BEARER_TOKEN'],
-  ENV['BC_SIGNING_KEY']
-)
-
-# Set request parameters
-request = {
-}
-
-response = blockchyp.partnerStatementDetail(request)
 
 puts "Response: #{response.inspect}"
 

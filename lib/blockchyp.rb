@@ -274,6 +274,11 @@ module BlockChyp
       gateway_request('POST', '/api/partner-statement-list', request)
     end
 
+    # Returns detail for a single partner statement.
+    def partner_statement_detail(request)
+      gateway_request('POST', '/api/partner-statement-detail', request)
+    end
+
     # Returns a list of merchant invoices.
     def merchant_invoices(request)
       gateway_request('POST', '/api/merchant-invoice-list', request)
@@ -282,11 +287,6 @@ module BlockChyp
     # Returns detail for a single merchant-invoice statement.
     def merchant_invoice_detail(request)
       gateway_request('POST', '/api/merchant-invoice-detail', request)
-    end
-
-    # Returns detail for a single partner statement.
-    def partner_statement_detail(request)
-      gateway_request('POST', '/api/partner-statement-detail', request)
     end
 
     # Returns low level details for how partner commissions were calculated
