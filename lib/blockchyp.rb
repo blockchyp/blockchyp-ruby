@@ -264,6 +264,37 @@ module BlockChyp
       gateway_request('POST', '/api/tx-history', request)
     end
 
+    # Returns pricing policy for a merchant.
+    def pricing_policy(request)
+      gateway_request('POST', '/api/read-pricing-policy', request)
+    end
+
+    # Returns a list of partner statements.
+    def partner_statements(request)
+      gateway_request('POST', '/api/partner-statement-list', request)
+    end
+
+    # Returns detail for a single partner statement.
+    def partner_statement_detail(request)
+      gateway_request('POST', '/api/partner-statement-detail', request)
+    end
+
+    # Returns a list of merchant invoices.
+    def merchant_invoices(request)
+      gateway_request('POST', '/api/merchant-invoice-list', request)
+    end
+
+    # Returns detail for a single merchant-invoice statement.
+    def merchant_invoice_detail(request)
+      gateway_request('POST', '/api/merchant-invoice-detail', request)
+    end
+
+    # Returns low level details for how partner commissions were calculated
+    # for a specific merchant statement.
+    def partner_commission_breakdown(request)
+      gateway_request('POST', '/api/partner-commission-breakdown', request)
+    end
+
     # Returns profile information for a merchant.
     def merchant_profile(request)
       gateway_request('POST', '/api/public-merchant-profile', request)
