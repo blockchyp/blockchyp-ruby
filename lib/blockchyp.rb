@@ -295,6 +295,11 @@ module BlockChyp
       gateway_request('POST', '/api/partner-commission-breakdown', request)
     end
 
+    # Generates and returns api credentials for a given merchant.
+    def merchant_credential_generation(request)
+      gateway_request('POST', '/api/creds/generateMerchant', request)
+    end
+
     # Returns profile information for a merchant.
     def merchant_profile(request)
       gateway_request('POST', '/api/public-merchant-profile', request)
