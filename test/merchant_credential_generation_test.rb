@@ -9,10 +9,10 @@
 require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
-  class MerchantProfileTest < TestCase
-    def test_merchant_profile
+  class MerchantCredentialGenerationTest < TestCase
+    def test_merchant_credential_generation
 
-      puts "Running test_merchant_profile..."
+      puts "Running test_merchant_credential_generation..."
 
       config = load_test_config
 
@@ -31,10 +31,11 @@ module BlockChyp
 
       # Set request parameters
       request = {
-        test: true
+        test: true,
+        merchantId: '<MERCHANT ID>'
       }
 
-      response = blockchyp.merchant_profile(request)
+      response = blockchyp.merchant_credential_generation(request)
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
