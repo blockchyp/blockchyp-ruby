@@ -26,6 +26,15 @@ module BlockChyp
       blockchyp.dashboard_host = config[:dashboardHost]
 
 
+      profile = config[:profiles][:partner]
+      blockchyp = BlockChyp.new(
+        profile[:apiKey],
+        profile[:bearerToken],
+        profile[:signingKey]
+      )
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
 
 

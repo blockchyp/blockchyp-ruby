@@ -26,13 +26,29 @@ module BlockChyp
       blockchyp.dashboard_host = config[:dashboardHost]
 
 
+      profile = config[:profiles][:partner]
+      blockchyp = BlockChyp.new(
+        profile[:apiKey],
+        profile[:bearerToken],
+        profile[:signingKey]
+      )
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
 
 
       # Set request parameters
+      setup_request = {
+        dbaName: 'Test Merchant',
+        companyName: 'Test Merchant'
+      }
+      response = blockchyp.add_test_merchant(setup_request)
+
+      # Set request parameters
       request = {
         test: true,
-        merchantId: '<MERCHANT ID>'
+        merchantId: response[:merchantId]
       }
 
       response = blockchyp.merchant_credential_generation(request)

@@ -295,11 +295,6 @@ module BlockChyp
       gateway_request('POST', '/api/partner-commission-breakdown', request)
     end
 
-    # Generates and returns api credentials for a given merchant.
-    def merchant_credential_generation(request)
-      gateway_request('POST', '/api/creds/generateMerchant', request)
-    end
-
     # Returns profile information for a merchant.
     def merchant_profile(request)
       gateway_request('POST', '/api/public-merchant-profile', request)
@@ -330,6 +325,11 @@ module BlockChyp
       gateway_request('DELETE', '/api/token/' + request[:token], request)
     end
 
+
+    # Generates and returns api credentials for a given merchant.
+    def merchant_credential_generation(request)
+      dashboard_request('POST', '/api/generate-merchant-creds', request)
+    end
 
     # Adds a test merchant account.
     def get_merchants(request)
