@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2019-2023 BlockChyp, Inc. All rights reserved. Use of this code is
+# Copyright 2019-2024 BlockChyp, Inc. All rights reserved. Use of this code is
 # governed by a license that can be found in the LICENSE file.
 #
 # This file was generated automatically by the BlockChyp SDK Generator.
@@ -325,6 +325,11 @@ module BlockChyp
       gateway_request('DELETE', '/api/token/' + request[:token], request)
     end
 
+
+    # Generates and returns api credentials for a given merchant.
+    def merchant_credential_generation(request)
+      dashboard_request('POST', '/api/generate-merchant-creds', request)
+    end
 
     # Adds a test merchant account.
     def get_merchants(request)

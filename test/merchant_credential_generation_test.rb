@@ -9,10 +9,10 @@
 require ::File.expand_path('test_helper', __dir__)
 
 module BlockChyp
-  class MerchantProfileTest < TestCase
-    def test_merchant_profile
+  class MerchantCredentialGenerationTest < TestCase
+    def test_merchant_credential_generation
 
-      puts "Running test_merchant_profile..."
+      puts "Running test_merchant_credential_generation..."
 
       config = load_test_config
 
@@ -26,15 +26,32 @@ module BlockChyp
       blockchyp.dashboard_host = config[:dashboardHost]
 
 
+      profile = config[:profiles][:partner]
+      blockchyp = BlockChyp.new(
+        profile[:apiKey],
+        profile[:bearerToken],
+        profile[:signingKey]
+      )
+      blockchyp.gateway_host = config[:gatewayHost]
+      blockchyp.test_gateway_host = config[:testGatewayHost]
+      blockchyp.dashboard_host = config[:dashboardHost]
 
 
 
       # Set request parameters
+      setup_request = {
+        dbaName: 'Test Merchant',
+        companyName: 'Test Merchant'
+      }
+      response = blockchyp.add_test_merchant(setup_request)
+
+      # Set request parameters
       request = {
-        test: true
+        test: true,
+        merchantId: response[:merchantId]
       }
 
-      response = blockchyp.merchant_profile(request)
+      response = blockchyp.merchant_credential_generation(request)
       assert_not_nil(response)
       # response assertions
       assert(response[:success])
