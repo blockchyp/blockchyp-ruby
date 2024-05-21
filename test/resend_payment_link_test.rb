@@ -60,6 +60,7 @@ module BlockChyp
 
       # Set request parameters
       request = {
+        test: true,
         linkCode: response[:linkCode]
       }
 

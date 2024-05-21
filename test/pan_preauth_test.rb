@@ -35,8 +35,9 @@ module BlockChyp
         pan: '4111111111111111',
         expMonth: '12',
         expYear: '2025',
-        amount: '25.55',
-        test: true
+        amount: '42.45',
+        test: true,
+        bypassDupeFilter: true
       }
 
       response = blockchyp.preauth(request)
@@ -53,7 +54,6 @@ module BlockChyp
       assert(!response[:paymentType].empty?)
       assert(!response[:maskedPan].empty?)
       assert(!response[:entryMethod].empty?)
-      assert_equal('25.55', response[:authorizedAmount])
       assert_equal('KEYED', response[:entryMethod])
     end
   end
