@@ -3868,6 +3868,48 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Add Gateway Merchant
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Gateway Boarding
+
+This is a partner level API that can be used to manually board gateway merchants.  Use this API in conjunction
+with Platform Configuration to instantly board gateway merchants.  Note that most partners don't have 
+permission to do this and are unlikely to get it.
+
+Settings can be changed by using the Update Merchant API.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  profile: {
+    dbaName: 'DBA Name',
+    companyName: 'Corporate Entity Name'
+  }
+}
+
+response = blockchyp.addGatewayMerchant(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 #### Add Test Merchant
 
 

@@ -10,8 +10,12 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
+  profile: {
+    dbaName: 'DBA Name',
+    companyName: 'Corporate Entity Name'
+  }
 }
 
-response = blockchyp.updateMerchantPlatforms(request)
+response = blockchyp.addGatewayMerchant(request)
 
 puts "Response: #{response.inspect}"

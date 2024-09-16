@@ -352,6 +352,11 @@ module BlockChyp
       dashboard_request('POST', '/api/invite-merchant-user', request)
     end
 
+    # Adds a live gateway merchant account.
+    def add_gateway_merchant(request)
+      dashboard_request('POST', '/api/add-gateway-merchant', request)
+    end
+
     # Adds a test merchant account.
     def add_test_merchant(request)
       dashboard_request('POST', '/api/add-test-merchant', request)
