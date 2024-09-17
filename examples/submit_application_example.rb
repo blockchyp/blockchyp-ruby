@@ -10,9 +10,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  merchantId: '<MERCHANT ID>'
 }
 
-response = blockchyp.merchantCredentialGeneration(request)
+response = blockchyp.submitApplication(request)
 
 puts "Response: #{response.inspect}"
