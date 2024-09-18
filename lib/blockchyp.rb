@@ -98,6 +98,11 @@ module BlockChyp
       route_terminal_request('POST', '/api/enroll', '/api/enroll', request)
     end
 
+    # Retrieves card metadata.
+    def card_metadata(request)
+      route_terminal_request('POST', '/api/card-metadata', '/api/card-metadata', request)
+    end
+
     # Activates or recharges a gift card.
     def gift_activate(request)
       route_terminal_request('POST', '/api/gift-activate', '/api/gift-activate', request)
