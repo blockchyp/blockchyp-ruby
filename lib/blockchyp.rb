@@ -331,6 +331,11 @@ module BlockChyp
       dashboard_request('POST', '/api/generate-merchant-creds', request)
     end
 
+    # Submits and application to add a new merchant account.
+    def submit_application(request)
+      dashboard_request('POST', '/api/submit-application', request)
+    end
+
     # Adds a test merchant account.
     def get_merchants(request)
       dashboard_request('POST', '/api/get-merchants', request)
