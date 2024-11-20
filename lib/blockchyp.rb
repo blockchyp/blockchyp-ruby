@@ -98,6 +98,11 @@ module BlockChyp
       route_terminal_request('POST', '/api/enroll', '/api/enroll', request)
     end
 
+    # Retrieves card metadata.
+    def card_metadata(request)
+      route_terminal_request('POST', '/api/card-metadata', '/api/card-metadata', request)
+    end
+
     # Activates or recharges a gift card.
     def gift_activate(request)
       route_terminal_request('POST', '/api/gift-activate', '/api/gift-activate', request)
@@ -329,6 +334,11 @@ module BlockChyp
     # Generates and returns api credentials for a given merchant.
     def merchant_credential_generation(request)
       dashboard_request('POST', '/api/generate-merchant-creds', request)
+    end
+
+    # Submits and application to add a new merchant account.
+    def submit_application(request)
+      dashboard_request('POST', '/api/submit-application', request)
     end
 
     # Adds a test merchant account.

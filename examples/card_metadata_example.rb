@@ -10,9 +10,10 @@ blockchyp = BlockChyp::BlockChyp.new(
 
 # Set request parameters
 request = {
-  merchantId: '<MERCHANT ID>'
+  test: true,
+  terminalName: 'Test Terminal'
 }
 
-response = blockchyp.merchantCredentialGeneration(request)
+response = blockchyp.cardMetadata(request)
 
 puts "Response: #{response.inspect}"
