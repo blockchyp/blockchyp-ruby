@@ -2542,6 +2542,43 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Update Token
+
+
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
+This API updates a payment token in the gateway.  This can be used to update token metadata such as expiration dates, cardholder name, bank name, account holder type, account type, address, and postal code.
+
+
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+  token: '<TOKEN>',
+  expMonth: 12,
+  expYear: 2040
+}
+
+response = blockchyp.updateToken(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 #### Delete Token
 
 
