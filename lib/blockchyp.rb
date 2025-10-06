@@ -325,6 +325,11 @@ module BlockChyp
       gateway_request('POST', '/api/unlink-token', request)
     end
 
+    # Updates a payment token.
+    def update_token(request)
+      gateway_request('POST', '/api/token/' + request[:token], request)
+    end
+
     # Deletes a payment token.
     def delete_token(request)
       gateway_request('DELETE', '/api/token/' + request[:token], request)
