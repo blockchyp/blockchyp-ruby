@@ -11,8 +11,8 @@ blockchyp = BlockChyp::BlockChyp.new(
 # Set request parameters
 request = {
   token: '<TOKEN>',
-  expMonth: 12,
-  expYear: 2040
+  expiryMonth: '12',
+  expiryYear: '2040'
 }
 
 response = blockchyp.updateToken(request)
