@@ -180,6 +180,11 @@ module BlockChyp
       gateway_request('POST', '/api/terminal-locate', request)
     end
 
+    # Calculates surcharge information for a payment request.
+    def surcharge_review(request)
+      gateway_request('POST', '/api/surcharge-review', request)
+    end
+
     # Captures a preauthorization.
     def capture(request)
       gateway_request('POST', '/api/capture', request)
