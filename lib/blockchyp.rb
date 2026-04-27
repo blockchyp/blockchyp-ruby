@@ -185,6 +185,12 @@ module BlockChyp
       gateway_request('POST', '/api/surcharge-review', request)
     end
 
+    # Generates a short-lived API key scoped to terminal and payment
+    # operations.
+    def transient_key(request)
+      gateway_request('POST', '/api/transient-credentials', request)
+    end
+
     # Captures a preauthorization.
     def capture(request)
       gateway_request('POST', '/api/capture', request)

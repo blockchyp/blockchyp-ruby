@@ -120,6 +120,33 @@ puts "Response: #{response.inspect}"
 
 ```
 
+#### Transient Key
+
+Generates a short-lived API key scoped to terminal and payment operations.
+
+
+```ruby
+# frozen_string_literal: true
+
+require 'blockchyp'
+
+blockchyp = BlockChyp::BlockChyp.new(
+  ENV['BC_API_KEY'],
+  ENV['BC_BEARER_TOKEN'],
+  ENV['BC_SIGNING_KEY']
+)
+
+# Set request parameters
+request = {
+}
+
+response = blockchyp.transientKey(request)
+
+puts "Response: #{response.inspect}"
+
+
+```
+
 #### Charge
 
 
