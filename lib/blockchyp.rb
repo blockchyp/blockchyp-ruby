@@ -160,6 +160,11 @@ module BlockChyp
       route_terminal_request('POST', '/api/text-prompt', '/api/text-prompt', request)
     end
 
+    # Calculates the service fee for a transaction.
+    def service_fee(request)
+      route_terminal_request('POST', '/api/service-fee', '/api/service-fee', request)
+    end
+
     # Returns a list of queued transactions on a terminal.
     def list_queued_transactions(request)
       route_terminal_request('POST', '/api/queue/list', '/api/queue/list', request)
